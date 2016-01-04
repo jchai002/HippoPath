@@ -1,7 +1,7 @@
 var Main = React.createClass({
   render: function() {
     return (
-      <Panel />
+      <Panel url="/interviews"/>
     );
   }
 });
