@@ -2,7 +2,7 @@ var ContentRow = React.createClass({
     render: function() {
         return (
       <div>
-        {this.props.interview.date}
+        {this.props.data.date}
       </div>
     );
     }
