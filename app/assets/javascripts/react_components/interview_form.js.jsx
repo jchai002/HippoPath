@@ -1,4 +1,13 @@
 var InterviewForm = React.createClass({
+  getInitialState: function(){
+    return ({
+      hospital:'',
+      date:'',
+      time:'',
+      preinterview_dinner:false,
+      ride_status:''
+    })
+  },
   render: function() {
     return (
       <form onSubmit={this.handleSubmit}>
