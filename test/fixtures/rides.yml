@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  starting_location: MyString
+  destination: MyString
+  preinterview: MyString
+
+two:
+  type: 
+  starting_location: MyString
+  destination: MyString
+  preinterview: MyString
