@@ -1,7 +1,7 @@
 var InterviewForm = React.createClass({
   render: function() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <div className="col-lg-2">
         <label className="col-md-4 control-label" for="Hospital">Hospital</label>
           <select id="Hospital" name="hospital" className="form-control">
@@ -46,10 +46,32 @@ var InterviewForm = React.createClass({
 
         <div className="col-lg-2">
         <br></br>
-        <button type="submit" class="btn btn-primary">Add Interview</button>
+        <button type="submit" className="btn btn-primary">Add Interview</button>
         </div>
       </form>
 
     );
+  },
+  handleSubmit: function(){
+    var formData = {
+      interview_info: {
+        hospital: 'hospital 1',
+        date: "10/01/1989",
+        time: "8:00AM",
+        ride_status: "Offering Ride"
+      }
+    }
+      $.ajax({
+      url: "/interviews",
+      dataType: 'json',
+      type: 'POST',
+      data: formData,
+      success: function(data) {
+        console.log(data)
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error( status, err.toString());
+      }.bind(this)
+    });
   }
 });
