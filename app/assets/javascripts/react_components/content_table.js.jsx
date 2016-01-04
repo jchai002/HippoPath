@@ -35,13 +35,9 @@ var ContentTable = React.createClass({
         return <th>{header}</th>
     })
 
-    // console.log(tableHeaderArray)
-
     var tableRows= dataArray.map(function(data){
         return <TableRow headers={tableHeaderArray} data={data} key={data.id} />
     })
-
-
     return (
         <div className="widget-content">
           <table className="table table-striped table-bordered">
