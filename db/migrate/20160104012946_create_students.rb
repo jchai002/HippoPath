@@ -8,7 +8,8 @@ class CreateStudents < ActiveRecord::Migration
       t.string :phone
       t.string :specialty
       t.references :address
-      
+      t.references :school
+
       t.timestamps null: false
     end
   end
