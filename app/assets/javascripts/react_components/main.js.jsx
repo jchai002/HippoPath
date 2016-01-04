@@ -1,7 +1,8 @@
 var Main = React.createClass({
   render: function() {
     return (
-      <Panel title="My Interviews"/>
+      // <Panel title="My Interviews"/>
+      <InterviewForm />
     );
   }
 });

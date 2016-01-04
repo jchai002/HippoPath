@@ -7,7 +7,8 @@ class CreateStudents < ActiveRecord::Migration
       t.string :email
       t.string :phone
       t.string :specialty
-
+      t.references :address
+      
       t.timestamps null: false
     end
   end

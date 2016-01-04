@@ -5,7 +5,9 @@ class CreateInterviews < ActiveRecord::Migration
       t.string :time
       t.boolean :preinterview_dinner
       t.string :ride_status
-
+      t.references :student
+      t.references :hospital
+      
       t.timestamps null: false
     end
   end
