@@ -8,8 +8,8 @@ var ContentTable = React.createClass({
     $.ajax({
       url: this.props.url,
       dataType: 'json',
-      success: function(data) {
-          this.setState({data:data})
+      success: function(results) {
+          this.setState({data:results})
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -18,20 +18,42 @@ var ContentTable = React.createClass({
   },
   render: function() {
     var dataArray=[]
+
     for (var key in this.state.data){
       dataArray.push(this.state.data[key])
     }
 
-    var dataRows= dataArray.map(function(dataProps){
-        return <ContentRow data={dataProps} key={dataProps.id} />
+    //save table headers
+    var tableHeaderArray=[]
+    for (var header in dataArray[0]){
+      if(header!=="id"){
+          tableHeaderArray.push(header)
+      }
+    }
+
+    var tableHeaders= tableHeaderArray.map(function(header){
+        return <th>{header}</th>
+    })
+
+    // console.log(tableHeaderArray)
+
+    var tableRows= dataArray.map(function(data){
+        return <TableRow headers={tableHeaderArray} data={data} key={data.id} />
     })
 
 
     return (
         <div className="widget-content">
-          <ul className="news-items">
-            {dataRows}
-          </ul>
+          <table className="table table-striped table-bordered">
+            <thead>
+              <tr>
+                {tableHeaders}
+              </tr>
+            </thead>
+            <tbody>
+              {tableRows}
+            </tbody>
+          </table>
         </div>
       );
     }
