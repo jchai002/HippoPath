@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20160104014454) do
     t.string   "time"
     t.boolean  "preinterview_dinner"
     t.string   "ride_status"
+    t.integer  "student_id"
+    t.integer  "hospital_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -67,6 +69,8 @@ ActiveRecord::Schema.define(version: 20160104014454) do
     t.string   "email"
     t.string   "phone"
     t.string   "specialty"
+    t.integer  "address_id"
+    t.integer  "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
