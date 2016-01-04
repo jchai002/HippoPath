@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20160104014454) do
   create_table "interviews", force: :cascade do |t|
     t.string   "date"
     t.string   "time"
-    t.boolean  "preinterview_dinner"
+    t.string   "preinterview_dinner"
     t.string   "ride_status"
     t.integer  "student_id"
     t.integer  "hospital_id"

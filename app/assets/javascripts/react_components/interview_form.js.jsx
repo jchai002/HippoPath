@@ -4,7 +4,7 @@ var InterviewForm = React.createClass({
       hospital:undefined,
       date:undefined,
       time:undefined,
-      preinterview_dinner:false,
+      preinterview_dinner:"no",
       ride_status:"Need Ride"
     })
   },
@@ -36,11 +36,11 @@ var InterviewForm = React.createClass({
         <label>preinterview dinner</label>
         <br></br>
           <label className="radio-inline" for="radios-0">
-            <input type="radio" name="radios" id="radios-0" value="true" onChange={this.handlePIDSelect} />
+            <input type="radio" name="radios" id="radios-0" value="yes" onChange={this.handlePIDSelect} />
             yes
           </label>
           <label className="radio-inline" for="radios-1">
-            <input type="radio" name="radios" id="radios-1" value="false" onChange={this.handlePIDSelect}/>
+            <input type="radio" name="radios" id="radios-1" value="no" onChange={this.handlePIDSelect}/>
             no
           </label>
         </div>
