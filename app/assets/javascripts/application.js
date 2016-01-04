@@ -19,3 +19,9 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require_tree .
+
+$(function () {
+  if($('#datetimepicker').length) {
+    $('#datetimepicker').datetimepicker()
+  }
+});

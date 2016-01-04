@@ -12,6 +12,7 @@ class InterviewsController < ApplicationController
     @interview = Interview.new(interview_params)
     hospital_name = params["interview_info"]["hospital"]
     @interview.hospital=Hospital.find_by({name:hospital_name})
+
     if @interview.save
       render :json => {success:"save success"} # send back any data if necessary
     else

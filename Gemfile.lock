@@ -51,9 +51,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
-    autoprefixer-rails (6.2.3)
-      execjs
-      json
     babel-source (5.8.34)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -61,10 +58,9 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap (4.0.0.alpha3)
-      autoprefixer-rails (>= 6.0.3)
-      sass (>= 3.4.19)
-    bootstrap3-datetimepicker-rails (4.17.37)
+    bootstrap-sass (3.2.0.2)
+      sass (~> 3.2)
+    bootstrap3-datetimepicker-rails (4.14.30)
       momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     byebug (8.2.1)
@@ -181,7 +177,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
-  bootstrap (~> 4.0.0.alpha3)
+  bootstrap-sass (= 3.2.0.2)
   bootstrap3-datetimepicker-rails
   byebug
   coffee-rails (~> 4.1.0)
