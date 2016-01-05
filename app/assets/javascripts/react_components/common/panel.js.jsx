@@ -6,7 +6,7 @@ var Panel = React.createClass({
         <i className="icon-list-alt"></i>
         <h3>{this.props.title}</h3>
       </div>
-      <ContentTable url={this.props.url} />
+      <ContentTable url={this.props.url} model={"Interview"} />
     </div>
 );
 }

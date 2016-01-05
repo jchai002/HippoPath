@@ -5,7 +5,8 @@ var EditInterviewForm = React.createClass({
       hospital:this.props.data.hospital,
       date:this.props.data.date,
       time:this.props.data.time,
-      ride_status:this.props.data.ride_status
+      ride_status:this.props.data.ride_status,
+      message:undefined
     })
   },
   render: function() {
@@ -41,6 +42,9 @@ var EditInterviewForm = React.createClass({
         <div className="form-group">
         <button type="submit" className="btn btn-primary">Save Changes</button>
         </div>
+
+        <span style={{color:'green'}}>{this.state.message}</span>
+
       </form>
     );
   },
@@ -56,7 +60,7 @@ var EditInterviewForm = React.createClass({
         type: 'PUT',
         data: formData,
         success: function(data) {
-          console.log(data)
+          this.setState(data)
           this.props.handleUpdate();
         }.bind(this),
         error: function(xhr, status, err) {

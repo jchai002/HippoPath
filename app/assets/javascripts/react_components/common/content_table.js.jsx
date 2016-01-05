@@ -30,22 +30,26 @@ var ContentTable = React.createClass({
       dataArray.push(this.state.data[key])
     }
 
-    //save table headers
+    //define table headers and other properties to pass down to row component
     var tableHeaderArray=[]
     for (var header in dataArray[0]){
       if(header!=="id"){
           tableHeaderArray.push(header)
       }
     }
+    var url=this.props.url
+    var updateHandlerFunction = this.handleUpdate
+    var dataModel=this.props.model
+
+
     var tableHeaders= tableHeaderArray.map(function(header){
         return <th>{header}</th>
     })
 
-    var url=this.props.url
-    var updateHandlerFunction = this.handleUpdate
+
 
     var tableRows= dataArray.map(function(data){
-        return <TableRow url={url} handleUpdate={updateHandlerFunction} headers={tableHeaderArray} data={data} key={data.id} />
+        return <TableRow url={url} model={dataModel} handleUpdate={updateHandlerFunction} headers={tableHeaderArray} data={data} key={data.id} />
     })
     return (
         <div className="widget-content">
@@ -53,7 +57,7 @@ var ContentTable = React.createClass({
             <thead>
               <tr>
                 {tableHeaders}
-                <th>modify</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
