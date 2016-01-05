@@ -34,10 +34,10 @@ var ContentTable = React.createClass({
         return <th>{header}</th>
     })
 
-    var dataModel=this.props.model
+    var url=this.props.url
 
     var tableRows= dataArray.map(function(data){
-        return <TableRow model={dataModel} headers={tableHeaderArray} data={data} key={data.id} />
+        return <TableRow url={url} headers={tableHeaderArray} data={data} key={data.id} />
     })
     return (
         <div className="widget-content">

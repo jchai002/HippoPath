@@ -20,6 +20,15 @@ class InterviewsController < ApplicationController
     end
   end
 
+  def destroy
+    @interview=Interview.find_by({id: params[:id]})
+    if @interview.destroy
+      render :json => {success:"interview successfully deleted"} # send back any data if necessary
+    else
+      render :json => { }, :status => 500
+    end
+  end
+
   private
     def interview_params
     params.require(:interview_info).permit(:date, :time, :ride_status,:preinterview_dinner)

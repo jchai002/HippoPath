@@ -2,6 +2,6 @@ Rails.application.routes.draw do
 
 root 'dash_board#index'
 
+  resources :interviews, only: [:new, :create, :edit, :update, :destroy]
   get '/interviews' => 'interviews#get_interviews'
-  post '/interviews' => 'interviews#create'
 end

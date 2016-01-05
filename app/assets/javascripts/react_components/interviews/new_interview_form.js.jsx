@@ -1,10 +1,9 @@
-var InterviewForm = React.createClass({
+var NewInterviewForm = React.createClass({
   getInitialState: function(){
     return ({
       hospital:undefined,
       date:undefined,
       time:undefined,
-      preinterview_dinner:"no",
       ride_status:"Need Ride"
     })
   },
@@ -55,7 +54,7 @@ var InterviewForm = React.createClass({
         $.ajax({
         url: "/interviews",
         dataType: 'json',
-        type: 'POST',
+        type: 'EDIT',
         data: formData,
         success: function(data) {
           console.log(data)
@@ -73,9 +72,6 @@ var InterviewForm = React.createClass({
       time:dateTime[1]+' '+dateTime[2]
     })
   },
-  // handlePIDSelect: function(event) {
-  //     this.setState({preinterview_dinner:event.target.value})
-  // },
   handleHospitalChange: function(event){
       this.setState({hospital: event.target.value});
   },
