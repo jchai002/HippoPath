@@ -4,7 +4,8 @@ var ContentTable = React.createClass({
       data:''
     })
   },
-  componentDidMount: function(){
+  getData: function(){
+    console.log('requesting data...')
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -15,6 +16,12 @@ var ContentTable = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+  componentDidMount: function(){
+    this.getData();
+  },
+  handleUpdate: function(){
+    this.getData();
   },
   render: function() {
     var dataArray=[]
@@ -35,9 +42,10 @@ var ContentTable = React.createClass({
     })
 
     var url=this.props.url
+    var updateHandlerFunction = this.handleUpdate
 
     var tableRows= dataArray.map(function(data){
-        return <TableRow url={url} headers={tableHeaderArray} data={data} key={data.id} />
+        return <TableRow url={url} handleUpdate={updateHandlerFunction} headers={tableHeaderArray} data={data} key={data.id} />
     })
     return (
         <div className="widget-content">

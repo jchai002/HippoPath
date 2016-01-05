@@ -17,7 +17,6 @@ var TableRow = React.createClass({
             {tableCells}
             <td className="buttons"><button type="button" className="btn-xs btn-danger" onClick={this.handleDeleteClick}>Delete</button>
 
-            //modal for edit form
             <button type="button"  data-toggle="modal" data-target={"#myModal"+rowID} className="btn-xs btn-success">Edit</button>
 
               <div className="modal fade" id={"myModal"+rowID} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -28,7 +27,7 @@ var TableRow = React.createClass({
                       <h4 className="modal-title" id="myModalLabel">Edit Interview</h4>
                     </div>
                     <div className="modal-body">
-                      <EditInterviewForm data={rowData} />
+                      <EditInterviewForm handleUpdate={this.handleUpdate} data={rowData} />
                     </div>
                     <div className="modal-footer">
                       <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
@@ -44,7 +43,7 @@ var TableRow = React.createClass({
       }
     },
     handleDeleteClick: function(){
-      if (window.confirm("Delete This Interview?")) {
+      if (window.confirm("Delete This Row?")) {
             var url=this.props.url+'/'+this.props.data.id
             $.ajax({
             url: url,
@@ -57,5 +56,8 @@ var TableRow = React.createClass({
             }.bind(this)
           })
         }
+    },
+    handleUpdate: function(){
+      this.props.handleUpdate();
     }
 });

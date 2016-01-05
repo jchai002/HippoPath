@@ -1,7 +1,7 @@
 class InterviewsController < ApplicationController
 
   def get_interviews
-    @interviews=Interview.all
+    @interviews=Interview.order(:created_at)
     respond_to do |format|
       format.html
       format.json

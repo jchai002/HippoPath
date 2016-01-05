@@ -57,6 +57,7 @@ var EditInterviewForm = React.createClass({
         data: formData,
         success: function(data) {
           console.log(data)
+          this.props.handleUpdate();
         }.bind(this),
         error: function(xhr, status, err) {
           console.error( status, err.toString());
@@ -80,6 +81,6 @@ var EditInterviewForm = React.createClass({
     $('#datetimepicker'+this.state.id).datetimepicker({sideBySide: true})
   },
   componentDidUpdate: function(){
-    console.log(this.state)
+    console.log(this.props)
   }
 });
