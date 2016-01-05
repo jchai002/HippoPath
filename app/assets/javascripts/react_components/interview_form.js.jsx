@@ -10,9 +10,9 @@ var InterviewForm = React.createClass({
   },
   render: function() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="col-lg-2">
-        <label className="col-md-4 control-label" for="Hospital">Hospital</label>
+        <form className="form-inline interview-form" onSubmit={this.handleSubmit}>
+
+        <div className="form-group">
           <select id="Hospital" name="hospital" className="form-control" onChange={this.handleHospitalChange} value={this.state.hospital}>
             <option value="">SELECT A HOSPITAL</option>
             <option value="hospital 1">Hospital 1</option>
@@ -21,32 +21,16 @@ var InterviewForm = React.createClass({
         </div>
 
 
-            <div className="col-lg-4">
-              <label className="col-md-4 control-label" >Date/Time</label>
-              <br></br>
+            <div className="form-group">
                 <div className='input-group date col-sm-12' id='datetimepicker'>
-                    <input id="date-time" type='text' className="form-control" onBlur={this.handleDateTimeChange}/>
+                    <input id="date-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange}/>
                     <span className="input-group-addon">
                         <span className="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
             </div>
 
-        <div className="col-lg-2">
-        <label>preinterview dinner</label>
-        <br></br>
-          <label className="radio-inline" for="radios-0">
-            <input type="radio" name="radios" id="radios-0" value="yes" onChange={this.handlePIDSelect} />
-            yes
-          </label>
-          <label className="radio-inline" for="radios-1">
-            <input type="radio" name="radios" id="radios-1" value="no" onChange={this.handlePIDSelect}/>
-            no
-          </label>
-        </div>
-
-        <div className="col-lg-2">
-        <label>Ride Status</label>
+        <div className="form-group">
           <select id="selectbasic" name="selectbasic" className="form-control" onChange={this.handleRideStatusSelect}>
             <option value="Need Ride">Need Ride</option>
             <option value="Offering Ride">Offering Ride</option>
@@ -54,12 +38,11 @@ var InterviewForm = React.createClass({
           </select>
         </div>
 
-        <div className="col-lg-2">
-        <br></br>
+
+        <div className="form-group">
         <button type="submit" className="btn btn-primary">Add Interview</button>
         </div>
       </form>
-
     );
   },
   handleSubmit: function(){
@@ -90,9 +73,9 @@ var InterviewForm = React.createClass({
       time:dateTime[1]+' '+dateTime[2]
     })
   },
-  handlePIDSelect: function(event) {
-      this.setState({preinterview_dinner:event.target.value})
-  },
+  // handlePIDSelect: function(event) {
+  //     this.setState({preinterview_dinner:event.target.value})
+  // },
   handleHospitalChange: function(event){
       this.setState({hospital: event.target.value});
   },

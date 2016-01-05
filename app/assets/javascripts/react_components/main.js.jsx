@@ -2,9 +2,18 @@ var Main = React.createClass({
   render: function() {
     return (
 
-      <div>
-        <Panel title="My Interviews"/>
-        <InterviewForm />
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12">
+            <InterviewForm />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-lg-12">
+            <Panel title="My Interviews" url="/interviews" model="interview"/>
+          </div>
+        </div>
       </div>
     );
   }

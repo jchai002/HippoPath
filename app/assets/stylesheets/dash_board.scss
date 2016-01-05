@@ -1,3 +1,14 @@
-// Place all the styles related to the dash_board controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.interview-form {
+  display: flex;
+  justify-content: center;
+  border: 2px solid #428bca;
+  padding: 1em;
+  border-radius: 3px;
+  margin-top:2em;
+  margin-bottom: 2em;
+
+  .form-group{
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+}
