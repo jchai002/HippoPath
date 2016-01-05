@@ -54,7 +54,7 @@ var NewInterviewForm = React.createClass({
         $.ajax({
         url: "/interviews",
         dataType: 'json',
-        type: 'EDIT',
+        type: 'POST',
         data: formData,
         success: function(data) {
           console.log(data)
@@ -78,7 +78,7 @@ var NewInterviewForm = React.createClass({
   handleRideStatusSelect: function(event){
     this.setState({ride_status: event.target.value});
   },
-  componentDidUpdate: function(){
-    console.log(this.state)
+  componentDidMount: function(){
+    $('#datetimepicker').datetimepicker({sideBySide: true})
   }
 });

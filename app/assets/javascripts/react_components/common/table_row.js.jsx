@@ -8,7 +8,7 @@ var TableRow = React.createClass({
         if(!this.state.deleted){
           var headers= this.props.headers
           var rowData= this.props.data
-          var rowID=this.props.data.id
+          var rowID= rowData.id
           var tableCells= headers.map(function(header){
               return <td>{rowData[header]}</td>
           })
@@ -26,7 +26,7 @@ var TableRow = React.createClass({
                       <h4 className="modal-title" id="myModalLabel">Edit Interview</h4>
                     </div>
                     <div className="modal-body">
-                      modal for row {rowID}
+                      <EditInterviewForm data={rowData} />
                     </div>
                     <div className="modal-footer">
                       <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
