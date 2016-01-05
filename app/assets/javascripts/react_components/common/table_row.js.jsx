@@ -11,17 +11,16 @@ var TableRow = React.createClass({
           var url = this.props.url
           var rowData= this.props.data
           var dataModel=this.props.model
-          var updateHandler=this.handleUpdate
-          var deleteHandler=this.handleDelete
+
 
           var tableCells= headers.map(function(header){
-              return <td>{rowData[header]}</td>
+              return <td key={header+" "+rowData.id} >{rowData[header]}</td>
           })
 
 
           //de-couple the model from the component, if more model will be using this component, can use switch statement here instead of if/else
           if (dataModel==="Interview") {
-            var buttons = <InterviewButtons url={url} data={rowData} model={dataModel} handleUpdate={updateHandler} handleDelete={deleteHandler}/>
+            var buttons = <InterviewButtons url={url} data={rowData} model={dataModel} handleUpdate={this.props.handleUpdate} handleDelete={this.handleDelete}/>
           }
 
           return (

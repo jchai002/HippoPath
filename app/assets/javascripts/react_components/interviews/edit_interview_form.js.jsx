@@ -83,8 +83,5 @@ var EditInterviewForm = React.createClass({
   },
   componentDidMount: function(){
     $('#datetimepicker'+this.state.id).datetimepicker({sideBySide: true})
-  },
-  componentDidUpdate: function(){
-    console.log(this.props)
   }
 });

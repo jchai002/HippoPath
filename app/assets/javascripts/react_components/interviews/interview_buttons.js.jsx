@@ -16,7 +16,7 @@ var InterviewButtons = React.createClass({
                 <h4 className="modal-title" id="myModalLabel">Edit Interview</h4>
               </div>
               <div className="modal-body">
-                <EditInterviewForm handleUpdate={this.handleUpdate} data={rowData} />
+                <EditInterviewForm handleUpdate={this.props.handleUpdate} data={rowData} key={rowID} />
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
