@@ -16,7 +16,9 @@ var TableRow = React.createClass({
           <tr>
             {tableCells}
             <td className="buttons"><button type="button" className="btn-xs btn-danger" onClick={this.handleDeleteClick}>Delete</button>
-            <button type="button"  data-toggle="modal" data-target={"#myModal"+rowID} className="btn-xs btn-success" onClick={this.handleEditClick}>Edit</button>
+
+            //modal for edit form
+            <button type="button"  data-toggle="modal" data-target={"#myModal"+rowID} className="btn-xs btn-success">Edit</button>
 
               <div className="modal fade" id={"myModal"+rowID} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div className="modal-dialog" role="document">
@@ -55,8 +57,5 @@ var TableRow = React.createClass({
             }.bind(this)
           })
         }
-    },
-    handleEditClick: function(){
-
     }
 });

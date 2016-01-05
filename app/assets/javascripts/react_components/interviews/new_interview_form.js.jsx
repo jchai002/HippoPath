@@ -22,7 +22,7 @@ var NewInterviewForm = React.createClass({
 
             <div className="form-group">
                 <div className='input-group date col-sm-12' id='datetimepicker'>
-                    <input id="date-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange}/>
+                    <input id="date-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
                     <span className="input-group-addon">
                         <span className="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -45,9 +45,6 @@ var NewInterviewForm = React.createClass({
     );
   },
   handleSubmit: function(){
-
-      console.log(this.state)
-
       var formData = {
         interview_info: this.state
       }

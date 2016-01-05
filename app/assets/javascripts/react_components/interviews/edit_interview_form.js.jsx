@@ -22,7 +22,7 @@ var EditInterviewForm = React.createClass({
 
             <div className="form-group">
                 <div className='input-group date col-sm-12' id={'datetimepicker'+this.state.id}>
-                    <input id={'date-time-'+this.state.id} value={this.state.date+' '+this.state.time} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange}/>
+                    <input id={'date-time-'+this.state.id} value={this.state.date+' '+this.state.time} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onChange={this.handleDateTimeChange} onBlur={this.handleDateTimeChange}/>
                     <span className="input-group-addon">
                         <span className="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -44,17 +44,16 @@ var EditInterviewForm = React.createClass({
       </form>
     );
   },
-  handleSubmit: function(){
-
-      console.log(this.state)
-
+  handleSubmit: function(event){
+      event.preventDefault()
+      var url="/interviews/"+this.state.id
       var formData = {
         interview_info: this.state
       }
         $.ajax({
-        url: "/interviews",
+        url: url,
         dataType: 'json',
-        type: 'EDIT',
+        type: 'PUT',
         data: formData,
         success: function(data) {
           console.log(data)
@@ -63,7 +62,6 @@ var EditInterviewForm = React.createClass({
           console.error( status, err.toString());
         }.bind(this)
       });
-
   },
   handleDateTimeChange: function(){
     var dateTime=$('#date-time-'+this.state.id).val().split(' ')
