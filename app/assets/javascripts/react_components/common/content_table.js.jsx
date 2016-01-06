@@ -29,7 +29,7 @@ var ContentTable = React.createClass({
     for (var key in this.state.data){
       dataArray.push(this.state.data[key])
     }
-
+    console.log("data 1", JSON.stringify(this.state.data[0])[1])
     //define table headers and other properties to pass down to row component
     var tableHeaderArray=[]
     for (var header in dataArray[0]){
