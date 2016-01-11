@@ -11,8 +11,8 @@ Devise.setup do |config|
 
   #==> OAuth Configuration
   config.omniauth :facebook, ENV["facebook_key"], ENV["facebook_secret"]
-  config.omniauth :twitter, "KEY", "SECRET"
-  config.omniauth :linked_in, "KEY", "SECRET"
+  config.omniauth :google_oauth2, "KEY", "SECRET"
+  config.omniauth :linkedin, ENV["linked_in_key"], ENV["linked_in_secret"]
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
