@@ -9,7 +9,7 @@ var NewInterviewForm = React.createClass({
   },
   render: function() {
     return (
-        <form className="form-inline interview-form" onSubmit={this.handleSubmit}>
+        <form className="form-inline custom-form" onSubmit={this.handleSubmit}>
 
         <div className="form-group">
           <select id="Hospital" name="hospital" className="form-control" onChange={this.handleHospitalChange} value={this.state.hospital}>

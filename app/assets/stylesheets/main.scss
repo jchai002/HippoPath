@@ -1,4 +1,4 @@
-.interview-form {
+.custom-form {
   display: flex;
   justify-content: center;
   border: 2px solid #428bca;
@@ -11,6 +11,12 @@
     padding-left: 3em;
     padding-right: 3em;
   }
+}
+
+.login-form{
+    padding:2em;
+    border: solid 2px #428bca;
+    border-radius:3px;
 }
 
 .buttons {

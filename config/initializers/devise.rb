@@ -1,5 +1,7 @@
+require "omniauth-google-oauth2"
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -8,10 +10,9 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'fe8b1086555aa9534a8ebd686f971c65a5daa677b8cbfe5261858b606ef6302b4274e3fa180f373325a40e95ce06bc6ca79cc87e91dcc898106ea0d01c5bff75'
 
-
   #==> OAuth Configuration
   config.omniauth :facebook, ENV["facebook_key"], ENV["facebook_secret"]
-  config.omniauth :google_oauth2, "KEY", "SECRET"
+  config.omniauth :google_oauth2, ENV["google_key"], ENV["google_secret"]
   config.omniauth :linkedin, ENV["linked_in_key"], ENV["linked_in_secret"]
 
   # ==> Mailer Configuration
