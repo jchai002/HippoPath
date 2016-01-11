@@ -1,7 +1,8 @@
 class InterviewsController < ApplicationController
 
   def get_interviews
-    @interviews=Interview.order(:created_at)
+    user=current_user
+    @interviews=user.interviews.order(:created_at)
     respond_to do |format|
       format.html
       format.json
@@ -9,7 +10,8 @@ class InterviewsController < ApplicationController
   end
 
   def create
-    @interview = Interview.new(interview_params)
+    user=current_user
+    @interview = user.interviews.build(interview_params)
     hospital_name = params["interview_info"]["hospital"]
     @interview.hospital=Hospital.find_by({name:hospital_name})
 
