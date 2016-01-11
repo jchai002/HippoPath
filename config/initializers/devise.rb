@@ -10,7 +10,7 @@ Devise.setup do |config|
 
 
   #==> OAuth Configuration
-  config.omniauth :facebook, "KEY", "SECRET"
+  config.omniauth :facebook, ENV["facebook_key"], ENV["facebook_secret"]
   config.omniauth :twitter, "KEY", "SECRET"
   config.omniauth :linked_in, "KEY", "SECRET"
 
