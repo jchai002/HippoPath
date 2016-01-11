@@ -18,10 +18,3 @@ var Main = React.createClass({
     );
   }
 });
-
-$(document).ready( function() {
-    ReactDOM.render(
-      <Main />,
-      document.getElementById('main')
-    );
-})
