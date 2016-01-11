@@ -23,6 +23,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass', '3.2.0.2'
+gem 'bootstrap_form'
 
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails'
@@ -43,6 +44,8 @@ gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+
+gem 'figaro'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
