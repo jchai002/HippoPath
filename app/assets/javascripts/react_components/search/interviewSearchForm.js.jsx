@@ -6,8 +6,12 @@ var InterviewSearchForm = React.createClass({
       ride_status:"Need Ride"
     })
   },
+  componentDidUpdate: function(){
+    console.log('form state', this.state.results)
+  },
   render: function() {
     return (
+
         <form className="form-inline custom-form" onSubmit={this.handleSubmit}>
 
         <div className="form-group">
@@ -43,7 +47,8 @@ var InterviewSearchForm = React.createClass({
       </form>
     );
   },
-  handleSubmit: function(){
+  handleSubmit: function(event){
+      event.preventDefault()
       var formData = {
         interview_info: this.state
       }

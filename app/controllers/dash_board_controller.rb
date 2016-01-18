@@ -1,5 +1,9 @@
 class DashBoardController < ApplicationController
   before_action :authenticate_user!
-  def index
+  def interviews
   end
+
+  def search
+  end
+
 end
