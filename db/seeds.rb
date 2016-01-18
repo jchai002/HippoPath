@@ -1,4 +1,5 @@
 h1 = Hospital.create({name:"hospital 1"})
+h2 = Hospital.create({name:"hospital 2"})
 s1= User.create({name:"Xiao"})
 
 5.times do

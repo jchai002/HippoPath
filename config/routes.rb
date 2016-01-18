@@ -8,5 +8,7 @@ root 'home#index'
 
   resources :interviews, only: [:new, :create, :update, :destroy]
   get '/interviews' => 'interviews#get_interviews'
+  get '/interview_search' => 'interviews#search_interviews'
+
 
 end

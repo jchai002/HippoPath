@@ -12,11 +12,12 @@ class InterviewsController < ApplicationController
   #find the interviews by search parameters
   def search_interviews
     search_parameters = {
-      hospital: params[:hospital],
-      date: params[:date],
-      ride_status: params[:ride_status]
+      hospital: params[:interview_info][:hospital],
+      date: params[:interview_info][:date],
+      ride_status: params[:interview_info][:ride_status]
     }
     @interviews=Interview.search(search_parameters).all
+      binding.pry
     respond_to do |format|
       format.html
       format.json

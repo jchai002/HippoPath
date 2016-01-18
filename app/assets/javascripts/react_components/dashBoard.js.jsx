@@ -1,8 +1,16 @@
-var Main = React.createClass({
+var DashBoard = React.createClass({
   render: function() {
     return (
 
       <div className="container">
+
+        <div className="row">
+          <div className="col-lg-12">
+            <InterviewSearchForm />
+          </div>
+        </div>
+
+
         <div className="row">
           <div className="col-lg-12">
             <NewInterviewForm />
