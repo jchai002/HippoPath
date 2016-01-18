@@ -1,7 +1,7 @@
 var ContentTable = React.createClass({
   getInitialState: function(){
     return ({
-      data:''
+      data: undefined
     })
   },
   getData: function(){
