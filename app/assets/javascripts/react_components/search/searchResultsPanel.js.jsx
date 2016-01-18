@@ -1,12 +1,12 @@
-var Panel = React.createClass({
+var SearchResultsPanel = React.createClass({
   render: function() {
     return (
     <div className="widget">
       <div className="widget-header">
         <i className="icon-list-alt"></i>
-        <h3>{this.props.title}</h3>
+        <h3>Search Results</h3>
       </div>
-      <ContentTable url={this.props.url} model={"Interview"} />
+      <SearchResultsTable data={this.props.data} />
     </div>
 );
 }

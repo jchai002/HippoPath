@@ -18,9 +18,12 @@ var TableRow = React.createClass({
           })
 
 
-          //de-couple the model from the component, if more model will be using this component, can use switch statement here instead of if/else
           if (dataModel==="Interview") {
             var buttons = <InterviewButtons url={url} data={rowData} model={dataModel} handleUpdate={this.props.handleUpdate} handleDelete={this.handleDelete}/>
+          }
+
+          if (dataModel==="Search") {
+            var buttons = <MessageButton />
           }
 
           return (

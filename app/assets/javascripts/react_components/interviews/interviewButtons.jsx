@@ -2,7 +2,6 @@ var InterviewButtons = React.createClass({
   render: function() {
     var rowData= this.props.data
     var rowID= rowData.id
-    console.log(this.props.handleUpdate)
     return (
       <td className="buttons"><button type="button" className="btn-xs btn-danger" onClick={this.handleDeleteClick}>Delete</button>
 
