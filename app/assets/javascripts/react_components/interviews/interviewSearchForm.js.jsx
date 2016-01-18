@@ -50,10 +50,10 @@ var InterviewSearchForm = React.createClass({
         $.ajax({
         url: "/interview_search",
         dataType: 'json',
-        type: 'GET',
+        type: 'POST',
         data: formData,
         success: function(data) {
-          console.log(data)
+          this.props.handleSearch(data)
         }.bind(this),
         error: function(xhr, status, err) {
           console.error( status, err.toString());
@@ -77,6 +77,6 @@ var InterviewSearchForm = React.createClass({
     $('#search-interview-date-picker').datetimepicker()
   },
   componentDidUpdate: function(){
-    console.log(typeof this.state.hospital_id)
+
   }
 });
