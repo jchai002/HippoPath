@@ -9,6 +9,22 @@ class InterviewsController < ApplicationController
     end
   end
 
+  #find the interviews by search parameters
+  def search_interviews
+    search_parameters = {
+      hospital_id: params[:interview_info][:hospital_id],
+      date: params[:interview_info][:date],
+      ride_status: params[:interview_info][:ride_status]
+    }
+
+    interview_records=Interview.search(search_parameters).all
+    @interviews = Interview.build_search_result(interview_records)
+    respond_to do |format|
+      format.html
+      format.json
+    end
+  end
+
   def create
     user=current_user
     @interview = user.interviews.build(interview_params)
@@ -23,7 +39,8 @@ class InterviewsController < ApplicationController
   end
 
   def update
-    @interview = Interview.find_by({id: params[:id]})
+    user=current_user
+    @interview = user.interviews.find_by({id: params[:id]})
     hospital_name = params["interview_info"]["hospital"]
     @interview.hospital=Hospital.find_by({name:hospital_name})
     @interview.assign_attributes(interview_params)
