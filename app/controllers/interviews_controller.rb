@@ -16,8 +16,9 @@ class InterviewsController < ApplicationController
       date: params[:interview_info][:date],
       ride_status: params[:interview_info][:ride_status]
     }
-    @interviews=Interview.search(search_parameters).all
-    binding.pry
+
+    interview_records=Interview.search(search_parameters).all
+    @interviews = Interview.build_search_result(interview_records)
     respond_to do |format|
       format.html
       format.json
