@@ -38,7 +38,7 @@ var ContentTable = React.createClass({
       }
     }
     var url=this.props.url
-    var updateHandlerFunction = this.handleUpdate
+    var handleUpdate = this.handleUpdate
     var dataModel=this.props.model
 
 
@@ -48,7 +48,7 @@ var ContentTable = React.createClass({
 
 
     var tableRows= dataArray.map(function(data){
-        return <TableRow url={url} model={dataModel} handleUpdate={updateHandlerFunction} headers={tableHeaderArray} data={data} key={"interview "+data.id} />
+        return <TableRow url={url} model={dataModel} handleUpdate={handleUpdate} headers={tableHeaderArray} data={data} key={"interview "+data.id} />
     })
     return (
         <div className="widget-content">

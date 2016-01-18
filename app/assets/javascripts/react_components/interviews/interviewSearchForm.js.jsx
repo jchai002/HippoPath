@@ -1,7 +1,7 @@
 var InterviewSearchForm = React.createClass({
   getInitialState: function(){
     return ({
-      hospital:undefined,
+      hospital_id:undefined,
       date:undefined,
       ride_status:"Need Ride"
     })
@@ -11,17 +11,17 @@ var InterviewSearchForm = React.createClass({
         <form className="form-inline custom-form" onSubmit={this.handleSubmit}>
 
         <div className="form-group">
-          <select id="Hospital" name="hospital" className="form-control" onChange={this.handleHospitalChange} value={this.state.hospital}>
+          <select id="Hospital" name="hospital" className="form-control" onChange={this.handleHospitalChange} value={this.state.hospital_id}>
             <option value="">SELECT A HOSPITAL</option>
-            <option value="hospital 1">Hospital 1</option>
-            <option value="hospital 2">Hospital 2</option>
+            <option value="1">Hospital 1</option>
+            <option value="2">Hospital 2</option>
           </select>
         </div>
 
 
             <div className="form-group">
-                <div className='input-group date col-sm-12' id='datetimepickerSearch'>
-                    <input id="date-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
+                <div className='input-group date col-sm-12' id='search-interview-date-picker'>
+                    <input id="search-interview-date" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
                     <span className="input-group-addon">
                         <span className="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -62,18 +62,21 @@ var InterviewSearchForm = React.createClass({
 
   },
   handleDateTimeChange: function(){
-    var dateTime=$("#date-time").val().split(' ')
+    var dateTime=$("#search-interview-date").val().split(' ')
     this.setState({
       date:dateTime[0]
     })
   },
   handleHospitalChange: function(event){
-      this.setState({hospital: event.target.value});
+      this.setState({hospital_id: event.target.value});
   },
   handleRideStatusSelect: function(event){
     this.setState({ride_status: event.target.value});
   },
   componentDidMount: function(){
-    $('#datetimepickerSearch').datetimepicker()
+    $('#search-interview-date-picker').datetimepicker()
+  },
+  componentDidUpdate: function(){
+    console.log(typeof this.state.hospital_id)
   }
 });

@@ -22,8 +22,8 @@ var EditInterviewForm = React.createClass({
 
 
             <div className="form-group">
-                <div className='input-group date col-sm-12' id={'datetimepicker'+this.state.id}>
-                    <input id={'date-time-'+this.state.id} value={this.state.date+' '+this.state.time} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onChange={this.handleDateTimeChange} onBlur={this.handleDateTimeChange}/>
+                <div className='input-group date col-sm-12' id={'edit-interview-time-picker'+this.state.id}>
+                    <input id={'edit-interview-time-'+this.state.id} value={this.state.date+' '+this.state.time} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onChange={this.handleDateTimeChange} onBlur={this.handleDateTimeChange}/>
                     <span className="input-group-addon">
                         <span className="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -69,7 +69,7 @@ var EditInterviewForm = React.createClass({
       });
   },
   handleDateTimeChange: function(){
-    var dateTime=$('#date-time-'+this.state.id).val().split(' ')
+    var dateTime=$('#edit-interview-time-'+this.state.id).val().split(' ')
     this.setState({
       date:dateTime[0],
       time:dateTime[1]+' '+dateTime[2]
@@ -82,6 +82,6 @@ var EditInterviewForm = React.createClass({
     this.setState({ride_status: event.target.value});
   },
   componentDidMount: function(){
-    $('#datetimepicker'+this.state.id).datetimepicker({sideBySide: true})
+    $('#edit-interview-time-picker'+this.state.id).datetimepicker({sideBySide: true})
   }
 });
