@@ -27,7 +27,7 @@ var SearchResultsTable = React.createClass({
         return <TableRow model="Search" headers={tableHeaderArray} data={data} key={"search "+data.id} />
     })
 
-    if (this.props.data) {
+    if (dataArray.length) {
       return (
           <div className="widget-content">
             <table className="table table-striped table-bordered">

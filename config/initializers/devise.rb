@@ -12,7 +12,7 @@ Devise.setup do |config|
 
   #==> OAuth Configuration
   config.omniauth :facebook, ENV["facebook_key"], ENV["facebook_secret"]
-  config.omniauth :google_oauth2, ENV["google_key"], ENV["google_secret"]
+  config.omniauth :google_oauth2, ENV["google_key"], ENV["google_secret"], skip_jwt: true
   config.omniauth :linkedin, ENV["linked_in_key"], ENV["linked_in_secret"]
 
   # ==> Mailer Configuration
