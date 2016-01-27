@@ -44,23 +44,27 @@ var NewInterviewForm = React.createClass({
       </form>
     );
   },
-  handleSubmit: function(){
-      var formData = {
-        interview_info: this.state
-      }
+  postFormData: function(){
+    var formData = {
+      interview_info: this.state
+    }
+
+    return new Promise (function(resolved, rejected){
         $.ajax({
         url: "/interviews",
         dataType: 'json',
         type: 'POST',
         data: formData,
-        success: function(data) {
-          console.log(data)
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error( status, err.toString());
-        }.bind(this)
+        success: resolved,
+        error: rejected
       });
-
+    }, formData) //pass the formData into the promise
+  },
+  handleSubmit: function(){
+      this.postFormData()
+      .then(function(data){
+        console.log(data)
+      })
   },
   handleDateTimeChange: function(){
     var dateTime=$("#new-interview-time").val().split(' ')
