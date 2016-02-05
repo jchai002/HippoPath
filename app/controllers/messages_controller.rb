@@ -6,6 +6,7 @@ def create
     flash[:error]="message cannot be empty"
   else
   @message = @conversation.messages.build(body: message_params[:body])
+  @message.user = current_user
   end
 
   @message.save!

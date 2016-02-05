@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :interviews
   belongs_to :school
   belongs_to :address
+  has_many   :messages
   has_and_belongs_to_many :conversations
 
 
