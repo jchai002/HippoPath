@@ -13,11 +13,6 @@ class ConversationsController < ApplicationController
   def show
     @messages = @conversation.messages
     @message = Message.new
-    if current_user == @conversation.users.first
-      @sender = true
-    else
-      @receiver=true
-    end
   end
 
   # GET /conversations/new
