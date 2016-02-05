@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   resources :conversations
-root 'home#index'
+  resources :messages, :only =>[:create]
+
+  root 'home#index'
   get '/dash_board/interviews' => 'dash_board#interviews', :as => :interviews_dash_board
   get '/dash_board/search' => 'dash_board#search', :as => :search_dash_board
 

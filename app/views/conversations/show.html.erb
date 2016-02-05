@@ -6,7 +6,7 @@
     <% end %>
 </div>
 
-React Form here
+<%= react_component 'NewMessageForm', {data: @conversation}%>
 
 
 <%= subscribe_to conversation_path(@conversation)%>

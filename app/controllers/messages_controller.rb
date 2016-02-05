@@ -1,9 +1,8 @@
 class MessagesController < ApplicationController
 
 def create
-  @conversation=Conversation.find_by({id: params[:message]["data-cid"]})
-  @message = @conversation.build(message_params)
-
+  @conversation=Conversation.find_by({id: params[:conversation_id]})
+  @message = @conversation.messages.build(body: message_params[:body])
   if @message.save
     render :json => {message:"message successfully created"} # send back any data if necessary
   else
@@ -14,6 +13,6 @@ end
 
 private
   def message_params
-    params.require(:message).permit(:body)
+    params.require(:message).permit(:body, :conversation_id)
   end
 end
