@@ -1,3 +1,6 @@
-
-alert('hello from message create')
-    
+<% publish_to @path do %>
+    var chatbox = $(".chatboxcontent")
+    chatbox.append("<%= j render( partial: @message ) %>");
+    chatbox.scrollTop(chatbox[0].scrollHeight);
+    $(".chatboxtextarea").val("");
+<% end %>
