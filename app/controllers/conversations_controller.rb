@@ -1,6 +1,6 @@
 class ConversationsController < ApplicationController
   before_action :set_conversation, only: [:show, :edit, :update, :destroy, :authorize_user]
-  before_action :authorize_user
+  # before_action :authorize_user
 
   # GET /conversations
   # GET /conversations.json
@@ -11,8 +11,8 @@ class ConversationsController < ApplicationController
   # GET /conversations/1
   # GET /conversations/1.json
   def show
+    @messages = @conversation.messages
     @message = Message.new
-    @messages = @conversation.messages.all
   end
 
   # GET /conversations/new

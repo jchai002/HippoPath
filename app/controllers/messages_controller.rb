@@ -1,14 +1,15 @@
 class MessagesController < ApplicationController
 
 def create
-  @conversation=Conversation.find_by({id: params[:conversation_id]})
-  @message = @conversation.messages.build(body: message_params[:body])
-  if @message.save
-    render :json => {message:"message successfully created"} # send back any data if necessary
+  @conversation=Conversation.find_by({id: message_params[:conversation_id]})
+  if message_params[:body].empty?
+    flash[:error]="message cannot be empty"
   else
-    render :json => { }, :status => 500
+  @message = @conversation.messages.build(body: message_params[:body])
   end
 
+  @message.save!
+  @path = conversation_path(@conversation)
 end
 
 private

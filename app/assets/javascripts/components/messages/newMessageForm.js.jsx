@@ -36,10 +36,10 @@ var NewMessageForm = React.createClass({
         data: formData,
         success: function(data) {
           console.log(data)
-        }.bind(this),
+        },
         error: function(xhr, status, err) {
           console.error( status, err.toString());
-        }.bind(this)
+        }
       });
   },
   componentDidUpdate: function(){
