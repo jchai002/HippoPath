@@ -1,0 +1,26 @@
+<div class="conversation col-md-offset-1">
+  <div class="chatboxhead">
+    <div class="chatboxtitle">
+      <i class="fa fa-comments"></i>
+    </div>
+  </div>
+
+  <div class="chatboxcontent">
+    <% if @messages.any? %>
+    <%= render @messages %>
+    <% end %>
+  </div>
+  <div class="chatboxinput">
+    <%= form_for(@message, :remote => true, :html => {id: "conversation_form_#{@conversation.id}"}) do |f| %>
+    <%= f.text_area :body, class: "chatboxtextarea" %>
+    <div class="chat-form-btns">
+      <%= f.hidden_field :conversation_id, :value => @conversation.id %>
+      <%= f.submit "send", class: "btn btn-primary btn-sm btn-submit"%>
+    </div>
+
+    <% end %>
+
+  </div>
+</div>
+
+<%= subscribe_to conversation_path(@conversation) %>
