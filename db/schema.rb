@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111065706) do
+ActiveRecord::Schema.define(version: 20160205010816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20160111065706) do
     t.string   "state"
     t.string   "zip"
     t.string   "apt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.string   "sender"
+    t.string   "receiver"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,6 +61,13 @@ ActiveRecord::Schema.define(version: 20160111065706) do
     t.integer  "hospital_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "conversation_id"
+    t.string   "body"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "rides", force: :cascade do |t|
