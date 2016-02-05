@@ -1,5 +1,6 @@
 class ConversationsController < ApplicationController
-  before_action :set_conversation, only: [:show, :edit, :update, :destroy]
+  before_action :set_conversation, only: [:show, :edit, :update, :destroy, :authorize_user]
+  before_action :authorize_user
 
   # GET /conversations
   # GET /conversations.json
@@ -10,6 +11,8 @@ class ConversationsController < ApplicationController
   # GET /conversations/1
   # GET /conversations/1.json
   def show
+    @message = Message.new
+    @messages = @conversation.messages.all
   end
 
   # GET /conversations/new
@@ -65,6 +68,11 @@ class ConversationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_conversation
       @conversation = Conversation.find(params[:id])
+    end
+
+    def authorize_user
+      @conversation.sender.id
+      redirect_to root_url unless @conversation.sender.id == current_user.id || @conversation.receiver.id == current_user.id
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

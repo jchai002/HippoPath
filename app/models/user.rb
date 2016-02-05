@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   has_many :interviews
   belongs_to :school
   belongs_to :address
+  has_and_belongs_to_many :conversations
+
+
 
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/

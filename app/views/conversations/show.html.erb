@@ -1,20 +1,12 @@
-< div class="chatboxcontent">
+<div id="chatbox">
     <% if @messages.any? %>
-        <%= render @messages %>
+        <% @messages.each do |message| %>
+          <p><%=message.body%></p>
+        <%end%>
     <% end %>
-< /div>
+</div>
 
-< div class="chatboxinput">
-    <%= form_for([@conversation, @message], :remote
-     => true, :html => {id: "conversation_form_#{@conversation.id}"}) do |f| %>
-    <%= f.text_area :body, class:"chatboxtextarea",
-       "data-cid" => @conversation.id %>
+React Form here
 
-    < div class="chat-form-btns">
-         <%= f.submit "send", class: "btn btn-
-         primary btn-sm btn-submit"%>
-    < /div>
 
-  <% end %>
-
-< /div>
+<%= subscribe_to conversation_path(@conversation)%>
