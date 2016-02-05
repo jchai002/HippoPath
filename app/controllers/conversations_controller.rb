@@ -71,8 +71,7 @@ class ConversationsController < ApplicationController
     end
 
     def authorize_user
-      @conversation.sender.id
-      redirect_to root_url unless @conversation.sender.id == current_user.id || @conversation.receiver.id == current_user.id
+      redirect_to root_url unless @conversation.users.include?(current_user)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
