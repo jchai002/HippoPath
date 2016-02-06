@@ -1,9 +1,9 @@
 development:
-  server: "http://localhost:9292/faye"
-  secret_token: "secret"
+  server: https://hippopathchat.herokuapp.com/
+  secret_token: "effd0096e91c893324cf1867da1a1a96fc3ddc2bdfefb0ccfe43129a1cedfad8"
 test:
-  server: "http://localhost:9292/faye"
-  secret_token: "secret"
+  server: https://hippopathchat.herokuapp.com/
+  secret_token: "effd0096e91c893324cf1867da1a1a96fc3ddc2bdfefb0ccfe43129a1cedfad8"
 production:
   server: "http://example.com/faye"
   secret_token: "effd0096e91c893324cf1867da1a1a96fc3ddc2bdfefb0ccfe43129a1cedfad8"
