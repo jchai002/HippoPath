@@ -11,6 +11,7 @@ def create
 
   @message.save!
   @path = conversation_path(@conversation)
+  PrivatePub.publish_to(@path, message: @message)
 end
 
 private

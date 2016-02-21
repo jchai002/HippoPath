@@ -1,10 +1,11 @@
 development:
-  server: "http://localhost:9292/faye"
-  secret_token: "secret"
+    server: "https://hippopathchat.herokuapp.com/faye"
+    secret_token: "45fcef8184dc45b8ca5e26f9f643fda86bdd2fb83c573db315d5b60321b716a5"
+    signature_expiration: 3600 # one hour
 test:
   server: "http://localhost:9292/faye"
   secret_token: "secret"
 production:
-  server: "https://hippopathchat.herokuapp.com/"
+  server: "https://hippopathchat.herokuapp.com/faye"
   secret_token: "45fcef8184dc45b8ca5e26f9f643fda86bdd2fb83c573db315d5b60321b716a5"
   signature_expiration: 3600 # one hour
