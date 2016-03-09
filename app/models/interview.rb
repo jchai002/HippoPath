@@ -26,6 +26,7 @@ class Interview < ActiveRecord::Base
         date: interview.date,
         time: interview.time,
         ride_status: interview.ride_status,
+        poster_id: interview.poster.id,
         school: interview.poster.school,
         hospital: interview.hospital.name,
         specialty: interview.poster.specialty,
