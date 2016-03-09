@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   belongs_to :school
   belongs_to :address
   has_many   :messages
-  has_and_belongs_to_many :conversations
+  has_many   :user_conversations, :class_name => 'UserConversation'
+  has_many   :conversations, :through => :user_conversations
 
 
 

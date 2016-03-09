@@ -1,4 +1,5 @@
 class Conversation < ActiveRecord::Base
   has_many :messages
-  has_and_belongs_to_many :users
+  has_many :user_conversations, :class_name => 'UserConversation'
+  has_many :users, :through => :user_conversations
 end
