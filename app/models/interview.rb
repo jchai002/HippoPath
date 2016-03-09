@@ -26,10 +26,10 @@ class Interview < ActiveRecord::Base
         date: interview.date,
         time: interview.time,
         ride_status: interview.ride_status,
-        school: interview.user.school,
+        school: interview.poster.school,
         hospital: interview.hospital.name,
-        specialty: interview.user.specialty,
-        gender: interview.user.gender
+        specialty: interview.poster.specialty,
+        gender: interview.poster.gender
       }
 
       search_results << search_result

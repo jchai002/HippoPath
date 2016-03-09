@@ -23,7 +23,7 @@ var TableRow = React.createClass({
           }
 
           if (dataModel==="Search") {
-            var buttons = <MessageButton />
+            var buttons = <MessageButton data={rowData}/>
           }
 
           return (

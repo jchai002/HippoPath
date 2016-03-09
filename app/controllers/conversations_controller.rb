@@ -27,6 +27,7 @@ class ConversationsController < ApplicationController
   # POST /conversations
   # POST /conversations.json
   def find_or_create
+    binding.pry
     @conversation = Conversation.new(conversation_params)
     respond_to do |format|
       if @conversation.save
