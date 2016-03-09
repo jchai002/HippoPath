@@ -1,12 +1,23 @@
 class User < ActiveRecord::Base
-  has_many :interviews
   belongs_to :school
   belongs_to :address
   has_many   :messages
-  has_many   :user_conversations, :class_name => 'UserConversation'
-  has_many   :conversations, :through => :user_conversations
 
+  def conversations
+    Conversation.where("starter_id = ? OR reciever_id = ?", self.id, self.id)
+  end
 
+  def started_conversations
+    Conversation.where("starter_id = ? ", self.id)
+  end
+
+  def recieved_conversations
+    Conversation.where("reciever_id = ? ", self.id)
+  end
+
+  def self.find_conversation(user_1, user_2)
+    Conversation.where("(starter_id = ? AND reciever_id = ?) OR (reciever_id = ? AND starter_id = ?)", user_1.id, user_2.id,  user_1.id,user_2.id)
+  end
 
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/
