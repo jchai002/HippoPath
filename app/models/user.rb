@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   belongs_to :school
   belongs_to :address
   has_many   :messages
+  has_many   :interviews, foreign_key: 'poster_id'
 
   def conversations
     Conversation.where("starter_id = ? OR reciever_id = ?", self.id, self.id)

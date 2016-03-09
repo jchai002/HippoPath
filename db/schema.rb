@@ -28,9 +28,8 @@ ActiveRecord::Schema.define(version: 20160205010816) do
   end
 
   create_table "conversations", force: :cascade do |t|
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "interview_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "starter_id"
     t.integer  "reciever_id"
   end

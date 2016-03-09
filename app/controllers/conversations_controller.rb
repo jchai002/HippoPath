@@ -26,9 +26,8 @@ class ConversationsController < ApplicationController
 
   # POST /conversations
   # POST /conversations.json
-  def create
+  def find_or_create
     @conversation = Conversation.new(conversation_params)
-
     respond_to do |format|
       if @conversation.save
         format.html { redirect_to @conversation, notice: 'Conversation was successfully created.' }
