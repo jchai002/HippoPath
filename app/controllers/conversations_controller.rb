@@ -1,6 +1,6 @@
 class ConversationsController < ApplicationController
   before_action :set_conversation, only: [:show, :destroy, :authorize_user]
-  # before_action :authorize_user
+  before_action :authorize_user, only: [:show, :destroy]
 
   # GET /conversations/1
   # GET /conversations/1.json
@@ -49,7 +49,7 @@ class ConversationsController < ApplicationController
 
   def authorize_user
     #todo fix this broken method
-    redirect_to root_url unless @conversation.users.include?(current_user)
+    redirect_to root_url unless @conversation.starter == current_user || @conversation.reciever == current_user
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
