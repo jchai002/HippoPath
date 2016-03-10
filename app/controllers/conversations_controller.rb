@@ -48,7 +48,6 @@ class ConversationsController < ApplicationController
   end
 
   def authorize_user
-    #todo fix this broken method
     redirect_to root_url unless @conversation.starter == current_user || @conversation.reciever == current_user
   end
 
