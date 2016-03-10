@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :conversations
+  resources :conversations, :only =>[:show]
   resources :messages, :only =>[:create]
 
   root 'home#index'
@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   get '/interviews' => 'interviews#get_interviews'
   post '/interview_search' => 'interviews#search_interviews'
 
+  post '/conversations' => 'conversations#find_or_create'
 
 end

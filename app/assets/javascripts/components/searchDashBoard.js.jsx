@@ -1,12 +1,11 @@
 var SearchDashBoard = React.createClass({
   getInitialState: function(){
     return {
-      searchResults:undefined,
+      searchResults: undefined,
       searched: false
     }
   },
   render: function() {
-
     if (!this.state.searched) {
       return (
         <div className="container">
@@ -39,7 +38,7 @@ var SearchDashBoard = React.createClass({
 
           <div className="row">
             <div className="col-sm-12">
-              <SearchResultsPanel data={this.state.searchResults}/>
+              <SearchResultsPanel data={this.state.searchResults} token={this.props.token} />
             </div>
           </div>
         </div>

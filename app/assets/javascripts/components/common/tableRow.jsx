@@ -5,7 +5,6 @@ var TableRow = React.createClass({
       }
     },
     render: function() {
-
         if(!this.state.deleted){
           var headers= this.props.headers
           var url = this.props.url
@@ -23,7 +22,7 @@ var TableRow = React.createClass({
           }
 
           if (dataModel==="Search") {
-            var buttons = <MessageButton data={rowData}/>
+            var buttons = <MessageButton data={rowData} token={this.props.token}/>
           }
 
           return (
