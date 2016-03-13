@@ -11,6 +11,7 @@ class ConversationsController < ApplicationController
     @messages = @conversation.messages
     @message = Message.new
     @no_flash = true
+    @conversation.messages.mark_as_read! :all, :for => current_user
   end
 
   # POST /conversations

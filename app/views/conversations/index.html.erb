@@ -2,8 +2,6 @@
 
 <h1>Listing Conversations</h1>
 
-<ul>
   <% @conversations.each do |conversation| %>
-    <li><%= link_to "#{conversation.messages.last.body}", conversation %></li>
+  <%= render :partial => 'conversation_tab', :locals => {:conversation => conversation} %>
   <% end %>
-</ul>

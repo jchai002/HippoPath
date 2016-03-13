@@ -4,7 +4,7 @@
       <i class="fa fa-comments"></i>
     </div>
   </div>
-  conv number <%=@conversation.id%>
+  conv target: <%=@conversation.conversation_target(current_user).email%>
   <div class="chatboxcontent">
     <% if @messages.any? %>
     <%= render @messages %>
@@ -17,9 +17,7 @@
       <%= f.hidden_field :conversation_id, :value => @conversation.id %>
       <%= f.submit "send", class: "btn btn-primary btn-sm btn-submit"%>
     </div>
-
     <% end %>
-
   </div>
 </div>
 
