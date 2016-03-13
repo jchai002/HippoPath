@@ -38,7 +38,7 @@ var SearchDashBoard = React.createClass({
 
           <div className="row">
             <div className="col-sm-12">
-              <SearchResultsPanel data={this.state.searchResults} token={this.props.token} />
+              <SearchResultsPanel data={this.state.searchResults} token={this.props.token} currentUserId={this.props.current_user_id} />
             </div>
           </div>
         </div>

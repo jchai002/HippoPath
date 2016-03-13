@@ -67,3 +67,11 @@ $colHover       : #ffe6d1; /*/
             color: $colHover;
             background-color: $bgHighlight; }}
 }
+
+.disabled {
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .65;
+}

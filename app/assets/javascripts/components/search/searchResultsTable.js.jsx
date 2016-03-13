@@ -6,6 +6,7 @@ var SearchResultsTable = React.createClass({
   render: function() {
     var dataArray=[]
     var formToken = this.props.token
+    var currentUserId= this.props.currentUserId
 
     for (var key in this.props.data){
       dataArray.push(this.props.data[key])
@@ -25,7 +26,7 @@ var SearchResultsTable = React.createClass({
 
 
     var tableRows= dataArray.map(function(data){
-        return <TableRow model="Search" headers={tableHeaderArray} data={data} key={"search "+data.id} token={formToken} />
+        return <TableRow model="Search" headers={tableHeaderArray} data={data} key={"search "+data.id} token={formToken} currentUserId={currentUserId} />
     })
 
     if (dataArray.length) {
