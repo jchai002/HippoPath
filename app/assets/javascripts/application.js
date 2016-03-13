@@ -19,4 +19,5 @@
 //= require components
 //= require moment
 //= require bootstrap-datetimepicker
+//= require jquery-ui/autocomplete
 //= require_tree .

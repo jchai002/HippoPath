@@ -12,11 +12,7 @@ var NewInterviewForm = React.createClass({
         <form className="form-inline custom-form" onSubmit={this.handleSubmit}>
 
         <div className="form-group">
-          <select id="Hospital" name="hospital" className="form-control" onChange={this.handleHospitalChange} value={this.state.hospital}>
-            <option value="">SELECT A HOSPITAL</option>
-            <option value="hospital 1">Hospital 1</option>
-            <option value="hospital 2">Hospital 2</option>
-          </select>
+          <input type="text" id="Hospital" name="hospital" className="form-control biginput" id="autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleDateTimeChange}/>
         </div>
 
 
