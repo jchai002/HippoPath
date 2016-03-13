@@ -1,6 +1,7 @@
 class ConversationsController < ApplicationController
-  before_action :set_conversation, only: [:show, :destroy, :authorize_user]
+  before_action :set_conversation, only: [:show, :destroy, :authorize_user, :mark_messages_as_read]
   before_action :authorize_user, only: [:show, :destroy]
+  before_filter :mark_messages_as_read,  only: [:show]
 
   def index
     @conversations = Conversation.where("starter_id = ? OR reciever_id = ?", current_user.id, current_user.id)
@@ -11,7 +12,6 @@ class ConversationsController < ApplicationController
     @messages = @conversation.messages
     @message = Message.new
     @no_flash = true
-    @conversation.messages.mark_as_read! :all, :for => current_user
   end
 
   # POST /conversations
@@ -50,6 +50,11 @@ class ConversationsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_conversation
     @conversation = Conversation.find(params[:id])
+  end
+
+  def mark_messages_as_read
+    @unread_message_count -= @conversation.messages.unread_by(current_user).count
+    @conversation.messages.mark_as_read! :all, :for => current_user
   end
 
   def authorize_user

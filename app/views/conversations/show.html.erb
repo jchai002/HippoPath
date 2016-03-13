@@ -4,7 +4,7 @@
       <i class="fa fa-comments"></i>
     </div>
   </div>
-  conv target: <%=@conversation.conversation_target(current_user).email%>
+  unread count: <%=@conversation.messages.unread_by(current_user).count%>
   <div class="chatboxcontent">
     <% if @messages.any? %>
     <%= render @messages %>
