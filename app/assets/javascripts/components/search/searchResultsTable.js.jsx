@@ -15,7 +15,7 @@ var SearchResultsTable = React.createClass({
     //define table headers and other properties to pass down to row component
     var tableHeaderArray=[]
     for (var header in dataArray[0]){
-      if(header!=="id"){
+      if(header!=="id" && header!=="poster_id"){
           tableHeaderArray.push(header)
       }
     }
