@@ -2,6 +2,9 @@ class ConversationsController < ApplicationController
   before_action :set_conversation, only: [:show, :destroy, :authorize_user]
   before_action :authorize_user, only: [:show, :destroy]
 
+  def index
+    @conversations = Conversation.where("starter_id = ? OR reciever_id = ?", current_user.id, current_user.id)
+  end
   # GET /conversations/1
   # GET /conversations/1.json
   def show

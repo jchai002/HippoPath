@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :conversations, :only =>[:show]
+  resources :conversations, :only =>[:show, :index]
   resources :messages, :only =>[:create]
 
   root 'home#index'
