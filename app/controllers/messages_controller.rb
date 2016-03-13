@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
     end
 
     @message.save!
-    @path = conversation_path(@conversation)
+    @conversation_path = conversation_path(@conversation)
   end
 
 private
