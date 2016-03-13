@@ -9,21 +9,20 @@ var NewInterviewForm = React.createClass({
   },
   render: function() {
     return (
-        <form className="form-inline custom-form" onSubmit={this.handleSubmit}>
+      <form className="form-inline custom-form" onSubmit={this.handleSubmit}>
 
         <div className="form-group">
-          <input type="text" id="Hospital" name="hospital" className="form-control biginput" id="autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleDateTimeChange}/>
+          <input type="text" name="hospital" className="form-control" id="autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
         </div>
 
-
-            <div className="form-group">
-                <div className='input-group date' id='new-interview-time-picker'>
-                    <input id="new-interview-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
-                    <span className="input-group-addon">
-                        <span className="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
+        <div className="form-group">
+          <div className='input-group date' id='new-interview-time-picker'>
+            <input id="new-interview-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
+            <span className="input-group-addon">
+              <span className="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+        </div>
 
         <div className="form-group">
           <select id="selectbasic" name="selectbasic" className="form-control" onChange={this.handleRideStatusSelect}>
@@ -35,7 +34,7 @@ var NewInterviewForm = React.createClass({
 
 
         <div className="form-group">
-        <button type="submit" className="btn btn-primary">Add Interview</button>
+          <button type="submit" className="btn btn-primary">Add Interview</button>
         </div>
       </form>
     );
@@ -46,7 +45,7 @@ var NewInterviewForm = React.createClass({
     }
 
     return new Promise (function(resolved, rejected){
-        $.ajax({
+      $.ajax({
         url: "/interviews",
         dataType: 'json',
         type: 'POST',
@@ -57,10 +56,10 @@ var NewInterviewForm = React.createClass({
     }, formData) //pass the formData into the promise
   },
   handleSubmit: function(){
-      this.postFormData()
-      .then(function(data){
-        console.log(data)
-      })
+    this.postFormData()
+    .then(function(data){
+      console.log(data)
+    })
   },
   handleDateTimeChange: function(){
     var dateTime=$("#new-interview-time").val().split(' ')
@@ -70,7 +69,7 @@ var NewInterviewForm = React.createClass({
     })
   },
   handleHospitalChange: function(event){
-      this.setState({hospital: event.target.value});
+    this.setState({hospital: event.target.value});
   },
   handleRideStatusSelect: function(event){
     this.setState({ride_status: event.target.value});

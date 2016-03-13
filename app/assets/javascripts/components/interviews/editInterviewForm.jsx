@@ -11,24 +11,21 @@ var EditInterviewForm = React.createClass({
   },
   render: function() {
     return (
-        <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
+
         <div className="form-group">
-          <select id="Hospital" name="hospital" className="form-control" onChange={this.handleHospitalChange} value={this.state.hospital}>
-            <option value="">SELECT A HOSPITAL</option>
-            <option value="hospital 1">Hospital 1</option>
-            <option value="hospital 2">Hospital 2</option>
-          </select>
+          <input type="text" name="hospital" className="form-control" id={"autocomplete-hospital-edit-"+this.state.id} onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
         </div>
 
 
-            <div className="form-group">
-                <div className='input-group date col-sm-12' id={'edit-interview-time-picker'+this.state.id}>
-                    <input id={'edit-interview-time-'+this.state.id} value={this.state.date+' '+this.state.time} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onChange={this.handleDateTimeChange} onBlur={this.handleDateTimeChange}/>
-                    <span className="input-group-addon">
-                        <span className="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
+        <div className="form-group">
+          <div className='input-group date col-sm-12' id={'edit-interview-time-picker'+this.state.id}>
+            <input id={'edit-interview-time-'+this.state.id} value={this.state.date+' '+this.state.time} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onChange={this.handleDateTimeChange} onBlur={this.handleDateTimeChange}/>
+            <span className="input-group-addon">
+              <span className="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+        </div>
 
         <div className="form-group">
           <select id="selectbasic" name="selectbasic" className="form-control" onChange={this.handleRideStatusSelect} value={this.state.ride_status}>
@@ -40,7 +37,7 @@ var EditInterviewForm = React.createClass({
 
 
         <div className="form-group">
-        <button type="submit" className="btn btn-primary">Save Changes</button>
+          <button type="submit" className="btn btn-primary">Save Changes</button>
         </div>
 
         <span style={{color:'green'}}>{this.state.message}</span>
@@ -49,24 +46,24 @@ var EditInterviewForm = React.createClass({
     );
   },
   handleSubmit: function(event){
-      event.preventDefault()
-      var url="/interviews/"+this.state.id
-      var formData = {
-        interview_info: this.state
-      }
-        $.ajax({
-        url: url,
-        dataType: 'json',
-        type: 'PUT',
-        data: formData,
-        success: function(data) {
-          this.setState(data)
-          this.props.handleUpdate();
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error( status, err.toString());
-        }.bind(this)
-      });
+    event.preventDefault()
+    var url="/interviews/"+this.state.id
+    var formData = {
+      interview_info: this.state
+    }
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'PUT',
+      data: formData,
+      success: function(data) {
+        this.setState(data)
+        this.props.handleUpdate();
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error( status, err.toString());
+      }.bind(this)
+    });
   },
   handleDateTimeChange: function(){
     var dateTime=$('#edit-interview-time-'+this.state.id).val().split(' ')
@@ -76,7 +73,7 @@ var EditInterviewForm = React.createClass({
     })
   },
   handleHospitalChange: function(event){
-      this.setState({hospital: event.target.value});
+    this.setState({hospital: event.target.value});
   },
   handleRideStatusSelect: function(event){
     this.setState({ride_status: event.target.value});

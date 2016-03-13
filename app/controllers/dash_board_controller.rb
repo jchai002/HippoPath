@@ -8,6 +8,10 @@ class DashBoardController < ApplicationController
   end
 
   def search
+    @hospital_names = []
+    Hospital.all.each do |hospital|
+      @hospital_names << hospital.attributes.slice('name')
+    end
   end
 
 end

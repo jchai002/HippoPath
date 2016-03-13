@@ -40,8 +40,8 @@ class InterviewsController < ApplicationController
   def update
     user=current_user
     @interview = user.interviews.find_by({id: params[:id]})
-    hospital_name = params["interview_info"]["hospital"]
-    @interview.hospital=Hospital.find_by({name:hospital_name})
+    hospital_name = params["interview_info"]["hospital"].downcase
+    @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     @interview.assign_attributes(interview_params)
     if @interview.save
       render :json => {message:"Interview Successfully Updated."} # send back any data if necessary
