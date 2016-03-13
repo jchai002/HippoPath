@@ -28,9 +28,8 @@ class InterviewsController < ApplicationController
   def create
     user=current_user
     @interview = user.interviews.build(interview_params)
-    hospital_name = params["interview_info"]["hospital"]
-    @interview.hospital=Hospital.find_by({name:hospital_name})
-
+    hospital_name = params["interview_info"]["hospital"].downcase
+    @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     if @interview.save
       render :json => {message:"interview successfully created"} # send back any data if necessary
     else
