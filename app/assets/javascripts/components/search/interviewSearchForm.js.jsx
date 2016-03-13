@@ -1,7 +1,7 @@
 var InterviewSearchForm = React.createClass({
   getInitialState: function(){
     return ({
-      hospital_id:undefined,
+      hospital:undefined,
       date:undefined,
       ride_status:"Need Ride"
     })
@@ -14,13 +14,9 @@ var InterviewSearchForm = React.createClass({
 
         <form className="form-inline custom-form" onSubmit={this.handleSubmit}>
 
-        <div className="form-group">
-          <select id="Hospital" name="hospital" className="form-control" onChange={this.handleHospitalChange} value={this.state.hospital_id}>
-            <option value="">SELECT A HOSPITAL</option>
-            <option value="1">Hospital 1</option>
-            <option value="2">Hospital 2</option>
-          </select>
-        </div>
+          <div className="form-group">
+            <input type="text" name="hospital" className="form-control" id="autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
+          </div>
 
 
             <div className="form-group">
@@ -73,7 +69,7 @@ var InterviewSearchForm = React.createClass({
     })
   },
   handleHospitalChange: function(event){
-      this.setState({hospital_id: event.target.value});
+      this.setState({hospital: event.target.value});
   },
   handleRideStatusSelect: function(event){
     this.setState({ride_status: event.target.value});
