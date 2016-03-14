@@ -1,0 +1,377 @@
+/*mixin declarations*/
+
+//padding class generators
+@mixin generate-padding($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .pad-#{$i} {
+      padding: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-padding-x($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .pad-x-#{$i} {
+      padding-left: #{$i}px !important;
+      padding-right: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-padding-y($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .pad-y-#{$i} {
+      padding-top: #{$i}px !important;
+      padding-bottom: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-padding-top($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .pad-t-#{$i} {
+      padding-top: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-padding-bottom($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .pad-b-#{$i} {
+      padding-bottom: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-padding-left($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .pad-l-#{$i} {
+      padding-left: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-padding-right($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .pad-r-#{$i} {
+      padding-right: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+//margin class generators
+@mixin generate-margin($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .mar-#{$i} {
+      margin: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-margin-x($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .mar-x-#{$i} {
+      margin-left: #{$i}px !important;
+      margin-right: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-margin-y($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .mar-y-#{$i} {
+      margin-top: #{$i}px !important;
+      margin-bottom: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-margin-top($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .mar-t-#{$i} {
+      margin-top: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-margin-bottom($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .mar-b-#{$i} {
+      margin-bottom: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-margin-left($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .mar-l-#{$i} {
+      margin-left: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-margin-right($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .mar-r-#{$i} {
+      margin-right: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+//block element size generators
+@mixin generate-width-percent($lower-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= 100 {
+    .width-#{$i} {
+      width: #{$i}% !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-height-percent($lower-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= 100 {
+    .height-#{$i} {
+      height: #{$i}% !important;
+    }
+    $i: $i + $step
+  }
+}
+
+//font size generators
+@mixin generate-font-px($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .font-#{$i}px {
+      font-size: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-font-vw($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .font-#{$i}vw {
+      font-size: #{$i}vw !important;
+    }
+    $i: $i + $step
+  }
+}
+
+//stacking order generators
+
+@mixin generate-stacking-order($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .z#{$i} {
+      z-index: #{$i} !important;
+    }
+    $i: $i + $step
+  }
+}
+
+//border generators
+
+@mixin generate-border($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .border-#{$i} {
+      border: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-border-x($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .border-x-#{$i} {
+      border-left: #{$i}px !important;
+      border-right: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-border-y($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .border-y-#{$i} {
+      border-top: #{$i}px !important;
+      border-bottom: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-border-top($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .border-t-#{$i} {
+      border-top: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-border-bottom($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .border-b-#{$i} {
+      border-bottom: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-border-left($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .border-l-#{$i} {
+      border-left: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-border-right($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .border-r-#{$i} {
+      border-right: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+@mixin generate-border-radius($lower-bound, $upper-bound, $step) {
+  $i: $lower-bound;
+  @while $i <= $upper-bound {
+    .border-rad-#{$i} {
+      border-radius: #{$i}px !important;
+    }
+    $i: $i + $step
+  }
+}
+
+
+/*invoke mixins*/
+
+//padding: arguments are ($lower-bound, $upper-bound, $step)
+@include generate-padding(0,50,5);
+@include generate-padding-x(0,50,5);
+@include generate-padding-y(0,50,5);
+@include generate-padding-top(0,50,5);
+@include generate-padding-bottom(0,50,5);
+@include generate-padding-left(0,50,5);
+@include generate-padding-right(0,50,5);
+
+//margin: arguments are ($lower-bound, $upper-bound, $step)
+@include generate-margin(0,50,5);
+@include generate-margin-x(0,50,5);
+@include generate-margin-y(0,50,5);
+@include generate-margin-top(0,50,5);
+@include generate-margin-bottom(0,50,5);
+@include generate-margin-left(0,50,5);
+@include generate-margin-right(0,50,5);
+
+//size in percent: arguments are ($lower-bound, $step)
+@include generate-width-percent(0,5);
+@include generate-height-percent(0,5);
+
+//font size: arguments are ($lower-bound, $upper-bound, $step)
+@include generate-font-px(0, 50, 5);
+@include generate-font-vw(0, 100, 5);
+
+//stack order: arguments are ($lower-bound, $upper-bound, $step)
+@include generate-stacking-order(0, 10, 1);
+
+//border: arguments are ($lower-bound, $upper-bound, $step)
+@include generate-border(0,5,1);
+@include generate-border-x(0,5,1);
+@include generate-border-y(0,5,1);
+@include generate-border-top(0,5,1);
+@include generate-border-bottom(0,5,1);
+@include generate-border-left(0,5,1);
+@include generate-border-right(0,5,1);
+@include generate-border-radius(0,10,1);
+
+/*general convinience classes*/
+
+.inline {
+  display: inline-block !important;
+}
+
+.block {
+  display: block !important;
+}
+
+.relative {
+  position: relative !important;
+}
+
+.contain {
+  overflow: hidden !important;
+}
+
+.clear {
+  clear: both !important;
+}
+
+.uppercase {
+  text-transform: uppercase !important;
+}
+
+.capitalize {
+  text-transform: capitalize !important;
+}
+
+.underline {
+  text-decoration: underline !important;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.flat-link {
+  text-decoration: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
