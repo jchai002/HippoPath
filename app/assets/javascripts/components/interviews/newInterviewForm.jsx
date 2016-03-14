@@ -9,13 +9,14 @@ var NewInterviewForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="form-inline custom-form" onSubmit={this.handleSubmit}>
+      <form className="custom-form" onSubmit={this.handleSubmit}>
 
-        <div className="form-group">
+      <div className="flex-wrapper">
+        <div className="form-group mar-y-10">
           <input type="text" name="hospital" className="form-control" id="autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
         </div>
 
-        <div className="form-group">
+        <div className="form-group mar-y-0">
           <div className='input-group date' id='new-interview-time-picker'>
             <input id="new-interview-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
             <span className="input-group-addon">
@@ -23,20 +24,21 @@ var NewInterviewForm = React.createClass({
             </span>
           </div>
         </div>
+      </div>
 
-        <div className="form-group">
+      <div className="flex-wrapper">
+        <div className="form-group mar-y-10">
           <select id="selectbasic" name="selectbasic" className="form-control" onChange={this.handleRideStatusSelect}>
             <option value="Need Ride">Need Ride</option>
             <option value="Offering Ride">Offering Ride</option>
             <option value="Either">Either</option>
           </select>
         </div>
-
-
-        <div className="form-group">
+        <div className="form-group mar-y-10">
           <button type="submit" className="btn btn-primary">Add Interview</button>
         </div>
-      </form>
+      </div>
+    </form>
     );
   },
   postFormData: function(){
