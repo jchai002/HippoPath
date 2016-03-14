@@ -11,36 +11,36 @@ var InterviewSearchForm = React.createClass({
   },
   render: function() {
     return (
+      <form className="custom-form" onSubmit={this.handleSubmit}>
 
-        <form className="form-inline custom-form" onSubmit={this.handleSubmit}>
+      <div className="flex-wrapper">
+        <div className="form-group mar-y-10">
+          <input type="text" name="hospital" className="form-control" id="autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
+        </div>
 
-          <div className="form-group">
-            <input type="text" name="hospital" className="form-control" id="autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
+        <div className="form-group mar-y-0">
+          <div className='input-group date' id='interview-time-picker'>
+            <input id="interview-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
+            <span className="input-group-addon">
+              <span className="glyphicon glyphicon-calendar"></span>
+            </span>
           </div>
+        </div>
+      </div>
 
-
-            <div className="form-group">
-                <div className='input-group date col-sm-12' id='search-interview-date-picker'>
-                    <input id="search-interview-date" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
-                    <span className="input-group-addon">
-                        <span className="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-
-        <div className="form-group">
+      <div className="flex-wrapper">
+        <div className="form-group mar-y-10">
           <select id="selectbasic" name="selectbasic" className="form-control" onChange={this.handleRideStatusSelect}>
             <option value="Need Ride">Need Ride</option>
             <option value="Offering Ride">Offering Ride</option>
             <option value="Either">Either</option>
           </select>
         </div>
-
-
-        <div className="form-group">
-        <button type="submit" className="btn btn-primary">Search</button>
+        <div className="form-group mar-y-10">
+          <button type="submit" className="btn btn-primary">Add Interview</button>
         </div>
-      </form>
+      </div>
+    </form>
     );
   },
   handleSubmit: function(event){
@@ -63,7 +63,7 @@ var InterviewSearchForm = React.createClass({
 
   },
   handleDateTimeChange: function(){
-    var dateTime=$("#search-interview-date").val().split(' ')
+    var dateTime=$("#interview-time").val().split(' ')
     this.setState({
       date:dateTime[0]
     })
@@ -75,7 +75,7 @@ var InterviewSearchForm = React.createClass({
     this.setState({ride_status: event.target.value});
   },
   componentDidMount: function(){
-    $('#search-interview-date-picker').datetimepicker()
+    $('#interview-time-picker').datetimepicker()
   },
   componentDidUpdate: function(){
 

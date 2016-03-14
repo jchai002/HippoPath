@@ -17,8 +17,8 @@ var NewInterviewForm = React.createClass({
         </div>
 
         <div className="form-group mar-y-0">
-          <div className='input-group date' id='new-interview-time-picker'>
-            <input id="new-interview-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
+          <div className='input-group date' id='interview-time-picker'>
+            <input id="interview-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
             <span className="input-group-addon">
               <span className="glyphicon glyphicon-calendar"></span>
             </span>
@@ -64,7 +64,7 @@ var NewInterviewForm = React.createClass({
     })
   },
   handleDateTimeChange: function(){
-    var dateTime=$("#new-interview-time").val().split(' ')
+    var dateTime=$("#interview-time").val().split(' ')
     this.setState({
       date:dateTime[0],
       time:dateTime[1]+' '+dateTime[2]
@@ -77,7 +77,7 @@ var NewInterviewForm = React.createClass({
     this.setState({ride_status: event.target.value});
   },
   componentDidMount: function(){
-    $('#new-interview-time-picker').datetimepicker({sideBySide: true})
+    $('#interview-time-picker').datetimepicker({sideBySide: true})
   },
   componentDidUpdate: function(){
     console.log(this.state)
