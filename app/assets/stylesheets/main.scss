@@ -14,7 +14,7 @@
   }
 
   .flex-wrapper {
-    margin: 0px !important;
+    padding: 0px !important;
     flex-direction: column;
     width: 100%;
     @media (min-width: 992px) {
@@ -22,9 +22,13 @@
     }
   }
 
-  .form-group{
-    padding-left: 3em;
-    padding-right: 3em;
+  .form-group {
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    @media (min-width: 768px) {
+      padding-left: 3em;
+      padding-right: 3em;
+    }
   }
 }
 
