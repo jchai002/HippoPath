@@ -59,9 +59,6 @@ var NewInterviewForm = React.createClass({
   },
   handleSubmit: function(){
     this.postFormData()
-    .then(function(data){
-      console.log(data)
-    })
   },
   handleDateTimeChange: function(){
     var dateTime=$("#interview-time").val().split(' ')
@@ -78,8 +75,5 @@ var NewInterviewForm = React.createClass({
   },
   componentDidMount: function(){
     $('#interview-time-picker').datetimepicker({sideBySide: true})
-  },
-  componentDidUpdate: function(){
-    console.log(this.state)
   }
 });

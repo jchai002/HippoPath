@@ -1,24 +1,46 @@
 var InterviewDashBoard = React.createClass({
-
+  getInitialState: function(){
+    return ({
+      interviewPanels:null
+    })
+  },
+  getData: function(){
+    console.log('requesting data...')
+    $.ajax({
+      url: '/interviews',
+      dataType: 'json',
+      success: function(results) {
+        this.setInterviewPanels(results)
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  setInterviewPanels: function(data){
+    var panels = data.map(function(interviewInfo){
+      return <InfoPanel key={interviewInfo.id} interviewInfo={interviewInfo} />
+    })
+    this.setState({interviewPanels:panels})
+  },
+  componentWillMount: function() {
+    this.getData();
+  },
   render: function() {
-
-        return (
-
-          <div className="container">
-
-            <div className="row">
-              <div className="col-sm-12">
-                <NewInterviewForm />
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-sm-12">
-                <Panel title="My Interviews" url="/interviews" model="interview"/>
-              </div>
-            </div>
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12">
+            <NewInterviewForm />
           </div>
-        );
-      }
+        </div>
 
+        <div className="row">
+          <div className="col-sm-12">
+            {this.state.interviewPanels}
+          </div>
+        </div>
+      </div>
+    );
+  }
 });
