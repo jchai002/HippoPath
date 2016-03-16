@@ -24,7 +24,7 @@ var InterviewDashBoard = React.createClass({
       var bodyContent = {};
       bodyContent['date'] = interviewInfo['date'];
       bodyContent['time'] = interviewInfo['time'];
-      return <InfoPanel url="/interviews" key={interviewInfo.id} interviewInfo={interviewInfo} bodyContent={bodyContent} bootstrapClass="col-sm-12 col-md-6" handleUpdate={handleUpdate} />
+      return <InfoPanel url="/interviews" key={interviewInfo.id} interviewInfo={interviewInfo} bodyContent={bodyContent} bootstrapClass="col-sm-12 col-md-6 col-lg-4" handleUpdate={handleUpdate} />
     })
     this.setState({interviewPanels:panels})
   },
