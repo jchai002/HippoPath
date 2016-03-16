@@ -1,0 +1,14 @@
+.panel {
+  padding: 0px !important;
+  min-height: 100px;
+}
+.panel-flex-container {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.panel-flex-item {
+  margin:5px;
+  width: calc(100% * (1/2) - 10px);
+}

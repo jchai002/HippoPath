@@ -19,7 +19,7 @@ var InterviewDashBoard = React.createClass({
   },
   setInterviewPanels: function(data){
     var panels = data.map(function(interviewInfo){
-      return <InfoPanel key={interviewInfo.id} interviewInfo={interviewInfo} />
+      return <InfoPanel key={interviewInfo.id} interviewInfo={interviewInfo} bootstrapClass="col-sm-12  col-md-6"/>
     })
     this.setState({interviewPanels:panels})
   },
@@ -37,7 +37,9 @@ var InterviewDashBoard = React.createClass({
 
         <div className="row">
           <div className="col-sm-12">
-            {this.state.interviewPanels}
+            <div className="row pad-x-15">
+              {this.state.interviewPanels}
+            </div>
           </div>
         </div>
       </div>
