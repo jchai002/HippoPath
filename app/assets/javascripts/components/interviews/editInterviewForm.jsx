@@ -11,12 +11,10 @@ var EditInterviewForm = React.createClass({
   },
   render: function() {
     return (
-      <form class="custom-form" onSubmit={this.handleSubmit}>
-
+      <form onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <input type="text" name="hospital" className="form-control" id={"autocomplete-hospital-edit-"+this.state.id} onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
+          <input type="text" name="hospital" className="form-control" id={"autocomplete-hospital-edit-"+this.state.id} value={this.state.hospital} onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
         </div>
-
 
         <div className="form-group">
           <div className='input-group date col-sm-12' id={'edit-interview-time-picker'+this.state.id}>

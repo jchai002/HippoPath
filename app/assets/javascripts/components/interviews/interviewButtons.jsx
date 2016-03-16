@@ -3,9 +3,9 @@ var InterviewButtons = React.createClass({
     var rowData= this.props.data
     var rowID= rowData.id
     return (
-      <td className="buttons"><button type="button" className="btn-xs btn-danger" onClick={this.handleDeleteClick}>Delete</button>
-
-      <button type="button"  data-toggle="modal" data-target={"#myModal"+rowID} className="btn-xs btn-success edit-button">Edit</button>
+      <div className="buttons">
+        <button type="button" className="btn btn-danger mar-b-15 mar-l-20 mar-r-5" onClick={this.handleDeleteClick}>Delete</button>
+        <button type="button"  data-toggle="modal" data-target={"#myModal"+rowID} className="btn btn-success edit-button mar-b-15 mar-r-20 mar-l-5">Edit</button>
 
         <div className="modal fade" id={"myModal"+rowID} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div className="modal-dialog" role="document">
@@ -23,22 +23,22 @@ var InterviewButtons = React.createClass({
             </div>
           </div>
         </div>
-      </td>
+      </div>
     );
   },
   handleDeleteClick: function(){
     if (window.confirm("Delete This Interview?")) {
-          var url=this.props.url+'/'+this.props.data.id
-          $.ajax({
-          url: url,
-          type: 'DELETE',
-          success: function(result) {
-            this.props.handleDelete()
-          }.bind(this),
-          error: function(xhr, status, err) {
-            console.error( status, err.toString());
-          }.bind(this)
-        })
-      }
+      var url=this.props.url+'/'+this.props.data.id
+      $.ajax({
+        url: url,
+        type: 'DELETE',
+        success: function(result) {
+          this.props.handleDelete()
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error( status, err.toString());
+        }.bind(this)
+      })
+    }
   }
 });

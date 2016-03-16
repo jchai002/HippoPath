@@ -12,3 +12,8 @@
   margin:5px;
   width: calc(100% * (1/2) - 10px);
 }
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
