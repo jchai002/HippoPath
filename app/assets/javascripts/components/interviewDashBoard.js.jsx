@@ -18,9 +18,13 @@ var InterviewDashBoard = React.createClass({
     });
   },
   setInterviewPanels: function(data){
-    var handleUpdate = this.handleUpdate
+    var handleUpdate = this.handleUpdate;
+
     var panels = data.map(function(interviewInfo){
-      return <InfoPanel url="/interviews" key={interviewInfo.id} interviewInfo={interviewInfo} bootstrapClass="col-sm-12 col-md-6" handleUpdate={handleUpdate} />
+      var bodyContent = {};
+      bodyContent['date'] = interviewInfo['date'];
+      bodyContent['time'] = interviewInfo['time'];
+      return <InfoPanel url="/interviews" key={interviewInfo.id} interviewInfo={interviewInfo} bodyContent={bodyContent} bootstrapClass="col-sm-12 col-md-6" handleUpdate={handleUpdate} />
     })
     this.setState({interviewPanels:panels})
   },

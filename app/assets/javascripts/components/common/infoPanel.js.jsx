@@ -6,7 +6,9 @@ var InfoPanel = React.createClass({
   },
   render: function() {
     var interviewInfo = this.props.interviewInfo;
+    var hospital = interviewInfo.hospital
     var rideStatus = interviewInfo.ride_status;
+    var bodyContent = this.props.bodyContent
     var labelStyle;
     if (rideStatus=="Need Ride") {
       labelStyle = "label-danger";
@@ -18,17 +20,15 @@ var InfoPanel = React.createClass({
       labelStyle = "label-warning";
     }
 
-    var panels = Object.keys(interviewInfo).map(function(header){
-      if (header==="date" || header==="time") {
+    var bodyPanels = Object.keys(bodyContent).map(function(header){
         return (
           <div key={header} className="panel panel-default panel-flex-item">
             <div className="panel-heading">{header}</div>
             <div className="panel-body">
-              {interviewInfo[header]}
+              {bodyContent[header]}
             </div>
           </div>
         );
-      }
     });
 
     var url = this.props.url;
@@ -37,11 +37,11 @@ var InfoPanel = React.createClass({
         <div className={this.props.bootstrapClass}>
           <div className={"panel panel-info"}>
             <div className="panel-heading">
-              {this.props.interviewInfo.hospital}
+              {hospital}
               <span className={"label mar-x-15 pull-right pad-5 " + labelStyle} >{rideStatus}</span>
             </div>
             <div className="panel-body panel-flex-container pad-x-15 pad-b-0">
-              {panels}
+              {bodyPanels}
             </div>
             <InterviewButtons key={this.props.key} url={url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.handleDelete}/>
           </div>
