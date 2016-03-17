@@ -18,7 +18,7 @@ var SearchDashBoard = React.createClass({
 
           <div className="row">
             <div className="col-sm-12">
-              <div className="widget-content">
+              <div className="panel panel-default empty-result">
                 <h1>Search For a Carpool</h1>
               </div>
             </div>

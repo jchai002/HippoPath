@@ -47,9 +47,7 @@ var SearchResultsTable = React.createClass({
         );
     } else {
       return (
-        <div className="widget-content">
             <h1>0 Search Results</h1>
-        </div>
       )
     }
   }

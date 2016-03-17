@@ -10,7 +10,10 @@ var InterviewDashBoard = React.createClass({
       url: '/interviews',
       dataType: 'json',
       success: function(results) {
-        this.setInterviewPanels(results)
+        if (results[0]) {
+          console.log(results[0])
+          this.setInterviewPanels(results)
+        }
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -35,22 +38,43 @@ var InterviewDashBoard = React.createClass({
     this.getData();
   },
   render: function() {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-12">
-            <NewInterviewForm />
+    console.log(this.state)
+    if (this.state.interviewPanels) {
+      return (
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-12">
+              <NewInterviewForm />
+            </div>
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-sm-12">
-            <div className="row pad-x-15">
-              {this.state.interviewPanels}
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="row pad-x-15">
+                {this.state.interviewPanels}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-12">
+              <NewInterviewForm />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="panel panel-default empty-result">
+                <h1>You Have No Interviews</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 });
