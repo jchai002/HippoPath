@@ -11,7 +11,6 @@ class ConversationsController < ApplicationController
   def show
     @messages = @conversation.messages
     @message = Message.new
-    @no_flash = true
   end
 
   # POST /conversations
