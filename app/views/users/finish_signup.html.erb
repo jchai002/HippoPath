@@ -1,22 +1,22 @@
-<div id="add-email" class="container">
-  <h1>Add Email</h1>
-  <%= form_for(current_user, :as => 'user', :url => finish_signup_path(current_user), :html => { role: 'form'}) do |f| %>
-    <% if @show_errors && current_user.errors.any? %>
-      <div id="error_explanation">
-        <% current_user.errors.full_messages.each do |msg| %>
-          <%= msg %><br>
-        <% end %>
-      </div>
-    <% end %>
+<div id="additional-info" class="row">
+  <div class="col-sm-12 col-md-8 col-md-offset-2">
+    <h1>Please Enter Additional Info About You</h1>
+    <%= bootstrap_form_for(current_user, as: 'user', url: finish_signup_path(current_user), :html => { role: 'form', class: "login-form"}) do |f| %>
     <div class="form-group">
-      <%= f.label :email %>
-      <div class="controls">
-        <%= f.text_field :email, :autofocus => true, :value => '', class: 'form-control input-lg', placeholder: 'Example: email@me.com' %>
-        <p class="help-block">Please confirm your email address. No spam.</p>
-      </div>
+      <%= f.text_field :school, :value => '', class: 'form-control', placeholder: 'Your School' %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field :specialty, :value => '', class: 'form-control', placeholder: 'Your Specialty' %>
+    </div>
+    <div class="form-group">
+      <%= f.select(:gender, ['Male','Female'] , {include_blank: 'Select Your Gender'}) %>
     </div>
     <div class="actions">
       <%= f.submit 'Continue', :class => 'btn btn-primary' %>
     </div>
-  <% end %>
+    <div class="actions mar-t-10">
+      <%= link_to 'skip for now', interviews_dash_board_path %>
+    </div>
+    <% end %>
+  </div>
 </div>

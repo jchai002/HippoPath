@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :finish_signup]
 
   # GET /users/:id.:format
   def show
@@ -11,8 +11,8 @@ class UsersController < ApplicationController
     # authorize! :update, @user
   end
 
-  # PATCH/PUT /users/:id.:format
   def update
+    binding.pry
     # authorize! :update, @user
     respond_to do |format|
       if @user.update(user_params)
@@ -28,15 +28,11 @@ class UsersController < ApplicationController
 
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
-    # authorize! :update, @user
-    if request.patch? && params[:user] #&& params[:user][:email]
-      if @user.update(user_params)
-        @user.skip_reconfirmation!
-        sign_in(@user, :bypass => true)
-        redirect_to @user, notice: 'Your profile was successfully updated.'
-      else
-        @show_errors = true
-      end
+    if request.patch? && params[:user]
+      school_name = params[:user][:school].titleize
+      @user.school = School.find_or_create_by({name:school_name})
+      @user.update_attributes(user_params)
+      redirect_to interviews_dash_board_path
     end
   end
 
@@ -56,7 +52,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      accessible = [ :name, :email, :gender, :phone, :specialty, :address, :school] # extend with your own params
+      accessible = [ :name, :email, :gender, :phone, :specialty, :address] # extend with your own params
       accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
       params.require(:user).permit(accessible)
     end

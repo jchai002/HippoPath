@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    interviews_dash_board_path
+    # if resource.sign_in_count == 1
+      finish_signup_path(resource)
+    # else
+    #   interviews_dash_board_path
+    # end
   end
+
 end
