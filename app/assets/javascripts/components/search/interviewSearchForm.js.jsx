@@ -60,7 +60,6 @@ var InterviewSearchForm = React.createClass({
           console.error( status, err.toString());
         }.bind(this)
       });
-
   },
   handleDateTimeChange: function(){
     var dateTime=$("#interview-time").val().split(' ')

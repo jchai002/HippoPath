@@ -1,7 +1,7 @@
 var InterviewDashBoard = React.createClass({
   getInitialState: function(){
     return ({
-      interviewPanels:null
+      interviewPanels:undefined
     })
   },
   getData: function(){
@@ -22,12 +22,18 @@ var InterviewDashBoard = React.createClass({
   },
   setInterviewPanels: function(data){
     var handleUpdate = this.handleUpdate;
-
     var panels = data.map(function(interviewInfo){
       var bodyContent = {};
       bodyContent['date'] = interviewInfo['date'];
       bodyContent['time'] = interviewInfo['time'];
-      return <InfoPanel url="/interviews" key={interviewInfo.id} interviewInfo={interviewInfo} bodyContent={bodyContent} bootstrapClass="col-sm-12 col-md-6 col-lg-4" handleUpdate={handleUpdate} />
+      return <InfoPanel
+        url="/interviews"
+        key={interviewInfo.id}
+        interviewInfo={interviewInfo}
+        bodyContent={bodyContent}
+        bootstrapClass="col-sm-12 col-md-6 col-lg-4"
+        handleUpdate={handleUpdate}
+        />
     })
     this.setState({interviewPanels:panels})
   },
@@ -38,43 +44,27 @@ var InterviewDashBoard = React.createClass({
     this.getData();
   },
   render: function() {
-    console.log(this.state)
     if (this.state.interviewPanels) {
-      return (
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-12">
-              <NewInterviewForm />
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="row pad-x-15">
-                {this.state.interviewPanels}
-              </div>
-            </div>
-          </div>
-        </div>
-      );
+      panels = this.state.interviewPanels;
     } else {
-      return (
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-12">
-              <NewInterviewForm />
-            </div>
+      panels = <div className="panel panel-default empty-result"><h1>You Have No Interviews</h1></div>;
+    }
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12">
+            <NewInterviewForm />
           </div>
+        </div>
 
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="panel panel-default empty-result">
-                <h1>You Have No Interviews</h1>
-              </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="row pad-x-15">
+              {panels}
             </div>
           </div>
         </div>
-      );
-    }
+      </div>
+    );
   }
 });

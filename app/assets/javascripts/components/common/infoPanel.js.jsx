@@ -55,6 +55,6 @@ var InfoPanel = React.createClass({
     this.props.handleUpdate();
   },
   handleDelete: function(){
-    this.setState({deleted:true})
+    this.setState({deleted:true});
   }
 });
