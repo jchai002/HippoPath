@@ -1,7 +1,7 @@
-<div id="additional-info" class="row">
+<div class="row">
   <div class="col-sm-12 col-md-8 col-md-offset-2">
     <h1>Please Enter Additional Info About You</h1>
-    <%= bootstrap_form_for(current_user, as: 'user', url: finish_signup_path(current_user), :html => { role: 'form', class: "login-form"}) do |f| %>
+    <%= form_for(current_user, as: 'user', url: finish_signup_path(current_user), html: { role: 'form', class: "additional-info pad-20", autocomplete: "off"}) do |f| %>
     <div class="form-group">
       <%= f.text_field :school, :value => '', class: 'form-control', placeholder: 'Your School' %>
     </div>
@@ -9,7 +9,19 @@
       <%= f.text_field :specialty, :value => '', class: 'form-control', placeholder: 'Your Specialty' %>
     </div>
     <div class="form-group">
-      <%= f.select(:gender, ['Male','Female'] , {include_blank: 'Select Your Gender'}) %>
+      <%= f.select(:gender, ['Male','Female'] , { :include_blank => "Select Your Gender", :selected => "Select Your Gender"}, class: 'form-control') %>
+    </div>
+    <label class="mar-b-15">Your address</label>
+    <div class="form-group">
+      <%= f.text_field :address_street_and_house_number, :value => '', class: 'form-control', placeholder: 'Street and House Number' %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field :address_apartment_number, :value => '', class: 'form-control', placeholder: 'Apartment Number' %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field :address_apartment_number, :value => '', class: 'form-control mar-r-15 mar-b-15', placeholder: 'City' %>
+      <%= f.text_field :address_apartment_number, :value => '', class: 'form-control mar-r-15 mar-b-15', id: 'state-autocomplete', placeholder: 'State', autocomplete: 'off' %>
+      <%= f.text_field :address_apartment_number, :value => '', class: 'form-control mar-b-15', placeholder: 'Zip Code' %>
     </div>
     <div class="actions">
       <%= f.submit 'Continue', :class => 'btn btn-primary' %>

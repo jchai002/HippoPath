@@ -18,7 +18,7 @@ var NewInterviewForm = React.createClass({
 
         <div className="form-group mar-y-0">
           <div className='input-group date' id='interview-time-picker'>
-            <input id="interview-time" style={{width:300}} placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
+            <input id="interview-time" placeholder="MM/DD/YYYY 12:00 AM" type='text' className="form-control" onBlur={this.handleDateTimeChange} onChange={this.handleDateTimeChange}/>
             <span className="input-group-addon">
               <span className="glyphicon glyphicon-calendar"></span>
             </span>
