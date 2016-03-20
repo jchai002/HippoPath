@@ -30,7 +30,13 @@ class UsersController < ApplicationController
   def finish_signup
     if request.patch? && params[:user]
       school_name = params[:user][:school].titleize
-      @user.school = School.find_or_create_by({name:school_name})
+      street = params[:user][:address_street_and_house_number].titleize
+      apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '') unless params[:user][:address_apartment_number].blank?
+      city = params[:user][:address_city].titleize
+      state = params[:user][:address_state].upcase
+      zip = params[:user][:address_zip]
+      @user.school = School.find_or_create_by({name: school_name})
+      @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip})
       @user.update_attributes(user_params)
       redirect_to interviews_dash_board_path
     end
@@ -52,7 +58,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      accessible = [ :name, :email, :gender, :phone, :specialty, :address] # extend with your own params
+      accessible = [ :name, :email, :gender, :phone, :specialty] # extend with your own params
       accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
       params.require(:user).permit(accessible)
     end

@@ -20,7 +20,8 @@ function activateHospitalEditAutocomplete(modalID) {
 }
 
 function activateStateAutocomplete() {
-  var states = ["AL (Alabama)",
+  var $input = $('#state-autocomplete');
+  var states = ["AL",
                 "AK (Alaska)",
                 "AS (American Samoa)",
                 "AZ (Arizona)",
@@ -78,10 +79,15 @@ function activateStateAutocomplete() {
                 "WA (Washington)",
                 "WV (West Virginia)",
                 "WI (Wisconsin)",
-                "WY (Wyoming)"]
-  $('#state-autocomplete').autocomplete({
+                "WY (Wyoming)"];
+  $input.autocomplete({
     source: states
   });
+  $input.blur(function(){
+    var oldValue = $input.val();
+    var newValue = oldValue.substring(0,2);
+    $input.val(newValue);
+  })
 }
 
 
