@@ -29,9 +29,11 @@ var InterviewDashBoard = React.createClass({
       return <InfoPanel
         url="/interviews"
         key={interviewInfo.id}
+        layoutType='interview'
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
-        bootstrapClass="col-sm-12 col-md-6 col-lg-4"
+        wrapperClass="col-sm-12 col-md-6 col-lg-4"
+        flexBoxClass="panel-flex-container-2"
         handleUpdate={handleUpdate}
         />
     })

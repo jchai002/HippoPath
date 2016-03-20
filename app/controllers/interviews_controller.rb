@@ -11,13 +11,12 @@ class InterviewsController < ApplicationController
 
   #find the interviews by search parameters
   def search_interviews
-    hospital_id = Hospital.find_by(name: params[:interview_info][:hospital].titleize).id
+    hospital = params[:interview_info][:hospital].titleize if params[:interview_info][:hospital]
     search_parameters = {
-      hospital_id: hospital_id,
+      hospital: hospital,
       date: params[:interview_info][:date],
       ride_status: params[:interview_info][:ride_status]
     }
-
     interview_records=Interview.search(search_parameters).all
     @interviews = Interview.build_search_result(interview_records)
     respond_to do |format|

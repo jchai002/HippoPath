@@ -1,58 +1,66 @@
 var SearchDashBoard = React.createClass({
   getInitialState: function(){
     return {
-      searchResults: undefined,
+      searchResultPanels: undefined,
       searched: false
     }
   },
-  render: function() {
-    if (!this.state.searched) {
-      return (
-        <div className="container">
-
-          <div className="row">
-            <div className="col-sm-12">
-              <InterviewSearchForm handleSearch={this.handleSearch}/>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="panel panel-default empty-result">
-                <h1>Search For a Carpool</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      );
-    } else {
-      return (
-        <div className="container">
-
-          <div className="row">
-            <div className="col-sm-12">
-              <InterviewSearchForm handleSearch={this.handleSearch}/>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-sm-12">
-              <SearchResultsPanel data={this.state.searchResults} token={this.props.token} currentUserId={this.props.current_user_id} />
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-  },
-  handleSearch: function(results){
-    this.setState({
-      searchResults:results,
-      searched: true
+  setSearchResultPanels: function(data){
+    var handleUpdate = this.handleUpdate;
+    var token = this.props.token;
+    var currentUserId = this.props.current_user_id;
+    var panels = data.map(function(interviewInfo){
+      var bodyContent = {};
+      bodyContent['date'] = interviewInfo['date'];
+      bodyContent['time'] = interviewInfo['time'];
+      bodyContent['interviewee specialty'] = interviewInfo['specialty'];
+      bodyContent['interviewee school'] = interviewInfo['school'];
+      bodyContent['interviewee gender'] = interviewInfo['gender'];
+      return <InfoPanel
+        url="/interviews"
+        key={interviewInfo.id}
+        layoutType='search'
+        interviewInfo={interviewInfo}
+        bodyContent={bodyContent}
+        wrapperClass="col-sm-12"
+        flexBoxClass="panel-flex-container-5"
+        token={token}
+        currentUserId={currentUserId}
+        />
     })
+    this.setState({searchResultPanels:panels})
   },
-  componentDidUpdate: function(){
-    console.log('dash board state' , this.state.searchResults)
-  }
-});
+  render: function() {
+    console.log('props',this.props)
+    var panels;
+    if (!this.state.searchResultPanels) {
+      panels = <div className="panel panel-default empty-result"><h1>Search For Carpool</h1></div>;
+    } else {
+      if (this.state.searchResultPanels.length) {
+        panels = this.state.searchResultPanels;
+      } else {
+        panels = <div className="panel panel-default empty-result"><h1>0 Search Results</h1></div>;
+      }
+    }
+      return (
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-12">
+              <InterviewSearchForm handleSearch={this.handleSearch}/>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-12">
+              {panels}
+            </div>
+          </div>
+        </div>
+      );
+    },
+    handleSearch: function(results){
+      this.setSearchResultPanels(results);
+      this.setState({
+        searched: true
+      })
+    }
+  });
