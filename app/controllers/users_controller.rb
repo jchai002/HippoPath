@@ -35,8 +35,9 @@ class UsersController < ApplicationController
       city = params[:user][:address_city].titleize
       state = params[:user][:address_state].upcase
       zip = params[:user][:address_zip]
+      on_campus = params[:user][:address_on_campus] ? true : false
       @user.school = School.find_or_create_by({name: school_name})
-      @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip})
+      @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus})
       @user.update_attributes(user_params)
       redirect_to interviews_dash_board_path
     end
