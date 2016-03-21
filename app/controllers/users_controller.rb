@@ -12,17 +12,25 @@ class UsersController < ApplicationController
   end
 
   def update
-    school_name = params[:user][:school].titleize
-    street = params[:user][:address_street_and_house_number].titleize
-    apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '') unless params[:user][:address_apartment_number].blank?
-    city = params[:user][:address_city].titleize
-    state = params[:user][:address_state].upcase
-    zip = params[:user][:address_zip]
-    on_campus = params[:user][:address_on_campus] ? true : false
-    @user.school = School.find_or_create_by({name: school_name})
-    @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus})
-    @user.update_attributes(user_params)
-    redirect_to interviews_dash_board_path
+    attributes = [:email, :gender, :specialty]
+    attributes.each do |attribute|
+      @user.update_attribute(attribute, user_params[attribute]) if user_params[attribute] && @user.send(attribute) != user_params[attribute]
+    end
+
+    # school_name = params[:user][:school].titleize unless params[:user][:school].blank?
+
+    if address_params_complete
+      street = params[:user][:address_street_and_house_number]
+      apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '')
+      city = params[:user][:address_city].titleize
+      state = params[:user][:address_state].upcase
+      zip = params[:user][:address_zip]
+      on_campus = params[:user][:address_on_campus] ? true : false
+      @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus})
+    end
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET/PATCH /users/:id/finish_signup
@@ -53,13 +61,17 @@ class UsersController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def user_params
-      accessible = [ :name, :email, :gender, :phone, :specialty] # extend with your own params
-      accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
-      params.require(:user).permit(accessible)
-    end
+  def user_params
+    accessible = [ :name, :email, :gender, :phone, :specialty] # extend with your own params
+    accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
+    params.require(:user).permit(accessible)
+  end
+
+  def address_params_complete
+    params[:user][:address_street_and_house_number] && params[:user][:address_city] && params[:user][:address_state] && params[:user][:address_zip]
+  end
 end

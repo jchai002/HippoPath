@@ -1,10 +1,11 @@
 <div class="row">
   <div class="col-sm-12 col-md-6">
     <h1>Account Info</h1>
-    <%= form_for(current_user, html: { method: :put, class:'pad-20', id: 'user-info'}) do |f| %>
+    <%= form_for(current_user, html: { method: :put, class:'pad-20 info-edit', id: 'user-info'}) do |f| %>
     <%= f.label 'Email' %>
     <div class="form-group">
-      <%= f.email_field :email, class: 'form-control' %>
+      <%= f.email_field :email, class: 'form-control', id: 'email-edit-field' %>
+      <div class="info-display" id="email-display"><%=@user.email%><i class="fa fa-pencil pad-l-10 edit-button" id="email-edit-handle"></i></div>
     </div>
     <%= f.label 'Current Password' %>
     <div class="form-group">
@@ -27,10 +28,10 @@
 
   <div class="col-sm-12 col-md-6">
     <h1>Personal Info</h1>
-    <%= form_for(current_user, url: user_path(current_user), html: { role: 'form', class: "pad-20", autocomplete: "off",  id: 'user-info'}) do |f| %>
+    <%= form_for(current_user, url: user_path(current_user), html: { role: 'form', class: "pad-20 info-edit", autocomplete: "off",  id: 'user-info'}) do |f| %>
     <%= f.label 'School' %>
     <div class="form-group">
-      <%= f.text_field :school, class: 'form-control', value: @user.school.name %>
+      <%= f.text_field :school, class: 'form-control', value: (@user.school.name if @user.school) %>
     </div>
     <%= f.label 'Specialty' %>
     <div class="form-group">
@@ -42,13 +43,13 @@
     </div>
     <label class="mar-b-15"><h4>Address</h4></label>
     <div class="form-group">
-      <%= f.text_field :address_street_and_house_number, class: 'form-control',  value: @user.street %>
+      <%= f.text_field :address_street_and_house_number, class: 'form-control',  value: (@user.street if @user.address), required: true, data: {'error-value-missing' => "Please Enter Your Street and House Number"}  %>
     </div>
     <div class="form-group">
-      <%= f.text_field :address_apartment_number, class: 'form-control', value: @user.apt %>
+      <%= f.text_field :address_apartment_number, class: 'form-control', value: (@user.apt if @user.address)%>
     </div>
     <div class="form-group">
-      <% if @user.on_campus %>
+      <% if @user.address && @user.on_campus %>
       <label class="checkbox-inline"><input type="checkbox" value="true" name="user[address_on_campus]" checked>On Campus</label>
       <%else%>
       <label class="checkbox-inline"><input type="checkbox" value="true" name="user[address_on_campus]">On Campus</label>
@@ -56,9 +57,9 @@
     </div>
 
     <div class="form-group">
-      <%= f.text_field :address_city, class: 'form-control mar-r-15 mar-b-15', value: @user.city %>
-      <%= f.text_field :address_state, class: 'form-control mar-r-15 mar-b-15', id: 'state-autocomplete', value: @user.state %>
-      <%= f.text_field :address_zip, class: 'form-control mar-b-15', value: @user.zip%>
+      <%= f.text_field :address_city, class: 'form-control mar-r-15 mar-b-15', value: (@user.city if @user.address), required: true, data: {'error-value-missing' => "Please Enter Your City"} %>
+      <%= f.text_field :address_state, class: 'form-control mar-r-15 mar-b-15', id: 'state-autocomplete', value: (@user.state if @user.address), required: true, data: {'error-value-missing' => "Please Enter Your State"}  %>
+      <%= f.text_field :address_zip, class: 'form-control mar-b-15', value: (@user.zip if @user.address), required: true, pattern: '^\d{5}(?:[-\s]\d{4})?$', data: {'error-value-missing' => "Please Enter Your Zip Code", 'error-pattern-mismatch' => "Zip Code Format Invalid"} %>
     </div>
     <div class="actions">
       <%= f.submit 'Save', :class => 'btn btn-primary' %>

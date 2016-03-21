@@ -77,7 +77,6 @@
 }
 
 // additional info form
-
 #user-info {
   border: solid 2px #27ae60;
   border-radius:3px;
@@ -128,4 +127,23 @@
      padding-left: 0;
    }
  }
+}
+
+//info edit form
+.info-edit {
+  .form-control {
+    // display: none;
+  }
+
+  .info-display {
+    font-size: 16px;
+  }
+
+  .edit-button {
+    opacity: 0.5;
+    &:hover {
+      cursor: hand;
+      cursor: pointer;
+    }
+  }
 }
