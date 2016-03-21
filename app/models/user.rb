@@ -5,6 +5,13 @@ class User < ActiveRecord::Base
   has_many   :interviews, foreign_key: 'poster_id'
   acts_as_reader
 
+  delegate :street, :to => :address
+  delegate :apt, :to => :address
+  delegate :city, :to => :address
+  delegate :state, :to => :address
+  delegate :zip, :to => :address
+  delegate :on_campus, :to => :address
+
   def conversations
     Conversation.where("starter_id = ? OR reciever_id = ?", self.id, self.id)
   end

@@ -1,17 +1,17 @@
 <div class="row">
   <div class="col-sm-12 col-md-8 col-md-offset-2">
     <h1>Please Enter Additional Info About You</h1>
-    <%= form_for(current_user, as: 'user', url: finish_signup_path(current_user), html: { role: 'form', class: "additional-info pad-20", autocomplete: "off",  id: 'user-info'}) do |f| %>
+    <%= form_for(current_user, as: 'user', url: finish_signup_path(current_user), html: { role: 'form', class: "pad-20", autocomplete: "off",  id: 'user-info'}) do |f| %>
     <div class="form-group">
-      <%= f.text_field :school, :value => '', class: 'form-control', placeholder: 'Your School', required: true, data: {'error-value-missing' => "Please Enter Your School"}  %>
+      <%= f.text_field :school, :value => '', class: 'form-control', placeholder: 'School', required: true, data: {'error-value-missing' => "Please Enter Your School"}  %>
     </div>
     <div class="form-group">
-      <%= f.text_field :specialty, :value => '', class: 'form-control', placeholder: 'Your Specialty', required: true, data: {'error-value-missing' => "Please Enter Your Specialty"} %>
+      <%= f.text_field :specialty, :value => '', class: 'form-control', placeholder: 'Specialty', required: true, data: {'error-value-missing' => "Please Enter Your Specialty"} %>
     </div>
     <div class="form-group">
       <%= f.select :gender, ['Male','Female'] , { :include_blank => "Select Your Gender", :selected => "Select Your Gender"}, class: 'form-control', required: true, data: {'error-value-missing' => "Please Select Your Gender"} %>
     </div>
-    <label class="mar-b-15">Your address</label>
+    <label class="mar-b-15"><h4>Address</h4></label>
     <div class="form-group">
       <%= f.text_field :address_street_and_house_number, :value => '', class: 'form-control', placeholder: 'Street and House Number', required: true, data: {'error-value-missing' => "Please Enter Your Street and House Number"} %>
     </div>
