@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus})
     end
     respond_to do |format|
-      format.js
+      format.json { head :no_content }
     end
   end
 
