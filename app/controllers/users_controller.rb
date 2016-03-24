@@ -17,7 +17,8 @@ class UsersController < ApplicationController
       @user.update_attribute(attribute, user_params[attribute]) if user_params[attribute] && @user.send(attribute) != user_params[attribute]
     end
 
-    # school_name = params[:user][:school].titleize unless params[:user][:school].blank?
+    @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
+    @user.save
 
     if address_params_complete
       street = params[:user][:address_street_and_house_number]
