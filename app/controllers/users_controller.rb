@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   # GET /users/:id/edit
   def edit
     # authorize! :update, @user
+    @address = @user.address || Address.new
   end
 
   def update

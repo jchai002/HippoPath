@@ -20,7 +20,7 @@ function activateHospitalEditAutocomplete(modalID) {
 }
 
 function activateStateAutocomplete() {
-  var $input = $('#state-autocomplete');
+  var $input = $('#address_state');
   var states = ["AL",
                 "AK (Alaska)",
                 "AS (American Samoa)",
@@ -96,7 +96,7 @@ $(window).load(function(){
     activateAutocomplete();
   }
 
-  if ($('#state-autocomplete')[0]) {
+  if ($('#address_state')[0]) {
     activateStateAutocomplete()
   }
 

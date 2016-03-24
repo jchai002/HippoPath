@@ -31,7 +31,7 @@ function updateUserInfo ($display,$editField,$handle, paramName) {
 
 $(document).ready(function(){
   if ($('#user-info')[0]) {
-    $('.info-edit').on('submit',function(e){
+    $('.info-edit').submit(function(e){
       e.preventDefault();
     })
     updateUserInfo($('#email-display'),$('#email-edit-field'),$('#email-edit-handle'), 'email');
@@ -51,6 +51,31 @@ $(document).ready(function(){
         },
         error: function(xhr, status, err) {
           console.error( status, err.toString());
+        }
+      });
+    })
+  }
+
+  if ($('#user-address')[0]) {
+    userId = $('#user-info').data('userid')
+    $('#user-address').submit(function(e){
+      e.preventDefault();
+      var jsonData = {address: {
+        street:$('#address_street').val(),
+        apt: $('#address_apt').val(),
+        city: $('#address_city').val(),
+        state: $('#address_state').val(),
+        zip: $('#address_zip').val()
+      }};
+
+      console.log(jsonData)
+      $.ajax({
+        url: "/assign_address_to_user/"+userId,
+        dataType: 'json',
+        type: 'PATCH',
+        data: jsonData,
+        success: function(data) {
+          console.log('address saved')
         }
       });
     })

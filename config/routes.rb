@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   resources :interviews, only: [:new, :create, :update, :destroy]
   get '/interviews' => 'interviews#get_interviews'
   post '/interview_search' => 'interviews#search_interviews'
-
   post '/conversations' => 'conversations#find_or_create'
-
+  match '/assign_address_to_user/:user_id' => 'address#assign_address_to_user', via: [:post, :patch], :as => :assign_address
 end
