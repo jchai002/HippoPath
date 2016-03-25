@@ -9,22 +9,7 @@
       <div class="info-display" id="email-display"><%=@user.email%></div>
       <i class="fa fa-pencil pad-l-10 edit-button" id="email-edit-handle"></i>
     </div>
-    <%= f.label 'Current Password' %>
-    <div class="form-group">
-      <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
-    </div>
-    <%= f.label 'New Password' %>
-    <div class="form-group">
-
-      <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
-    </div>
-    <%= f.label 'Confirm New Password' %>
-    <div class="form-group">
-      <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
-    </div>
-    <div class="actions">
-      <%= f.submit "Update", class: 'btn btn-primary' %>
-    </div>
+    <%= render partial: "change_password" %>
     <% end %>
   </div>
 
