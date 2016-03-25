@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   get '/interviews' => 'interviews#get_interviews'
   post '/interview_search' => 'interviews#search_interviews'
   post '/conversations' => 'conversations#find_or_create'
-  match '/assign_address_to_user/:user_id' => 'address#assign_address_to_user', via: [:post, :patch], :as => :assign_address
+  match '/assign_address_to_user/:user_id' => 'address#assign_address_to_user', via: [:post, :put, :patch], :as => :assign_address
 end

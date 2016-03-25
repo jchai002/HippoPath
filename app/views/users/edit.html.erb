@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-12 col-md-6">
     <div id="user-info" data-userid="<%=@user.id%>"></div>
-    <h1>Account Info</h1>
+    <h3>Account Info</h3>
     <%= form_for(@user, html: { method: :put, class:'pad-20 info-edit'}) do |f| %>
     <%= f.label 'Email' %>
     <div class="form-group">
@@ -29,27 +29,9 @@
   </div>
 
   <div class="col-sm-12 col-md-6">
-    <h1>Personal Info</h1>
-    <%= form_for(@user, url: user_path(@user), html: { role: 'form', class: "pad-20 info-edit", autocomplete: "off",  id: 'user-info'}) do |f| %>
-    <%= f.label 'School' %>
-    <div class="form-group">
-      <%= f.text_field :school, class: 'form-control editable-field', id: 'school-edit-field', value: @user.school ? @user.school.name : ''%>
-      <div class="info-display" id="school-display"><%= @user.school ? @user.school.name : 'unknown'%>
-      </div>
-      <i class="fa fa-pencil pad-l-10 edit-button" id="school-edit-handle"></i>
-    </div>
-    <%= f.label 'Specialty' %>
-    <div class="form-group">
-      <%= f.text_field :specialty, class: 'form-control editable-field', id: 'specialty-edit-field' %>
-      <div class="info-display" id="specialty-display"><%=@user.specialty ? @user.specialty : 'unknown' %>
-      </div>
-      <i class="fa fa-pencil pad-l-10 edit-button" id="specialty-edit-handle"></i>
-    </div>
-    <%= f.label 'Gender' %>
-    <div class="form-group">
-      <%= f.select :gender, ['Male','Female'] , { :include_blank => "Select Your Gender", :selected => @user.gender}, class: 'form-control', id: 'gender-select',required: true, data: {'error-value-missing' => "Please Select Your Gender"} %>
-    </div>
-    <% end %>
-    <%= render partial: "address", locals: {address: @address, user_id: @user.id} %>
+    <h3>Personal Info</h3>
+    <%= render partial: "personal_info_form" %>
+    <h3>Adrress<span class="status-text label label-success mar-l-10"></span></h3>
+    <%= render partial: "address_form", locals: {address: @address, user_id: @user.id} %>
   </div>
 </div>

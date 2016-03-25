@@ -6,7 +6,7 @@ class AddressController < ApplicationController
       current_user.update_attributes({address_id: @address.id})
     end
     respond_to do |format|
-      format.js
+      format.js { render layout: false, content_type: 'text/javascript' }
     end
   end
 

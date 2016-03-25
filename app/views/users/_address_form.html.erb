@@ -1,0 +1,34 @@
+<%= form_for(address, remote: true, url: assign_address_path(user_id), html: {class: "pad-20", autocomplete: "off",  id: 'user-address'}) do |f| %>
+<div class="form-group">
+  <%= f.label 'Street and House Number' %>
+  <%= f.text_field :street, class: 'form-control',  value: (address ? address.street : ''), required: true, data: {'error-value-missing' => "Please Enter Your Street and House Number"}, placehoder: 'Street and House Number'  %>
+</div>
+<div class="form-group">
+  <%= f.label 'Apartment Number' %>
+  <%= f.text_field :apt, class: 'form-control', value: (address ? address.apt : ''), placehoder: 'Apartment Number'%>
+</div>
+<div class="form-group">
+  <label class="checkbox-inline">
+    <%= f.check_box :on_campus, {:checked => (address && address.on_campus) ? true : false}, true, false %>
+    On Campus</label>
+  </div>
+  <div class="city-state-zip">
+    <div class="form-group">
+      <%= f.label 'City' %>
+      <%= f.text_field :city, class: 'form-control mar-r-15 mar-b-15', value: (address ? address.city : ''), required: true, data: {'error-value-missing' => "Please Enter Your City"}, placehoder: 'City' %>
+    </div>
+    <div class="form-group">
+      <%= f.label 'State' %>
+      <%= f.text_field :state, class: 'form-control mar-r-15 mar-b-15', value: (address ? address.state : ''), required: true, data: {'error-value-missing' => "Please Enter Your State"}, placehoder: 'State' %>
+    </div>
+    <div class="form-group">
+      <%= f.label 'Zip Code' %>
+      <%= f.text_field :zip, class: 'form-control mar-b-15', value: (address ? address.zip : ''), required: true, pattern: '^\d{5}(?:[-\s]\d{4})?$', data: {'error-value-missing' => "Please Enter Your Zip Code", 'error-pattern-mismatch' => "Zip Code Format Invalid"}, placehoder: 'Zip Code' %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Save', class: 'btn btn-primary', id: 'save-address'  %>
+  </div>
+  <% end %>
+</div>
+</div>

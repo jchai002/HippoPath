@@ -7,7 +7,7 @@ function updateUserInfo ($display,$editField,$handle, paramName) {
     $editField.focus();
   });
 
-  $editField.change(function(){
+  $editField.blur(function(){
     $display.show();
     $handle.show();
     $editField.hide();
@@ -20,7 +20,11 @@ function updateUserInfo ($display,$editField,$handle, paramName) {
       data: jsonData,
       success: function(data) {
         console.log($editField.val())
-        $display.html($editField.val())
+        var displayValue = $editField.val()
+        if ($editField.val() == '') {
+          displayValue = 'unknown'
+        }
+        $display.html(displayValue)
       },
       error: function(xhr, status, err) {
         console.error( status, err.toString());
@@ -51,31 +55,6 @@ $(document).ready(function(){
         },
         error: function(xhr, status, err) {
           console.error( status, err.toString());
-        }
-      });
-    })
-  }
-
-  if ($('#user-address')[0]) {
-    userId = $('#user-info').data('userid')
-    $('#user-address').submit(function(e){
-      e.preventDefault();
-      var jsonData = {address: {
-        street:$('#address_street').val(),
-        apt: $('#address_apt').val(),
-        city: $('#address_city').val(),
-        state: $('#address_state').val(),
-        zip: $('#address_zip').val()
-      }};
-
-      console.log(jsonData)
-      $.ajax({
-        url: "/assign_address_to_user/"+userId,
-        dataType: 'json',
-        type: 'PATCH',
-        data: jsonData,
-        success: function(data) {
-          console.log('address saved')
         }
       });
     })
