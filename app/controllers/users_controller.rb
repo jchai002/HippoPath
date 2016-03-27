@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :finish_signup]
-
-  # GET /users/:id.:format
-  def show
-    # authorize! :read, @user
-  end
+  # before_action :authenticate_user!, only: [:edit, :update, :destroy, :finish_signup, :update_password]
+  before_action :set_user, only: [:edit, :update, :destroy, :finish_signup]
 
   # GET /users/:id/edit
   def edit
@@ -52,6 +48,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_password
+    @user = User.find(params[:user][:id])
+    if user_params[:password] == user_params[:password_confirmation]
+      @user.update_attributes(password: user_params[:password])
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
   # DELETE /users/:id.:format
   def destroy
     # authorize! :delete, @user
@@ -68,7 +73,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    accessible = [ :name, :email, :gender, :phone, :specialty] # extend with your own params
+    accessible = [ :name, :email, :gender, :phone, :specialty, :school] # extend with your own params
     accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
     params.require(:user).permit(accessible)
   end
