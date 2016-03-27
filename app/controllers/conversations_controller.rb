@@ -5,6 +5,7 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = Conversation.where("starter_id = ? OR reciever_id = ?", current_user.id, current_user.id)
+    @no_message = true if current_user.messages.length == 0
   end
   # GET /conversations/1
   # GET /conversations/1.json

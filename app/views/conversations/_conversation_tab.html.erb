@@ -1,8 +1,8 @@
 <%= link_to(conversation) do %>
-  <div class="conversation-tab">
-    <p><%= conversation.messages.last.body %></p>
+  <div class="conversation-tab panel panel-default">
     <% if conversation.messages.last.unread?(current_user) %>
-      <p>new message</p>
+      <span class="label label-success mar-x-15 pull-right pad-5"} >New</span>
     <%end%>
+    <p class="mar-15 font-15px"><%= conversation.messages.last.body %></p>
   </div>
 <% end %>
