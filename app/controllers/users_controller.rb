@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  # before_action :authenticate_user!, only: [:edit, :update, :destroy, :finish_signup, :update_password]
   before_action :set_user, only: [:edit, :update, :destroy, :finish_signup]
 
   # GET /users/:id/edit
@@ -11,14 +10,14 @@ class UsersController < ApplicationController
   def update
     attributes = [:email, :gender, :specialty]
     attributes.each do |attribute|
-      @user.update_attribute(attribute, user_params[attribute]) if user_params[attribute] && @user.send(attribute) != user_params[attribute]
+      @user.update_attribute(attribute, user_params[attribute]) unless user_params[attribute].blank?
     end
 
     @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
     @user.save
 
     if address_params_complete
-      street = params[:user][:address_street_and_house_number]
+      street = params[:user][:address_street_and_house_number].titleize
       apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '')
       city = params[:user][:address_city].titleize
       state = params[:user][:address_state].upcase
@@ -34,7 +33,7 @@ class UsersController < ApplicationController
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
     if request.patch? && params[:user]
-      school_name = params[:user][:school].titleize
+      school_name = params[:user][:school]
       street = params[:user][:address_street_and_house_number].titleize
       apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '') unless params[:user][:address_apartment_number].blank?
       city = params[:user][:address_city].titleize

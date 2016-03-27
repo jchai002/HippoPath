@@ -16,7 +16,7 @@ $(document).ready(function(){
         type: 'PUT',
         data: jsonData,
         success: function(data) {
-          console.log('gender change success')
+          displaySuccessMessage();
         },
         error: function(xhr, status, err) {
           console.error( status, err.toString());
@@ -26,8 +26,17 @@ $(document).ready(function(){
   }
 });
 
+function displaySuccessMessage(){
+  $('#personal-info-status')
+    .html('Info Updated')
+    .fadeIn(150)
+    .delay(1000)
+    .fadeOut(150)
+}
+
 function updateUserInfo ($display,$editField,$handle, paramName) {
-  userId = $('#user-info').data('userid')
+  var userId = $('#user-info').data('userid');
+  var initialValue = $editField.val();
   $handle.click(function(){
     $display.hide();
     $handle.hide();
@@ -45,6 +54,10 @@ function updateUserInfo ($display,$editField,$handle, paramName) {
     $display.show();
     $handle.show();
     $editField.hide();
+
+    if ($editField.val() === '' || $editField.val() === initialValue) {
+      return false
+    }
     var jsonData = {'user': {}};
     jsonData['user'][paramName] = $editField.val();
     $.ajax({
@@ -53,12 +66,12 @@ function updateUserInfo ($display,$editField,$handle, paramName) {
       type: 'PUT',
       data: jsonData,
       success: function(data) {
-        console.log($editField.val())
         var displayValue = $editField.val()
         if ($editField.val() == '') {
-          displayValue = 'unknown'
+          displayValue = $display.text()
         }
-        $display.html(displayValue)
+        $display.html(displayValue);
+        displaySuccessMessage();
       },
       error: function(xhr, status, err) {
         console.error( status, err.toString());

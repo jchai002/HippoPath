@@ -24,8 +24,8 @@ var InterviewDashBoard = React.createClass({
     var handleUpdate = this.handleUpdate;
     var panels = data.map(function(interviewInfo){
       var bodyContent = {};
-      bodyContent['date'] = interviewInfo['date'];
-      bodyContent['time'] = interviewInfo['time'];
+      bodyContent['date'] = interviewInfo['date'] || 'unknown';
+      bodyContent['time'] = interviewInfo['time'] || 'unknown';
       return <InfoPanel
         url="/interviews"
         key={interviewInfo.id}

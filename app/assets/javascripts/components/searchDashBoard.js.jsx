@@ -11,11 +11,11 @@ var SearchDashBoard = React.createClass({
     var currentUserId = this.props.current_user_id;
     var panels = data.map(function(interviewInfo){
       var bodyContent = {};
-      bodyContent['date'] = interviewInfo['date'];
-      bodyContent['time'] = interviewInfo['time'];
-      bodyContent['interviewee specialty'] = interviewInfo['specialty'];
-      bodyContent['interviewee school'] = interviewInfo['school'];
-      bodyContent['interviewee gender'] = interviewInfo['gender'];
+      bodyContent['date'] = interviewInfo['date'] || 'unknown';
+      bodyContent['time'] = interviewInfo['time'] || 'unknown';
+      bodyContent['interviewee specialty'] = interviewInfo['specialty'] || 'unknown';
+      bodyContent['interviewee school'] = interviewInfo['school'].name || 'unknown';
+      bodyContent['interviewee gender'] = interviewInfo['gender'] || 'unknown';
       return <InfoPanel
         url="/interviews"
         key={interviewInfo.id}
