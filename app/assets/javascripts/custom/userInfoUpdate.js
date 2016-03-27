@@ -7,6 +7,12 @@ function updateUserInfo ($display,$editField,$handle, paramName) {
     $editField.focus();
   });
 
+  $editField.keypress(function(e) {
+    if(e.which == 13) {
+      $(this).blur();
+    }
+  });
+
   $editField.blur(function(){
     $display.show();
     $handle.show();
