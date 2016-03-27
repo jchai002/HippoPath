@@ -11,7 +11,6 @@ var InterviewDashBoard = React.createClass({
       dataType: 'json',
       success: function(results) {
         if (results[0]) {
-          console.log(results[0])
           this.setInterviewPanels(results)
         }
       }.bind(this),

@@ -19,11 +19,15 @@ class Interview < ActiveRecord::Base
         time: interview.time,
         ride_status: interview.ride_status,
         poster_id: interview.poster.id,
-        school: interview.poster.school,
         hospital: interview.hospital.name,
         specialty: interview.poster.specialty,
         gender: interview.poster.gender
       }
+      if interview.poster.school
+        search_result[:school] = interview.poster.school.name
+      else
+        search_result[:school] = nil
+      end
       search_results << search_result
     end
     search_results

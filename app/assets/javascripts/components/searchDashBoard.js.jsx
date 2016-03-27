@@ -14,7 +14,7 @@ var SearchDashBoard = React.createClass({
       bodyContent['date'] = interviewInfo['date'] || 'unknown';
       bodyContent['time'] = interviewInfo['time'] || 'unknown';
       bodyContent['interviewee specialty'] = interviewInfo['specialty'] || 'unknown';
-      bodyContent['interviewee school'] = interviewInfo['school'].name || 'unknown';
+      bodyContent['interviewee school'] = interviewInfo['school'] || 'unknown';
       bodyContent['interviewee gender'] = interviewInfo['gender'] || 'unknown';
       return <InfoPanel
         url="/interviews"
@@ -31,7 +31,6 @@ var SearchDashBoard = React.createClass({
     this.setState({searchResultPanels:panels})
   },
   render: function() {
-    console.log('props',this.props)
     var panels;
     if (!this.state.searchResultPanels) {
       panels = <div className="panel panel-default empty-result"><h1>Search For Carpool</h1></div>;
