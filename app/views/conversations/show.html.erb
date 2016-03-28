@@ -1,10 +1,9 @@
-<div class="conversation col-md-offset-1">
+<div class="conversation col-md-offset-1 panel panel-info">
   <div class="chatboxhead">
     <div class="chatboxtitle">
       <i class="fa fa-comments"></i>
     </div>
   </div>
-  unread count: <%=@conversation.messages.unread_by(current_user).count%>
   <div class="chatboxcontent">
     <% if @messages.any? %>
     <%= render @messages %>
