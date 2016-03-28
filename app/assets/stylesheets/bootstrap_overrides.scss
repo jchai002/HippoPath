@@ -4,10 +4,10 @@
 // $colDefault     : #ecf0f1;
 // $colHover       : #ffbbbc;
 /* Green */
-$bgDefault      : #2ecc71;
-$bgHighlight    : #27ae60;
-$colDefault     : #ecf0f1;
-$colHover       : #d1ffed;
+// $bgDefault      : #2ecc71;
+// $bgHighlight    : #27ae60;
+// $colDefault     : #ecf0f1;
+// $colHover       : #d1ffed;
 /* Purple * /
 $bgDefault      : #9b59b6;
 $bgHighlight    : #8e44ad;
@@ -19,6 +19,10 @@ $bgHighlight    : #d35400;
 $colDefault     : #ecf0f1;
 $colHover       : #ffe6d1; /*/
 
+$bgDefault      : $theme-primary;
+$bgHighlight    : darken($theme-primary,0.2);
+$colDefault     : #ecf0f1;
+$colHover       : #d1ffed;
 
 /* --- Style --- */
 .navbar-default {

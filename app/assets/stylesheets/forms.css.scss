@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 2px solid #27ae60;
+  border: 2px solid $theme-primary;
   padding: 1em;
   padding-top: 1.5em;
   border-radius: 3px;
@@ -43,7 +43,7 @@
 
 .login-form{
   padding:2em;
-  border: solid 2px #27ae60;
+  border: solid 2px $theme-primary;
   border-radius:3px;
 }
 
