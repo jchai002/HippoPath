@@ -4,7 +4,7 @@ class ConversationsController < ApplicationController
   before_filter :mark_messages_as_read,  only: [:show]
 
   def index
-    @conversations = Conversation.where("starter_id = ? OR reciever_id = ?", current_user.id, current_user.id)
+    @conversations = current_user.conversations
     @no_message = true if current_user.messages.length == 0
   end
   # GET /conversations/1

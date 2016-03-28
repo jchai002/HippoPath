@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
     Conversation.where("starter_id = ? OR reciever_id = ?", self.id, self.id)
   end
 
+  def messages
+    Message.where("user_id = ?", self.id)
+  end
+
   def started_conversations
     Conversation.where("starter_id = ? ", self.id)
   end

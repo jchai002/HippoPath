@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :get_unread_message_count
 
   def get_unread_message_count
-    @unread_message_count = Message.unread_by(current_user).count if current_user
+    @unread_message_count = current_user.messages.unread_by(current_user).count if current_user
   end
 
   def after_sign_in_path_for(resource)
