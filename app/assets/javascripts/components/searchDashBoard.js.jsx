@@ -14,7 +14,6 @@ var SearchDashBoard = React.createClass({
       bodyContent['date'] = interviewInfo['date'];
       bodyContent['time'] = interviewInfo['time'];
       bodyContent['interviewee specialty'] = interviewInfo['specialty'];
-      bodyContent['interviewee school'] = interviewInfo['school'];
       bodyContent['interviewee gender'] = interviewInfo['gender'];
       return <InfoPanel
         url="/interviews"
