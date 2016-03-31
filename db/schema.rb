@@ -28,11 +28,14 @@ ActiveRecord::Schema.define(version: 20160313054153) do
   end
 
   create_table "conversations", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "starter_id"
-    t.integer  "reciever_id"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
+  add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
 
   create_table "hospitals", force: :cascade do |t|
     t.string   "name"

@@ -15,13 +15,12 @@ class ConversationsController < ApplicationController
     else
       @conversation = Conversation.create!(conversation_params)
     end
-
     render json: { conversation_id: @conversation.id }
   end
 
   def show
     @conversation = Conversation.find(params[:id])
-    @reciever = conversation_target(@conversation)
+    @reciever = interlocutor(@conversation)
     @messages = @conversation.messages
     @message = Message.new
   end
@@ -31,7 +30,7 @@ class ConversationsController < ApplicationController
     params.permit(:sender_id, :recipient_id)
   end
 
-  def conversation_target(conversation)
+  def interlocutor(conversation)
     current_user == conversation.recipient ? conversation.sender : conversation.recipient
   end
 

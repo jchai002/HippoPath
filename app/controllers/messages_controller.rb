@@ -1,20 +1,18 @@
 class MessagesController < ApplicationController
+  before_filter :authenticate_user!
 
   def create
-    @conversation=Conversation.find_by({id: message_params[:conversation_id]})
-    if message_params[:body].empty?
-      flash[:error]="message cannot be empty"
-    else
-    @message = @conversation.messages.build(body: message_params[:body])
-    @message.user = current_user
-    end
-
+    @conversation = Conversation.find(params[:conversation_id])
+    @message = @conversation.messages.build(message_params)
+    @message.user_id = current_user.id
     @message.save!
-    @conversation_path = conversation_path(@conversation)
+
+    @path = conversation_path(@conversation)
   end
 
-private
+  private
+
   def message_params
-    params.require(:message).permit(:body, :conversation_id)
+    params.require(:message).permit(:body)
   end
 end
