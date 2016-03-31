@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   belongs_to :address
   has_many   :messages
   has_many   :interviews, foreign_key: 'poster_id'
-  acts_as_reader
+  has_many :conversations, :foreign_key => :sender_id
+  # acts_as_reader
 
   delegate :street, :to => :address
   delegate :apt, :to => :address
