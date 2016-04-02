@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20160313054153) do
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
+    t.integer  "sender_chatbox_state"
+    t.integer  "recipient_chatbox_state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

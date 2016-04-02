@@ -18,9 +18,11 @@
   <% current_user.involved_conversations.each do |conversation| %>
     <%= subscribe_to conversation_path(conversation) %>
   <%end%>
+  <%= subscribe_to "/new_conversation/#{current_user.id}" %>
 <%end%>
 <div style="display: none;">
  <input type="text" id="PreventChromeAutocomplete"
   name="PreventChromeAutocomplete" autocomplete="address-level4" />
 </div>
+<div class="script-container"></div>
 </html>

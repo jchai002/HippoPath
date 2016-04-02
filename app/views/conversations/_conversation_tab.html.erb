@@ -1,8 +1,5 @@
 <%= link_to(conversation) do %>
   <div class="conversation-tab">
     <p><%= conversation.messages.last.body %></p>
-    <% if conversation.messages.last.unread?(current_user) %>
-      <p>new message</p>
-    <%end%>
   </div>
 <% end %>

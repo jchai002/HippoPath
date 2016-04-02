@@ -23,6 +23,7 @@ class ConversationsController < ApplicationController
     @reciever = interlocutor(@conversation)
     @messages = @conversation.messages
     @message = Message.new
+    @path = conversation_path(@conversation)
   end
 
   private

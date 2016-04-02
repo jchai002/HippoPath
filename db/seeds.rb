@@ -10,6 +10,6 @@ users = [u1,u2,u3]
 
 users.each do |user|
   5.times do
-    user.interviews.create({date: "3/1/16",time:"8:00AM", ride_status:"Need Ride", hospital:hospitals.first})
+    user.interviews.create({date: "04/01/2016",time:"8:00AM", ride_status:"Need Ride", hospital:hospitals.first})
   end
 end
