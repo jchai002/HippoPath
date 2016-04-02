@@ -37,7 +37,7 @@ var InterviewSearchForm = React.createClass({
           </select>
         </div>
         <div className="form-group mar-y-10">
-          <button type="submit" className="btn btn-primary">Add Interview</button>
+          <button type="submit" className="btn btn-primary">Search For Interviews</button>
         </div>
       </div>
     </form>

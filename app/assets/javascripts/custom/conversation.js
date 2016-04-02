@@ -18,12 +18,12 @@ var ready = function () {
      * Used to minimize the chatbox
      */
 
-    $(document).on('click', '.toggleChatBox', function (e) {
-        e.preventDefault();
-
-        var id = $(this).data('cid');
-        chatBox.toggleChatBoxGrowth(id);
-    });
+    // $(document).on('click', '.toggleChatBox', function (e) {
+    //     e.preventDefault();
+    //
+    //     var id = $(this).data('cid');
+    //     chatBox.toggleChatBoxGrowth(id);
+    // });
 
     /**
      * Used to close the chatbox
@@ -60,6 +60,10 @@ var ready = function () {
         chatBox.chatWith(conversation_id);
     });
 
+    $(document).on('click', '.closeChat', function(){
+      var conversationId = $(this).data('cid')
+      $.get('/close_chat_box',{'conversation_id': conversationId})
+    })
 
 }
 

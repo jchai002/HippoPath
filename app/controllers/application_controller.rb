@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery
   before_action :ensure_open_conversation_storage
-  before_action :ensure_minimized_conversation_storage
 
   # def get_unread_message_count
   #   @unread_message_count = Message.unread_by(current_user).count if current_user
@@ -22,9 +21,4 @@ private
     session[:open_conversations] ||= []
     @open_conversations = session[:open_conversations]
   end
-
-  def ensure_minimized_conversation_storage
-    session[:minimized_conversations] ||= []
-  end
-
 end
