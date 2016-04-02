@@ -1,0 +1,10 @@
+.conversation-list {
+  z-index: 50;
+  position:absolute;
+  top:50px;
+  right:0px;
+  width:40%;
+  height:450px;
+  background-color: white;
+  border: 1px solid $theme-primary;
+}

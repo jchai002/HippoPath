@@ -3,12 +3,9 @@ class ConversationsController < ApplicationController
   layout false
 
   def index
-    @conversations = current_user.conversations
+    @conversations = current_user.involved_conversations
     @no_message = true if current_user.messages.length == 0
   end
-
-  before_filter :authenticate_user!
-  layout false
 
   def create
     if Conversation.between(params[:sender_id],params[:recipient_id]).present?

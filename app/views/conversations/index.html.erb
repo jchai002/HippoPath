@@ -1,19 +1,11 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h1 class="mar-y-30">Your Conversations</h1>
+<% @conversations.each do |conversation| %>
+<%if conversation.messages.length > 0%>
+<%= render :partial => 'conversation_tab', :locals => {:conversation => conversation} %>
+<%end%>
+<% end %>
 
-      <% @conversations.each do |conversation| %>
-      <!-- <%if conversation.messages.length > 0%> -->
-      <%= render :partial => 'conversation_tab', :locals => {:conversation => conversation} %>
-      <!-- <%end%> -->
-      <% end %>
-
-      <!-- <%if @no_message %>
-      <div class="panel panel-default empty-result">
-        <h1>You Have No Messages</h1>
-      </div>
-      <%end%> -->
-    </div>
-  </div>
+<%if @no_message %>
+<div class="panel panel-default empty-result">
+  <h1>You Have No Messages</h1>
 </div>
+<%end%>
