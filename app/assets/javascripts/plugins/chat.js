@@ -206,9 +206,7 @@ var ready = function () {
          */
 
         toggleChatBoxGrowth: function (conversation_id) {
-
             if ($('#chatbox_' + conversation_id + ' .chatboxcontent').css('display') == 'none') {
-              //if the chat is minimized
 
                 var minimizedChatBoxes = new Array();
 
@@ -232,7 +230,7 @@ var ready = function () {
                 $('#chatbox_' + conversation_id + ' .chatboxinput').css('display', 'block');
                 $("#chatbox_" + conversation_id + " .chatboxcontent").scrollTop($("#chatbox_" + conversation_id + " .chatboxcontent")[0].scrollHeight);
             } else {
-                //else if the chat is not minimized
+
                 var newCookie = conversation_id;
 
                 if ($.cookie('chatbox_minimized')) {
@@ -305,23 +303,11 @@ var ready = function () {
     };
 
     var openConversations = $('#open-conversations').val().replace(/[^,A-Za-z0-9]+/g, '').split(',')
-    openConversations.forEach(function(numString){
-        if (numString && numString!='') {
-          var conversationId = Number(numString);
-          if (conversationId != 0) {
-            chatBox.createChatBox(conversationId);
-          }
-        }
-    })
 
-    var minimizedConversations = $('#minimized-conversations').val().replace(/[^,A-Za-z0-9]+/g, '').split(',')
-    minimizedConversations.forEach(function(numString){
-        if (numString && numString!='') {
-          var conversationId = Number(numString);
-          if (conversationId != 0) {
-            console.log('in minimized')
-            // chatBox.(conversationId);
-          }
+    openConversations.forEach(function(numString){
+        var conversationId = Number(numString);
+        if (conversationId != 0) {
+          chatBox.createChatBox(conversationId);
         }
     })
 }
