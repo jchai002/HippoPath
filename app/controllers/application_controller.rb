@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery
-  # before_action :get_unread_message_count
+  before_action :ensure_open_conversation_storage
+  before_action :ensure_minimized_conversation_storage
 
   # def get_unread_message_count
   #   @unread_message_count = Message.unread_by(current_user).count if current_user
@@ -14,6 +15,16 @@ class ApplicationController < ActionController::Base
     else
       interviews_dash_board_path
     end
+  end
+
+private
+  def ensure_open_conversation_storage
+    session[:open_conversations] ||= []
+    @open_conversations = session[:open_conversations]
+  end
+
+  def ensure_minimized_conversation_storage
+    session[:minimized_conversations] ||= []
   end
 
 end

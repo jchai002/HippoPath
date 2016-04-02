@@ -25,6 +25,14 @@ class ConversationsController < ApplicationController
     @messages = @conversation.messages
     @message = Message.new
     @path = conversation_path(@conversation)
+    session[:open_conversations] << @conversation.id unless session[:open_conversations].include?(@conversation.id)
+  end
+
+  def close_chat_box
+    session[:open_conversations].delete(params[:conversation_id].to_i)
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
