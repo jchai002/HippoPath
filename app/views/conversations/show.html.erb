@@ -1,23 +1,44 @@
-<div class="conversation col-md-offset-1 panel panel-info">
-  <div class="chatboxhead">
-    <div class="chatboxtitle">
-      <i class="fa fa-comments"></i>
-    </div>
+<div class="chatboxhead">
+  <div class="chatboxtitle">
+    <i class="fa fa-comments"></i>
+    <h1><%= @reciever.name %> </h1>
   </div>
-  <div class="chatboxcontent">
-    <% if @messages.any? %>
-    <%= render @messages %>
-    <% end %>
+  <div class="chatboxoptions">
+    <%= link_to "<i class='fa  fa-minus'></i> ".html_safe, "#", class: "toggleChatBox", "data-cid" => @conversation.id %>
+    &nbsp;&nbsp;
+    <%= link_to "<i class='fa  fa-times'></i> ".html_safe, "#", class: "closeChat", "data-cid" => @conversation.id %>
   </div>
-  <div class="chatboxinput">
-    <%= form_for(@message, :remote => true, :html => {id: "conversation_form_#{@conversation.id}"}) do |f| %>
-    <%= f.text_area :body, class: "chatboxtextarea" %>
-    <div class="chat-form-btns">
-      <%= f.hidden_field :conversation_id, :value => @conversation.id %>
-      <%= f.submit "send", class: "btn btn-primary btn-sm btn-submit"%>
-    </div>
-    <% end %>
-  </div>
+  <br clear="all"/>
+</div>
+<div class="chatboxcontent">
+  <% if @messages.any? %>
+  <%= render @messages %>
+  <% end %>
+</div>
+<div class="chatboxinput">
+  <%= form_for([@conversation, @message], :remote => true, :html => {id: "conversation_form_#{@conversation.id}"}) do |f| %>
+  <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @conversation.id %>
+  <% end %>
 </div>
 
-<%= subscribe_to conversation_path(@conversation) %>
+<script>
+// attach listeners on both the current document and the other user's document
+var id = "<%= @conversation.id %>";
+var fayeScript = "<%= j subscribe_to @path%>"
+if (!$('#convo-script-'+id)[0]) {
+  var newDiv = $('<div></div>')
+  .attr('id', 'convo-script-'+id)
+  .append(fayeScript)
+  $('.script-container').append(newDiv)
+}
+<% publish_to "/new_conversation/#{@reciever.id}" do %>
+var id = "<%= @conversation.id %>";
+var fayeScript = "<%= j subscribe_to @path%>"
+if (!$('#convo-script-'+id)[0]) {
+  var newDiv = $('<div></div>')
+  .attr('id', 'convo-script-'+id)
+  .append(fayeScript)
+  $('.script-container').append(newDiv)
+}
+<% end %>
+</script>

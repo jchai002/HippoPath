@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
 </head>
 <body>
   <%= render "layouts/header" %>
@@ -12,8 +13,16 @@
     <%= yield %>
   </div>
 </body>
+
+<%if current_user %>
+  <% current_user.involved_conversations.each do |conversation| %>
+    <%= subscribe_to conversation_path(conversation) %>
+  <%end%>
+  <%= subscribe_to "/new_conversation/#{current_user.id}" %>
+<%end%>
 <div style="display: none;">
  <input type="text" id="PreventChromeAutocomplete"
   name="PreventChromeAutocomplete" autocomplete="address-level4" />
 </div>
+<div class="script-container"></div>
 </html>

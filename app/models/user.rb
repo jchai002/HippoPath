@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   belongs_to :address
   has_many   :messages
   has_many   :interviews, foreign_key: 'poster_id'
-  acts_as_reader
+  has_many :conversations, :foreign_key => :sender_id
+  # acts_as_reader
 
   delegate :street, :to => :address
   delegate :apt, :to => :address
@@ -12,20 +13,8 @@ class User < ActiveRecord::Base
   delegate :zip, :to => :address
   delegate :on_campus, :to => :address
 
-  def conversations
-    Conversation.where("starter_id = ? OR reciever_id = ?", self.id, self.id)
-  end
-
-  def messages
-    Message.where("user_id = ?", self.id)
-  end
-
-  def started_conversations
-    Conversation.where("starter_id = ? ", self.id)
-  end
-
-  def recieved_conversations
-    Conversation.where("reciever_id = ? ", self.id)
+  def involved_conversations
+    Conversation.where("sender_id = ? OR recipient_id = ?", self.id, self.id)
   end
 
   def self.find_conversation(user_1, user_2)
