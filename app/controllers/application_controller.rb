@@ -25,6 +25,7 @@ private
 
   def ensure_minimized_conversation_storage
     session[:minimized_conversations] ||= []
+    @minimized_conversations = session[:minimized_conversations]
   end
 
 end

@@ -5,7 +5,6 @@ var ContentTable = React.createClass({
     })
   },
   getData: function(){
-    console.log('requesting data...')
     $.ajax({
       url: this.props.url,
       dataType: 'json',

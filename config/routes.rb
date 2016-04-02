@@ -28,5 +28,8 @@ Rails.application.routes.draw do
   post '/interview_search' => 'interviews#search_interviews'
   match '/assign_address_to_user/:user_id' => 'address#assign_address_to_user', via: [:post, :put, :patch], :as => :assign_address
 
-  get '/close_chat_box' => 'conversations#close_chat_box'
+  post '/close_chat_box' => 'conversations#close_chat_box'
+  post '/minimize_chat_box' => 'conversations#minimize_chat_box'
+  post '/open_chat_box' => 'conversations#open_chat_box'
+  
 end

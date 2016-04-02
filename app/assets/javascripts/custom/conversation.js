@@ -61,6 +61,15 @@ var ready = function () {
     });
 
 
+    $(document).on('click', '.closeChat', function(){
+      var conversationId = $(this).data('cid')
+      $.post('/close_chat_box',{'conversation_id': conversationId})
+    })
+
+    $(document).on('click','.toggleChatBox', function(){
+      var conversationId = $(this).data('cid')
+      $.post('/minimize_chat_box',{'conversation_id': conversationId})
+    })
 }
 
 $(document).ready(ready);

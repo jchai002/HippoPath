@@ -35,6 +35,22 @@ class ConversationsController < ApplicationController
     end
   end
 
+  def minimize_chat_box
+    chat_box_id = session[:open_conversations].delete(params[:conversation_id].to_i)
+    session[:minimized_conversations] << chat_box_id unless session[:minimized_conversations].include?(chat_box_id) || !chat_box_id
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def open_chat_box
+    chat_box_id = session[:minimized_conversations].delete(params[:conversation_id].to_i)
+    session[:open_conversations] << chat_box_id unless session[:open_conversations].include?(chat_box_id) || !chat_box_id
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
   def conversation_params
     params.permit(:sender_id, :recipient_id)

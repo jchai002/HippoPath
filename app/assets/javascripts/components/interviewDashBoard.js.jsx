@@ -5,7 +5,6 @@ var InterviewDashBoard = React.createClass({
     })
   },
   getData: function(){
-    console.log('requesting data...')
     $.ajax({
       url: '/interviews',
       dataType: 'json',

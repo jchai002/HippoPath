@@ -42,10 +42,4 @@ if (!$('#convo-script-'+id)[0]) {
 }
 <% end %>
 
-
-
-$('.closeChat').click(function(){
-  var conversationId = $(this).data('cid')
-  $.get('/close_chat_box',{'conversation_id': conversationId})
-})
 </script>
