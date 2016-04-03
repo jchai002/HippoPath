@@ -12,6 +12,7 @@
   <% if @messages.any? %>
   <%= render @messages %>
   <% end %>
+  <div id="new-message-area-<%=@conversation.id%>"></div>
 </div>
 <div class="chatboxinput">
   <%= form_for([@conversation, @message], :remote => true, :html => {id: "conversation_form_#{@conversation.id}"}) do |f| %>
