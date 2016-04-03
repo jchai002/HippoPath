@@ -37,37 +37,40 @@
     list-style: none;
     border: 1px solid $theme-primary;
     border-bottom: 0px;
+    .self {
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+
+    .self .chatboxmessagecontent {
+        order: 1;
+        border-bottom-right-radius: 0;
+    }
+
+    .self .avatar {
+      display: none;
+    }
+
+    li {
+        padding: 0.5rem;
+        overflow: hidden;
+        display: flex;
+    }
+
+    .avatar {
+        width: 40px;
+        position: relative;
+    }
+
+    .avatar img {
+        display: inline;;
+        width: 30px;
+        height: auto;
+        border-radius: 15px;
+    }
 }
 
-.chatboxcontent li {
-    padding: 0.5rem;
-    overflow: hidden;
-    display: flex;
-}
 
-.chatboxcontent .avatar {
-    width: 40px;
-    position: relative;
-}
-
-.chatboxcontent .avatar img {
-    display: block;
-    width: 100%;
-}
-
-.self {
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-.self .chatboxmessagecontent {
-    order: 1;
-    border-bottom-right-radius: 0;
-}
-
-.self .avatar {
-    order: 2;
-}
 
 
 .chatboxmessagecontent {
@@ -76,24 +79,37 @@
     border-radius: 2px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     background-color: $theme-gray;
-}
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .messagewrapper {
+      display: flex;
+      justify-content: space-between;
+      .avatar {
+        margin-right: 10px;
+      }
+    }
 
-.chatboxmessagecontent p {
-    font-size: 12px;
-    margin: 0 0 0.2rem 0;
-    -ms-word-break: break-all;
+    p {
+        font-size: 12px;
+        margin: 0 0 0.2rem 0;
+        -ms-word-break: break-all;
 
-    /* Non standard for webkit */
-    word-break: break-word;
+        /* Non standard for webkit */
+        word-break: break-word;
 
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
-}
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
+    }
 
-.chatboxmessagecontent time {
-    font-size: 9px;
-    color: #ccc;
+    time {
+        font-size: 9px;
+        color: #ccc;
+        align-self: flex-end;
+        margin-bottom: 0px;
+        margin-top: 10px;
+    }
 }
 
 .chatboxinput {

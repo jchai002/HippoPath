@@ -9,6 +9,8 @@
   background-color: white;
   border: 1px solid $theme-primary;
   overflow-y: scroll;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 .conversation-list {
@@ -16,8 +18,44 @@
   margin: 0px;
 }
 
-.conversation-tab {
+::-webkit-scrollbar
+{
+  width: 0px;
+}
+::-webkit-scrollbar-track-piece
+{
+  background-color: transparent;
+  -webkit-border-radius: 6px;
+}
+
+.start-conversation{
+  .avatar {
+    img {
+      width: 50px;
+      height: auto;
+      border-radius: 25px;
+    }
+  }
+  li {
+    list-style: none;
+  }
+  &:hover {
+    text-decoration: none;
+
+  }
+  .chatboxmessagecontent {
+    border-radius: 0px;
+    &:hover {
+      background-color: darken($theme-gray, 10%);
+    }
+    p{
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical; 
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
   margin: 0px;
   height: 100%;
-  border-bottom: 1px solid  $theme-primary;
 }

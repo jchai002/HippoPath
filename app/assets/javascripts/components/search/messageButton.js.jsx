@@ -4,7 +4,7 @@ var MessageButton = React.createClass({
     var messageDisallowed = this.props.data.poster_id==this.props.currentUserId
     return (
       <div className="buttons">
-          <a data-sid={this.props.currentUserId} data-rip={this.props.data.poster_id} disabled={messageDisallowed} value="Message" className={messageDisallowed ? cssClass + " disabled" : cssClass} >Send Message</a>
+          <a data-sid={this.props.currentUserId} data-rid={this.props.data.poster_id} disabled={messageDisallowed} value="Message" className={messageDisallowed ? cssClass + " disabled" : cssClass} >Send Message</a>
       </div>
     );
   }
