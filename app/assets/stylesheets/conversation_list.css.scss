@@ -1,4 +1,4 @@
-.conversation-list {
+.conversation-container {
   z-index: 50;
   display: none;
   position:absolute;
@@ -8,4 +8,16 @@
   height:450px;
   background-color: white;
   border: 1px solid $theme-primary;
+  overflow-y: scroll;
+}
+
+.conversation-list {
+  top: 0px;
+  margin: 0px;
+}
+
+.conversation-tab {
+  margin: 0px;
+  height: 100%;
+  border-bottom: 1px solid  $theme-primary;
 }

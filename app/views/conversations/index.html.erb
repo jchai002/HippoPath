@@ -1,8 +1,10 @@
-<% @conversations.each do |conversation| %>
-<%if conversation.messages.length > 0%>
-<%= render :partial => 'conversation_tab', :locals => {:conversation => conversation} %>
-<%end%>
-<% end %>
+<div class="conversation-list">
+  <% @conversations.each do |conversation| %>
+  <%if conversation.messages.length > 0%>
+  <%= render :partial => 'conversation_tab', :locals => {:conversation => conversation} %>
+  <%end%>
+  <% end %>
+</div>
 
 <%if @no_message %>
 <div class="panel panel-default empty-result">
