@@ -53,8 +53,6 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'figaro'
 
-#image handling
-gem 'paperclip'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

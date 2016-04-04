@@ -11,7 +11,7 @@ Devise.setup do |config|
   # config.secret_key = 'fe8b1086555aa9534a8ebd686f971c65a5daa677b8cbfe5261858b606ef6302b4274e3fa180f373325a40e95ce06bc6ca79cc87e91dcc898106ea0d01c5bff75'
 
   #==> OAuth Configuration
-  config.omniauth :facebook, ENV["facebook_key"], ENV["facebook_secret"], :secure_image_url => true
+  config.omniauth :facebook, ENV["facebook_key"], ENV["facebook_secret"]
   config.omniauth :google_oauth2, ENV["google_key"], ENV["google_secret"], skip_jwt: true
   config.omniauth :linkedin, ENV["linked_in_key"], ENV["linked_in_secret"]
 
