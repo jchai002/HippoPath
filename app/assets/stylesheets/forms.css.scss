@@ -119,14 +119,14 @@
  .info-display {
    font-size: 16px;
  }
+}
 
- .edit-button {
-   opacity: 0.5;
-   &:hover {
-     cursor: hand;
-     cursor: pointer;
-   }
- }
+.edit-pencil {
+  opacity: 0.5;
+  &:hover {
+    cursor: hand;
+    cursor: pointer;
+  }
 }
 
 .city-state-zip {
@@ -142,5 +142,10 @@
 }
 
 .status-text {
+  text-transform: capitalize;
+  display: none;
+}
+
+#password-change {
   display: none;
 }

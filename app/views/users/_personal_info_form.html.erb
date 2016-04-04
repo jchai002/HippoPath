@@ -1,19 +1,17 @@
-<%= form_for(@user, url: user_path(@user), html: { role: 'form', class: "pad-20 info-edit", autocomplete: "off",  id: 'user-info'}) do |f| %>
-<%= f.label 'School' %>
+<%= form_for(@user, url: user_path(@user), html: { role: 'form', class: "pad-l-20 info-edit", autocomplete: "off",  id: 'user-info'}) do |f| %>
+<%= f.label 'School' %><i class="fa fa-pencil pad-l-10 edit-pencil" id="school-edit-handle"></i><span id="school-status" class="status-text label label-success mar-l-10"></span>
 <div class="form-group">
   <%= f.text_field :school, class: 'form-control editable-field', id: 'school-edit-field', value: @user.school ? @user.school.name : ''%>
   <div class="info-display" id="school-display"><%= @user.school.present? ? @user.school.name : 'unknown'%>
   </div>
-  <i class="fa fa-pencil pad-l-10 edit-button" id="school-edit-handle"></i>
 </div>
-<%= f.label 'Specialty' %>
+<%= f.label 'Specialty' %><i class="fa fa-pencil pad-l-10 edit-pencil" id="specialty-edit-handle"></i><span id="specialty-status" class="status-text label label-success mar-l-10"></span>
 <div class="form-group">
   <%= f.text_field :specialty, class: 'form-control editable-field', id: 'specialty-edit-field' %>
   <div class="info-display" id="specialty-display"><%= @user.specialty.present? ? @user.specialty : 'unknown' %>
   </div>
-  <i class="fa fa-pencil pad-l-10 edit-button" id="specialty-edit-handle"></i>
 </div>
-<%= f.label 'Gender' %>
+<%= f.label 'Gender' %><span id="gender-status" class="status-text label label-success mar-l-10"></span>
 <div class="form-group">
   <%= f.select :gender, ['Male','Female'] , { :include_blank => "Select Your Gender", :selected => @user.gender}, class: 'form-control', id: 'gender-select',required: true, data: {'error-value-missing' => "Please Select Your Gender"} %>
 </div>

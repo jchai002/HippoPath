@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy, :finish_signup]
-  
+
   # GET /users/:id/edit
   def edit
     # authorize! :update, @user
@@ -51,6 +51,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user][:id])
     if user_params[:password] == user_params[:password_confirmation]
       @user.update_attributes(password: user_params[:password])
+      sign_in(@user, :bypass => true)
       respond_to do |format|
         format.js
       end

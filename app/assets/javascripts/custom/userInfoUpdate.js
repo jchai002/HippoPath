@@ -16,19 +16,30 @@ $(document).ready(function(){
         type: 'PUT',
         data: jsonData,
         success: function(data) {
-          displaySuccessMessage();
+          displaySuccessMessage('Gender');
         },
         error: function(xhr, status, err) {
           console.error( status, err.toString());
         }
       });
     })
+    $('#password-edit-handle').click(function(){
+      $form = $('#password-change')
+      if ($form.css('display')=='none') {
+        $form.fadeIn();
+      } else {
+        $form.fadeOut();
+      }
+    })
+    $('#password-change').fadeOut(function(){
+      $(this).slideUp();
+    })
   }
 });
 
-function displaySuccessMessage(){
-  $('#personal-info-status')
-    .html('Info Updated')
+function displaySuccessMessage(paramName){
+  $('#'+paramName+'-status')
+    .html(paramName.charAt(0).toUpperCase()+' Updated')
     .fadeIn(150)
     .delay(1000)
     .fadeOut(150)
@@ -71,7 +82,7 @@ function updateUserInfo ($display,$editField,$handle, paramName) {
           displayValue = $display.text()
         }
         $display.html(displayValue);
-        displaySuccessMessage();
+        displaySuccessMessage(paramName);
       },
       error: function(xhr, status, err) {
         console.error( status, err.toString());
