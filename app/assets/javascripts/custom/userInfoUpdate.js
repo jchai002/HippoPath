@@ -1,5 +1,6 @@
 $(document).ready(function(){
   if ($('#user-info')[0]) {
+    userId = $('#user-info').data('userid')
     $('.info-edit').submit(function(e){
       e.preventDefault();
     })
@@ -7,12 +8,14 @@ $(document).ready(function(){
     updateUserInfo($('#school-display'),$('#school-edit-field'),$('#school-edit-handle'), 'school');
     updateUserInfo($('#specialty-display'),$('#specialty-edit-field'),$('#specialty-edit-handle'), 'specialty');
     $('#gender-select').change(function(){
-      userId = $('#user-info').data('userid')
       var jsonData = {'user': {}};
       jsonData['user']['gender'] = $(this).val();
       $.ajax({
         url: "/users/" + userId,
+        cache: false,
         dataType: 'json',
+        processData: false,
+        contentType: false,
         type: 'PUT',
         data: jsonData,
         success: function(data) {
@@ -22,7 +25,7 @@ $(document).ready(function(){
           console.error( status, err.toString());
         }
       });
-    })
+    });
     $('#password-edit-handle').click(function(){
       $form = $('#password-change')
       if ($form.css('display')=='none') {
@@ -30,19 +33,38 @@ $(document).ready(function(){
       } else {
         $form.fadeOut();
       }
-    })
+    });
     $('#password-change').fadeOut(function(){
       $(this).slideUp();
-    })
+    });
+
+    function uploadFile(event){
+      file = event.target.files[0]
+      var formData = new FormData();
+      formData.append('image',file, file['name'])
+      $.ajax({
+        url: "/users/" + userId,
+        dataType: 'json',
+        type: 'PUT',
+        data: formData,
+        success: function(data) {
+          console.log(data)
+        },
+        error: function(xhr, status, err) {
+          console.error( status, err.toString());
+        }
+      });
+    }
+    $('#user_image').change(uploadFile);
   }
 });
 
 function displaySuccessMessage(paramName){
   $('#'+paramName+'-status')
-    .html(paramName.charAt(0).toUpperCase()+' Updated')
-    .fadeIn(150)
-    .delay(1000)
-    .fadeOut(150)
+  .html(paramName+' Updated')
+  .fadeIn(150)
+  .delay(1000)
+  .fadeOut(150)
 }
 
 function updateUserInfo ($display,$editField,$handle, paramName) {

@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    attributes = [:email, :gender, :specialty]
+    binding.pry
+    attributes = [:email, :gender, :specialty, :image]
     attributes.each do |attribute|
       @user.update_attribute(attribute, user_params[attribute]) unless user_params[attribute].blank?
     end

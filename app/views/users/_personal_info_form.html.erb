@@ -11,7 +11,7 @@
   <div class="info-display" id="specialty-display"><%= @user.specialty.present? ? @user.specialty : 'unknown' %>
   </div>
 </div>
-<%= f.label 'Gender' %><span id="gender-status" class="status-text label label-success mar-l-10"></span>
+<%= f.label 'Gender' %><span id="Gender-status" class="status-text label label-success mar-l-10"></span>
 <div class="form-group">
   <%= f.select :gender, ['Male','Female'] , { :include_blank => "Select Your Gender", :selected => @user.gender}, class: 'form-control', id: 'gender-select',required: true, data: {'error-value-missing' => "Please Select Your Gender"} %>
 </div>
