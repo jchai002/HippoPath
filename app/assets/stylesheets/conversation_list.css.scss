@@ -49,9 +49,10 @@
       background-color: darken($theme-gray, 10%);
     }
     p{
+      font-size: 16px;
       display: -webkit-box;
       -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical; 
+      -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
     }
