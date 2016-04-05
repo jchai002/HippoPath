@@ -16,3 +16,27 @@
 #user_image {
   display: none;
 }
+
+.menu-avatar {
+  display: inline;
+  height: 22px;
+  width: 22px;
+  border-radius: 4px;
+  margin-right: 3px;
+}
+
+ul.navbar-right {
+  font-size: 18px;
+  padding: 0px;
+  @media (min-width: 992px) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.navbar-brand {
+  font-size: 25px;
+  .fa {
+    margin-left: 5px;
+  }
+}
