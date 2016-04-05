@@ -8,26 +8,29 @@ class UsersController < ApplicationController
   end
 
   def update
-    binding.pry
-    attributes = [:email, :gender, :specialty, :image]
-    attributes.each do |attribute|
-      @user.update_attribute(attribute, user_params[attribute]) unless user_params[attribute].blank?
+    @user.update_attributes(image: params[:image])
+    if params[:user]
+      @user.update(user_params)
+      @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
+      @user.save
+      if address_params_complete
+        street = params[:user][:address_street_and_house_number].titleize
+        apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '')
+        city = params[:user][:address_city].titleize
+        state = params[:user][:address_state].upcase
+        zip = params[:user][:address_zip]
+        on_campus = params[:user][:address_on_campus] ? true : false
+        @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus})
+      end
     end
-
-    @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
-    @user.save
-
-    if address_params_complete
-      street = params[:user][:address_street_and_house_number].titleize
-      apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '')
-      city = params[:user][:address_city].titleize
-      state = params[:user][:address_state].upcase
-      zip = params[:user][:address_zip]
-      on_campus = params[:user][:address_on_campus] ? true : false
-      @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus})
-    end
+    @image = params[:image]
     respond_to do |format|
-      format.json { head :no_content }
+      if @image
+        @image = @user.image
+        format.js
+      else
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -74,7 +77,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    accessible = [ :name, :email, :gender, :phone, :specialty, :school, :image] # extend with your own params
+    accessible = [ :name, :email, :gender, :phone, :specialty]
     accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
     params.require(:user).permit(accessible)
   end

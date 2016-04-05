@@ -12,10 +12,7 @@ $(document).ready(function(){
       jsonData['user']['gender'] = $(this).val();
       $.ajax({
         url: "/users/" + userId,
-        cache: false,
         dataType: 'json',
-        processData: false,
-        contentType: false,
         type: 'PUT',
         data: jsonData,
         success: function(data) {
@@ -38,18 +35,20 @@ $(document).ready(function(){
       $(this).slideUp();
     });
 
+    $('#avatar-edit-handle').click(function(){
+      $('#user_image').trigger('click');
+    })
     function uploadFile(event){
       file = event.target.files[0]
       var formData = new FormData();
       formData.append('image',file, file['name'])
       $.ajax({
         url: "/users/" + userId,
-        dataType: 'json',
         type: 'PUT',
         data: formData,
-        success: function(data) {
-          console.log(data)
-        },
+        contentType: false,
+        processData: false,
+        cache: false,
         error: function(xhr, status, err) {
           console.error( status, err.toString());
         }

@@ -4,8 +4,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     class_eval %Q{
       def #{provider}
         @user = User.find_for_oauth(env["omniauth.auth"], current_user)
-        photo = env["omniauth.auth"]["info"]["image"]
-        @user.update_attributes({image:URI.parse(photo)}) if photo && !@user.image
+        photo = env["omniauth.auth"]["info"]["image"]+"?type=large"
+        @user.update_attributes({image:URI.parse(photo)}) if photo && !@user.image.exists?
         if @user.persisted?
           sign_in_and_redirect @user, event: :authentication
           set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
