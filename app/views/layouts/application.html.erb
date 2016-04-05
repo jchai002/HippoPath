@@ -10,11 +10,13 @@
 </head>
 <body>
   <%= render "layouts/header" %>
-  <div class="container">
-  <div class="conversation-container"></div>
+  <%if @landing_page%>
     <%= yield %>
-
+  <%else%>
+  <div class="container">
+    <%= yield %>
   </div>
+  <%end%>
 </body>
 <div class="script-container"></div>
 <input type="hidden" id="open-conversations" value="<%=@open_conversations%>"/>

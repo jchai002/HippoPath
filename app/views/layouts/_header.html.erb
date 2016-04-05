@@ -1,4 +1,4 @@
-<nav id="menu-bar" class="navbar navbar-default navbar-static-top">
+<nav id="menu-bar" class="navbar navbar-default navbar-static-top mar-b-0">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -35,7 +35,7 @@
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <%=image_tag current_user.image.url(:small), class: 'menu-avatar'%>
+            <%=image_tag current_user.image.exists? ? current_user.image.url(:small) : 'portraitplaceholder.png', class: 'menu-avatar'%>
             <%=current_user.name ? current_user.name.split(' ')[0] : current_user.email.split('@')[0]%> <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
@@ -44,6 +44,7 @@
             <li><%=link_to("logout", destroy_user_session_path, :method => :delete) %></li>
           </ul>
         </li>
+        <div class="conversation-container"></div>
         <%else%>
         <li><a href="/users/sign_in">login</a></li>
         <%end%>
