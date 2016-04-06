@@ -2,6 +2,7 @@ var SearchDashBoard = React.createClass({
   getInitialState: function(){
     return {
       searchResultPanels: undefined,
+      searchResults:undefined,
       searched: false
     }
   },
@@ -49,7 +50,7 @@ var SearchDashBoard = React.createClass({
             </div>
           </div>
           <div className="row">
-            <div className="col-sm-12">
+            <div className="col-sm-12 isotope-sort">
               {panels}
             </div>
           </div>
@@ -59,7 +60,13 @@ var SearchDashBoard = React.createClass({
     handleSearch: function(results){
       this.setSearchResultPanels(results);
       this.setState({
+        searchResults:results,
         searched: true
       })
+    },
+    componentDidUpdate: function(){
+      var searchResults = this.state.searchResults
+      var newArr = _.orderBy(searchResults, ['time'], ['asc']);
+      console.log(newArr)
     }
   });

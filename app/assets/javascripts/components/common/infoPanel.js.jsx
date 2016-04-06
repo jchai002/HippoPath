@@ -42,7 +42,7 @@ var InfoPanel = React.createClass({
     if(!this.state.deleted){
       return (
         <div className={this.props.wrapperClass}>
-          <div className={"panel panel-info"}>
+          <div className="panel panel-info">
             <div className="panel-heading">
               {hospital}
               <span className={"label mar-x-15 pull-right pad-5 " + labelStyle} >{rideStatus}</span>
