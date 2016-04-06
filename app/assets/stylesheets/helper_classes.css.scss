@@ -392,3 +392,7 @@
 .no-box-shadow {
   box-shadow: none !important;
 }
+
+.dark-gray {
+  color: darken($theme-gray,40%) !important;
+}
