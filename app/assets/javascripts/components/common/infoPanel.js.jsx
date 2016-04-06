@@ -21,12 +21,7 @@ var InfoPanel = React.createClass({
     }
     var bodyPanels = Object.keys(bodyContent).map(function(header){
         return (
-          <div key={header} className="panel panel-default panel-flex-item">
-            <div className="panel-heading">{header}</div>
-            <div className="panel-body">
-              {bodyContent[header]}
-            </div>
-          </div>
+          <SubPanel key={header} header={header} content={bodyContent[header]} />
         );
     });
 

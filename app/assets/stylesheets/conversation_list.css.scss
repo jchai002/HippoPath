@@ -1,16 +1,26 @@
+.conversation-list-anchor {
+  @media (min-width: 768px) {
+    position: absolute !important;
+    right:0px !important;
+  }
+}
+
 .conversation-container {
-  z-index: 50;
   display: none;
-  position:absolute;
-  top:50px;
-  right:0px;
-  width:40%;
-  height:450px;
   background-color: white;
   border: 1px solid $theme-primary;
   overflow-y: scroll;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  z-index: 50;
+  height: 250px;
+  @media (min-width: 768px) {
+    position:absolute;
+    top:51px;
+    right:0px;
+    width:400px;
+    height:450px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
 }
 
 .conversation-list {
