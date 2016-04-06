@@ -19,14 +19,14 @@
 
 .menu-avatar {
   display: inline;
-  height: 22px;
-  width: 22px;
+  height: 20px;
+  width: 20px;
   border-radius: 4px;
   margin-right: 3px;
 }
 
 ul.navbar-right {
-  font-size: 18px;
+  font-size: 15px;
   padding: 0px;
   @media (min-width: 992px) {
     display: flex;
@@ -39,4 +39,8 @@ ul.navbar-right {
   .fa {
     margin-left: 5px;
   }
+}
+
+#menu-bar {
+  z-index: 100 !important;
 }

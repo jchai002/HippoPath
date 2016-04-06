@@ -396,3 +396,23 @@
 .dark-gray {
   color: darken($theme-gray,40%) !important;
 }
+
+.absolute-right {
+  position: absolute;
+  right: 0px;
+}
+
+.absolute-left {
+  position: absolute;
+  left: 0px;
+}
+
+.absolute-top {
+  position: absolute;
+  top: 0px;
+}
+
+.absolute-bottom {
+  position: absolute;
+  bottom: 0px;
+}
