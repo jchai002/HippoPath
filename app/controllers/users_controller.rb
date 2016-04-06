@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update_attributes(image: params[:image])
     if params[:user]
       @user.update(user_params)
       @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
@@ -23,9 +22,10 @@ class UsersController < ApplicationController
         @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus})
       end
     end
-    @image = params[:image]
+
     respond_to do |format|
-      if @image
+      if params[:image]
+        @user.update_attributes(image: params[:image])
         @image = @user.image
         format.js
       else
