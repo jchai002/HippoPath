@@ -15,14 +15,15 @@
 }
 
 .stats {
-  height: 400px;
-  width: 600px;
+  height: 500px;
+  width: 750px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0,0,0,0.4);
   border-radius: 5px;
-  h2 {
-    color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.8);
+  p {
+    font-size: 14px;
   }
 }
