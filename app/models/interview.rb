@@ -4,10 +4,14 @@ class Interview < ActiveRecord::Base
 
   #takes a search object with properties
   def self.search(search_parameters)
-    hospital_name = search_parameters[:hospital]
+    hospital_name = search_parameters[:hospital].downcase
     date = search_parameters[:date]
-    ride_status = search_parameters[:ride_status]
-    result = joins(:hospital).where('hospitals.name = ? AND date LIKE ? AND (ride_status LIKE ? OR ride_status = ?)', hospital_name , date, ride_status, 'Either')
+    ride_status = search_parameters[:ride_status].downcase
+    if ride_status == 'either'
+      result = joins(:hospital).where('lower(hospitals.name) = ? AND date LIKE ?', hospital_name , date)
+    else
+      result = joins(:hospital).where('lower(hospitals.name) = ? AND date LIKE ? AND lower(ride_status) LIKE ?', hospital_name , date, ride_status)
+    end
   end
 
   def self.build_search_result(records)
@@ -19,9 +23,11 @@ class Interview < ActiveRecord::Base
         time: interview.time,
         ride_status: interview.ride_status,
         poster_id: interview.poster.id,
+        name:  interview.poster.name || interview.poster.email.split('@')[0],
         hospital: interview.hospital.name,
         specialty: interview.poster.specialty,
-        gender: interview.poster.gender
+        gender: interview.poster.gender,
+        avatar: interview.poster.image.url(:med)
       }
       if interview.poster.school
         search_result[:school] = interview.poster.school.name
