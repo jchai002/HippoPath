@@ -43,8 +43,7 @@ var InterviewSearchForm = React.createClass({
   handleSubmit: function(event){
     event.preventDefault()
     var formData = {
-      interview_info: this.state,
-      page: 1
+      interview_info: this.state
     }
     $.ajax({
       url: "/interview_search",
@@ -52,9 +51,7 @@ var InterviewSearchForm = React.createClass({
       type: 'POST',
       data: formData,
       success: function(data) {
-        var totalRecordCount = data.pop();
         this.props.handleSearch(data);
-        this.handlePagination(totalRecordCount);
       }.bind(this),
       error: function(xhr, status, err) {
         console.error( status, err.toString());
@@ -75,42 +72,5 @@ var InterviewSearchForm = React.createClass({
   },
   componentDidMount: function(){
     $('#interview-time-picker').datetimepicker()
-  },
-  handlePagination: function(totalRecordCount){
-    searchState = this.state;
-    handleSearch = this.props.handleSearch;
-    handlePagination = this.handlePagination;
-    var maxPages = Math.ceil(totalRecordCount/6);
-    var visible;
-    if (maxPages > 7) {
-      visible = 7;
-    } else {
-      visible = maxPages
-    }
-    $('#search-pagination').twbsPagination({
-      totalPages: maxPages,
-      visiblePages: visible,
-      onPageClick: function (event, page) {
-        $('#page-content').text('Page ' + page);
-        var formData = {
-          interview_info: searchState,
-          page: page
-        }
-        $.ajax({
-          url: "/interview_search",
-          dataType: 'json',
-          type: 'POST',
-          data: formData,
-          success: function(data) {
-            var totalRecordCount = data.pop();
-            handlePagination(totalRecordCount);
-            handleSearch(data);
-          },
-          error: function(xhr, status, err) {
-            console.error( status, err.toString());
-          }
-        });
-      }
-    });
   }
 });

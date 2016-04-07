@@ -1,5 +1,4 @@
 class InterviewsController < ApplicationController
-  require 'will_paginate/array'
 
   def get_interviews
     user=current_user
@@ -19,8 +18,7 @@ class InterviewsController < ApplicationController
       ride_status: params[:interview_info][:ride_status]
     }
     interview_records=Interview.search(search_parameters).all
-    @results_count = interview_records.count
-    @interviews = Interview.build_search_result(interview_records).paginate(:page => params[:page], :per_page => 6)
+    @interviews = Interview.build_search_result(interview_records)
     respond_to do |format|
       format.html
       format.json
