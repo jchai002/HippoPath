@@ -51,6 +51,37 @@ var SearchDashBoard = React.createClass({
       console.log(message)
     }
   },
+  componentDidMount: function(){
+    this.setBrowserCoords();
+  },
+  setDistance: function(interviewObject, isMiles){
+    var coords1 = this.state.userPosition;
+    var coords2 = interviewObject['location'];
+
+    if (this.arrayNotBlank(coords1) && this.arrayNotBlank(coords2)) {
+      function toRad(x) {
+        return x * Math.PI / 180;
+      }
+      var lat1 = coords1[0];
+      var long1 = coords1[1];
+      var lat2 = coords2[0];
+      var long2 = coords2[1];
+      var R = 6371; // km
+      var x1 = lat2 - lat1;
+      var dLat = toRad(x1);
+      var x2 = long2 - long1;
+      var dLong = toRad(x2)
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+      Math.sin(dLong / 2) * Math.sin(dLong / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c;
+      if(isMiles) d /= 1.60934;
+      interviewObject['distance'] = (Math.round(d * 10) / 10).toFixed(1);
+    } else {
+      interviewObject['distance'] = 'Unknown'
+    }
+  },
   setSearchResultPanels: function(data){
     var handleUpdate = this.handleUpdate;
     var token = this.props.token;
@@ -104,7 +135,7 @@ var SearchDashBoard = React.createClass({
             </div>
             <div className="row">
               <div className="btn-group pad-l-15 pad-b-20">
-                <button type="button" className="btn btn-primary">Distance</button>
+                <button type="button" className="btn btn-primary" onClick={this.sortByDistance}>Distance</button>
                 <button type="button" className="btn btn-primary">Posted On</button>
                 <button type="button" className="btn btn-primary">School</button>
               </div>
@@ -116,23 +147,29 @@ var SearchDashBoard = React.createClass({
         );
       },
       handleSearch: function(results){
-        $('.pagination-flex-container').html('<ul id="search-pagination" class="pagination-sm"></ul>');
+        Object.size = function(obj) {
+          var size = 0, key;
+          for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+          }
+          return size;
+        };
         this.setState({
           searched: true,
           searchResults:results,
-          currentPage: 1
+          currentPage: 1,
+          resultsCount: Object.size(results)
         })
         var setDistance = this.setDistance;
         this.state.searchResults.map((interviewObject) => {
           setDistance(interviewObject,true)
         })
-        var resultCount = Object.size(results);
-        if (resultCount>0){
-          this.displayResults(results,1,resultCount);
-          this.handlePagination(resultCount,this.state.resultsPerPage, this.state.currentPage);
+
+        if (this.state.resultsCount>0){
+          this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, this.state.currentPage);
         }
       },
-      displayResults: function(totalResultSet,pageNumber,resultCount){
+      displayResults: function(totalResultSet,pageNumber,resultsCount){
         var groupSize = this.state.resultsPerPage;
         var groups = _.map(totalResultSet, function(item, index){
           return index % groupSize === 0 ? totalResultSet.slice(index, index + groupSize) : null;
@@ -143,39 +180,8 @@ var SearchDashBoard = React.createClass({
         var resultsToShow = groups[pageNumber-1]
         this.setSearchResultPanels(resultsToShow);
       },
-      componentDidMount: function(){
-        this.setBrowserCoords();
-      },
-      setDistance: function(interviewObject, isMiles){
-        var coords1 = this.state.userPosition;
-        var coords2 = interviewObject['location'];
-
-        if (this.arrayNotBlank(coords1) && this.arrayNotBlank(coords2)) {
-          console.log(coords2)
-          function toRad(x) {
-            return x * Math.PI / 180;
-          }
-          var lat1 = coords1[0];
-          var long1 = coords1[1];
-          var lat2 = coords2[0];
-          var long2 = coords2[1];
-          var R = 6371; // km
-          var x1 = lat2 - lat1;
-          var dLat = toRad(x1);
-          var x2 = long2 - long1;
-          var dLong = toRad(x2)
-          var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-          Math.sin(dLong / 2) * Math.sin(dLong / 2);
-          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-          var d = R * c;
-          if(isMiles) d /= 1.60934;
-          interviewObject['distance'] = (Math.round(d * 10) / 10).toFixed(1);
-        } else {
-          interviewObject['distance'] = 'Unknown'
-        }
-      },
-      handlePagination: function(totalResultsCount, resultsPerPage, currentPage) {
+      displayPaginatedResult: function(totalResultsCount, resultsPerPage, currentPage) {
+        $('.pagination-flex-container').html('<ul id="search-pagination" class="pagination-sm"></ul>');
         component = this;
         displayResults = this.displayResults;
         var maxPages = Math.ceil(totalResultsCount/resultsPerPage);
@@ -192,22 +198,16 @@ var SearchDashBoard = React.createClass({
             $('#page-content').text('Page ' + page);
             component.setState({currentPage: page});
             if (component.state.searchResults) {
-              displayResults(component.state.searchResults,page,Object.size(component.state.searchResults));
+              displayResults(component.state.searchResults,page,component.state.resultsCount);
             }
           }
         });
       },
       sortByDistance: function() {
         var searchResults = this.state.searchResults
-        var newArr = _.orderBy(searchResults, ['time'], ['asc']);
-        console.log(newArr)
+        this.setState({
+          searchResults: _.orderBy(searchResults, ['distance'], ['asc'])
+        })
+        this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, this.state.currentPage);
       }
     });
-
-    Object.size = function(obj) {
-      var size = 0, key;
-      for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
-      }
-      return size;
-    };
