@@ -17,14 +17,17 @@ ActiveRecord::Schema.define(version: 20160404042620) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.boolean  "on_campus",  default: false
-    t.string   "street",     default: ""
-    t.string   "city",       default: ""
-    t.string   "state",      default: ""
-    t.string   "zip",        default: ""
-    t.string   "apt",        default: ""
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "on_campus",    default: false
+    t.string   "street",       default: ""
+    t.string   "city",         default: ""
+    t.string   "state",        default: ""
+    t.string   "zip",          default: ""
+    t.string   "apt",          default: ""
+    t.string   "full_address", default: ""
+    t.float    "longitude"
+    t.float    "latitude"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "conversations", force: :cascade do |t|

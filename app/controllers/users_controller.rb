@@ -8,19 +8,11 @@ class UsersController < ApplicationController
   end
 
   def update
+
     if params[:user]
       @user.update(user_params)
       @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
       @user.save
-      if address_params_complete
-        street = params[:user][:address_street_and_house_number].titleize
-        apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '')
-        city = params[:user][:address_city].titleize
-        state = params[:user][:address_state].upcase
-        zip = params[:user][:address_zip]
-        on_campus = params[:user][:address_on_campus] ? true : false
-        @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus})
-      end
     end
 
     respond_to do |format|
@@ -37,16 +29,12 @@ class UsersController < ApplicationController
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
     if request.patch? && params[:user]
-      school_name = params[:user][:school]
-      street = params[:user][:address_street_and_house_number].titleize
-      apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '') unless params[:user][:address_apartment_number].blank?
-      city = params[:user][:address_city].titleize
-      state = params[:user][:address_state].upcase
-      zip = params[:user][:address_zip]
-      on_campus = params[:user][:address_on_campus] ? true : false
-      @user.school = School.find_or_create_by({name: school_name})
-      @user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus})
-      @user.update_attributes(user_params)
+      @user.update(user_params)
+      @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
+      if address_params_complete
+        set_address(@user)
+      end
+      @user.save
       redirect_to interviews_dash_board_path
     end
   end
@@ -74,6 +62,16 @@ class UsersController < ApplicationController
   private
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_address(user)
+    street = params[:user][:address_street_and_house_number].titleize
+    apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '')
+    city = params[:user][:address_city].titleize
+    state = params[:user][:address_state].upcase
+    zip = params[:user][:address_zip]
+    on_campus = params[:user][:address_on_campus] ? true : false
+    address = user.address = Address.find_or_create_by({street: street, apt: apt, city: city, state: state, zip: zip, on_campus: on_campus, full_address: "#{street} #{city} #{state} #{zip}"})
   end
 
   def user_params

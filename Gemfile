@@ -40,6 +40,7 @@ gem 'omniauth-linkedin'
 gem 'private_pub'
 gem 'thin'
 gem 'lodash-rails'
+gem 'geocoder'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

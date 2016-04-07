@@ -14,7 +14,9 @@ class User < ActiveRecord::Base
   delegate :state, :to => :address
   delegate :zip, :to => :address
   delegate :on_campus, :to => :address
-
+  delegate :longitude, :to => :address
+  delegate :latitude, :to => :address
+  
   def involved_conversations
     Conversation.where("sender_id = ? OR recipient_id = ?", self.id, self.id)
   end

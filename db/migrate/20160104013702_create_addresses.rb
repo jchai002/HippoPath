@@ -7,6 +7,9 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :state, default: ''
       t.string :zip, default: ''
       t.string :apt, default: ''
+      t.string :full_address, default: ''
+      t.float :longitude
+      t.float :latitude
 
       t.timestamps null: false
     end
