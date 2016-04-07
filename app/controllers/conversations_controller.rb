@@ -4,7 +4,7 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = current_user.involved_conversations
-    @no_message = true if current_user.messages.length == 0
+    @no_message = true if current_user.involved_conversations.length == 0
   end
 
   def create

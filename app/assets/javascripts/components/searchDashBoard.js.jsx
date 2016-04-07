@@ -23,7 +23,7 @@ var SearchDashBoard = React.createClass({
       }
     );
     function onSuccess(position) {
-      if (!component.arrayNotBlank(component.state.userPosition)){
+      if (!component.state.userPosition || !component.arrayNotBlank(component.state.userPosition)){
         component.setState({
           userPosition: [position.coords.latitude,position.coords.longitude]
         })
@@ -57,8 +57,7 @@ var SearchDashBoard = React.createClass({
   setDistance: function(interviewObject, isMiles){
     var coords1 = this.state.userPosition;
     var coords2 = interviewObject['location'];
-
-    if (this.arrayNotBlank(coords1) && this.arrayNotBlank(coords2)) {
+    if (coords1 && this.arrayNotBlank(coords1) && coords2 && this.arrayNotBlank(coords2)) {
       function toRad(x) {
         return x * Math.PI / 180;
       }

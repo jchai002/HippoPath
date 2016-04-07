@@ -4,13 +4,19 @@ var chatbox = $("#chatbox_" + id + " .chatboxcontent");
 var sender_id = "<%= @message.user.id %>";
 var reciever_id = $('meta[name=user-id]').attr("content");
 var conversation_tab = $("#conversation-tab-"+id);
+//create conversation tab
+if (!conversation_tab[0]) {
+  conversation_tab = $("<a class='start-conversation' id='conversation-tab-"+id+"' data-sid='"+sender_id+"' data-rid='<%=conversation_recipient_id(@conversation)%>' href='/conversations/"+id+"'></a>");
+  $('.conversation-list').append(conversation_tab);
+  $('.empty-result').remove();
+}
 
 //check if repeated request
 var messageId = "<%= @message.id %>";
 var lastMessageId = chatbox.data('last_message_id');
 var uniqueMessage = messageId !== lastMessageId
-
 if (uniqueMessage) {
+  console.log(conversation_tab)
   conversation_tab.html("<%= j render( partial: @message ) %>");
   chatbox.append("<%= j render( partial: @message ) %>");
   if (chatbox[0]) {
