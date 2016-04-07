@@ -1,6 +1,15 @@
-h1 = Hospital.create({name:"hospital 1"})
-s1= Student.create({first_name:"Xiao"})
+hospitals = []
+(1..10).each do |number|
+  hospitals << Hospital.create({name:"Hospital #{number}"})
+end
 
-5.times do
-  s1.interviews.create({date: "today",time:"8:00AM", ride_status:"Need Ride", hospital:h1, preinterview_dinner:true})
+u1= User.create({name:"jerry", email:'jerry@gdd.com', password:'12345678'})
+u2= User.create({name:"chai", email:'chai@gdd.com', password:'12345678'})
+u3= User.create({name:"dog", email:'dog@gdd.com', password:'12345678'})
+users = [u1,u2,u3]
+
+users.each do |user|
+  5.times do
+    user.interviews.create({date: "04/01/2016",time:"8:00AM", ride_status:"Need Ride", hospital:hospitals.first})
+  end
 end

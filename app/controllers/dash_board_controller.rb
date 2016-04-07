@@ -1,4 +1,17 @@
 class DashBoardController < ApplicationController
-  def index
+  before_action :authenticate_user!
+  def interviews
+    @hospital_names = []
+    Hospital.all.each do |hospital|
+      @hospital_names << hospital.attributes.slice('name')
+    end
   end
+
+  def search
+    @hospital_names = []
+    Hospital.all.each do |hospital|
+      @hospital_names << hospital.attributes.slice('name')
+    end
+  end
+
 end

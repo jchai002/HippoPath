@@ -1,7 +1,24 @@
 class InterviewsController < ApplicationController
 
   def get_interviews
-    @interviews=Interview.order(:created_at)
+    user=current_user
+    @interviews=user.interviews.order(:created_at)
+    respond_to do |format|
+      format.html
+      format.json
+    end
+  end
+
+  #find the interviews by search parameters
+  def search_interviews
+    hospital = params[:interview_info][:hospital].titleize if params[:interview_info][:hospital]
+    search_parameters = {
+      hospital: hospital,
+      date: params[:interview_info][:date],
+      ride_status: params[:interview_info][:ride_status]
+    }
+    interview_records=Interview.search(search_parameters).all
+    @interviews = Interview.build_search_result(interview_records)
     respond_to do |format|
       format.html
       format.json
@@ -9,10 +26,10 @@ class InterviewsController < ApplicationController
   end
 
   def create
-    @interview = Interview.new(interview_params)
-    hospital_name = params["interview_info"]["hospital"]
-    @interview.hospital=Hospital.find_by({name:hospital_name})
-
+    user=current_user
+    @interview = user.interviews.build(interview_params)
+    hospital_name = params["interview_info"]["hospital"].titleize
+    @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     if @interview.save
       render :json => {message:"interview successfully created"} # send back any data if necessary
     else
@@ -21,9 +38,10 @@ class InterviewsController < ApplicationController
   end
 
   def update
-    @interview = Interview.find_by({id: params[:id]})
-    hospital_name = params["interview_info"]["hospital"]
-    @interview.hospital=Hospital.find_by({name:hospital_name})
+    user=current_user
+    @interview = user.interviews.find_by({id: params[:id]})
+    hospital_name = params["interview_info"]["hospital"].titleize
+    @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     @interview.assign_attributes(interview_params)
     if @interview.save
       render :json => {message:"Interview Successfully Updated."} # send back any data if necessary

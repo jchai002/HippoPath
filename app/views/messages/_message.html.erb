@@ -1,0 +1,17 @@
+<li class="<%=  self_or_other(message) %>">
+  <div class="chatboxmessagecontent">
+    <div class="messagewrapper">
+      <div class="avatar">
+        <%if message_interlocutor(message).image.exists?%>
+          <%= image_tag message_interlocutor(message).image.url(:small)%>
+        <%else%>
+          <%= image_tag 'portraitplaceholder.png' %>
+        <%end%>
+      </div>
+      <p><%= message.body %></p>
+    </div>
+    <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
+      <%= message_interlocutor(message).name %> • <%= message.created_at.strftime("%H:%M %p") %>
+    </time>
+  </div>
+</li>

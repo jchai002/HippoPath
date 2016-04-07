@@ -16,6 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -23,9 +24,23 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass', '3.2.0.2'
+gem 'bootstrap_form'
+
+gem 'unread'
 
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails'
+
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
+gem 'omniauth-linkedin'
+
+gem 'private_pub'
+gem 'thin'
+gem 'lodash-rails'
+gem 'geocoder'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
@@ -38,6 +53,10 @@ gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'figaro'
+
+#image handling
+gem 'paperclip'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

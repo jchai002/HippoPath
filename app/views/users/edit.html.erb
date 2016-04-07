@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <div id="user-info" data-userid="<%=@user.id%>"></div>
+    <h3 class="mar-b-20"><%= @user.name ? @user.name.titleize : 'Account Info' %></h3>
+    <%= form_for(@user, html: { method: :put, id:'account-info', class:'info-edit pad-l-20'}) do |f| %>
+    <%= f.label 'Avatar' %><i class="fa fa-pencil pad-l-10 edit-pencil" id="avatar-edit-handle"></i><span id="Avatar-status" class="status-text label label-success mar-l-10"></span>
+    <div class="form-group">
+      <div class="profile-picture">
+        <%if current_user.image.exists?%>
+          <%= image_tag @user.image.url(:large)%>
+        <%else%>
+          <%= image_tag 'portraitplaceholder.png' %>
+        <%end%>
+      </div>
+    </div>
+    <%= f.file_field :image %>
+    <%= f.label 'Email' %><i class="fa fa-pencil pad-l-10 edit-pencil" id="email-edit-handle"></i><span id="email-status" class="status-text label label-success mar-l-10"></span>
+    <div class="form-group">
+      <%= f.email_field :email, class: 'form-control editable-field', id: 'email-edit-field' %>
+      <div class="info-display" id="email-display"><%=@user.email%></div>
+    </div>
+    <% end %>
+    <div class="pad-l-20">
+    <label>Password</label><i class="fa fa-pencil pad-l-10 edit-pencil" id="password-edit-handle"></i><span id="password-status" class="status-text label label-success mar-l-10"></span>
+    <%= render partial: "edit_password", locals: {user: @user}%>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-6">
+    <h3 class="mar-b-20">Personal Info</h3>
+    <%= render partial: "personal_info_form" %>
+    <h3 class="mar-b-20">Adrress<span id="address-status" class="status-text label label-success mar-l-10"></span></h3>
+    <%= render partial: "address_form", locals: {address: @address, user_id: @user.id} %>
+  </div>
+</div>

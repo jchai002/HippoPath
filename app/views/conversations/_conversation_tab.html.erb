@@ -1,0 +1,3 @@
+<%= link_to conversation, class:"start-conversation", id: "conversation-tab-#{conversation.id}",data: {sid: conversation.sender_id, rid: conversation.recipient_id} do %>
+    <%= render partial: "messages/message", locals: {message: conversation.messages.last} %>
+<% end %>

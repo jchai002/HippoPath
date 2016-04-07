@@ -1,7 +1,32 @@
 Rails.application.routes.draw do
 
-root 'dash_board#index'
+  resources :users,  :only =>[:edit, :update]
+  put 'users/id/update_password' => 'users#update_password', :as => :update_password
+  get '/dash_board/interviews' => 'dash_board#interviews', :as => :interviews_dash_board
+  get '/dash_board/search' => 'dash_board#search', :as => :search_dash_board
+
+
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
+  match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+
+  authenticated :user do
+   root 'dash_board#interviews'
+  end
+
+  unauthenticated :user do
+    devise_scope :user do
+      get "/" => 'home#index'
+    end
+  end
+
+  resources :conversations, :only =>[:create, :show, :index] do
+    resources :messages, :only =>[:create]
+  end
 
   resources :interviews, only: [:new, :create, :update, :destroy]
   get '/interviews' => 'interviews#get_interviews'
+  post '/interview_search' => 'interviews#search_interviews'
+  match '/assign_address_to_user/:user_id' => 'address#assign_address_to_user', via: [:post, :put, :patch], :as => :assign_address
+
+  get '/close_chat_box' => 'conversations#close_chat_box'
 end

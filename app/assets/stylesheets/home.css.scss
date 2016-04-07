@@ -1,0 +1,29 @@
+.home-container{
+  position: relative;
+  background-image: image-url('openroad.jpg')  ;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats {
+  height: 500px;
+  width: 750px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 5px;
+  color: rgba(255,255,255,0.8);
+  p {
+    font-size: 14px;
+  }
+}

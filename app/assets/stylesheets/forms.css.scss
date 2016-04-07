@@ -1,0 +1,152 @@
+.custom-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid $theme-primary;
+  padding: 1em;
+  padding-top: 1.5em;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  margin-top:2em;
+  margin-bottom: 2em;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+
+  .flex-wrapper {
+    padding: 0px !important;
+    flex-direction: column;
+    width: 100%;
+    @media (min-width: 992px) {
+      flex-direction: row;
+    }
+  }
+
+  .form-group {
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+    @media (min-width: 768px) {
+      padding-left: 3em;
+      padding-right: 3em;
+    }
+  }
+  button {
+    width: 100%;
+  }
+}
+
+.form-control,.input-group {
+  width: 100%;
+  max-width: 100%;
+}
+
+
+.login-form{
+  margin: 2em;
+  padding:2em;
+  border: solid 2px $theme-primary;
+  border-radius:3px;
+}
+
+// jquery ui
+.ui-autocomplete {
+  position: absolute;
+  z-index:2147483647;
+  cursor: default;
+  padding: 0;
+  margin-top: 2px;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  max-height: 200px;
+  overflow-y: scroll;
+}
+.ui-autocomplete > li {
+  padding: 3px 15px;
+}
+.ui-autocomplete > li.ui-state-focus {
+  background-color: #DDD;
+}
+.ui-helper-hidden-accessible {
+  display: none;
+}
+
+// additional info form
+.info-edit {
+  .form-group {
+   display: flex;
+   flex-direction: row;
+ }
+
+ .form-group label {
+   flex: none;
+   display: block;
+   width: 125px;
+   font-weight: bold;
+   font-size: 1em;
+ }
+ .form-group label.right-inline {
+   text-align: right;
+   padding-right: 8px;
+   padding-left: 10px;
+   width: auto;
+ }
+
+ .form-group .input-control {
+   flex: 1 1 auto;
+   display: block;
+   margin-bottom: 10px;
+   margin-right: 8px;
+   padding: 4px;
+   margin-top: -4px;
+ }
+
+ button {
+   padding: 5px 15px;
+   margin: 5px;
+   min-width: 100px
+ }
+
+ .editable-field {
+   display: none;
+ }
+
+ .info-display {
+   font-size: 16px;
+ }
+}
+
+.edit-pencil {
+  opacity: 0.5;
+  &:hover {
+    cursor: hand;
+    cursor: pointer;
+  }
+}
+
+.city-state-zip {
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 480px) {
+    flex-direction: row;
+    justify-content: space-between;
+    .form-group {
+      width: 30%;
+    }
+  }
+}
+
+.status-text {
+  text-transform: capitalize;
+  display: none;
+}
+
+#password-change {
+  display: none;
+}

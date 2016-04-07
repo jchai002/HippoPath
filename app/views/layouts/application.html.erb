@@ -1,14 +1,25 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <title>HippoPath</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
 </head>
 <body>
-
-<%= yield %>
-
+  <%= render "layouts/header" %>
+  <%if @landing_page%>
+    <%= yield %>
+  <%else%>
+  <div class="container">
+    <%= yield %>
+  </div>
+  <%end%>
 </body>
+<div class="script-container"></div>
+<input type="hidden" id="open-conversations" value="<%=@open_conversations%>"/>
+<%= render 'partials/attach_chat' %>
+<audio id="chatAudio" style="display:none;" src="<%=asset_path('notify.mp3')%>">
 </html>

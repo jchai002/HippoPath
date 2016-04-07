@@ -1,0 +1,6 @@
+<%if current_user %>
+  <% current_user.involved_conversations.each do |conversation| %>
+    <%= subscribe_to conversation_path(conversation) %>
+  <%end%>
+<%= subscribe_to "/new_conversation/#{current_user.id}" %>
+<%end%>
