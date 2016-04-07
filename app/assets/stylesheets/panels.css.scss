@@ -45,11 +45,19 @@
   }
 }
 
-.panel-avatar {
-  height: 28px;
-  width: 28px;
-  border-radius: 15px;
-  position: absolute;
-  right: 15px;
-  top: 5px;
+.search-results {
+  .panel-heading {
+    display: flex;
+    justify-content: space-between;
+    .panel-avatar {
+      height: 28px;
+      width: 28px;
+      border-radius: 15px;
+      margin-right: 10px;
+    }
+    p {
+      margin-top: 4px;
+      margin-bottom: 0px;
+    }
+  }
 }

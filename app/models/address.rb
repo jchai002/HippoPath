@@ -4,7 +4,7 @@ class Address < ActiveRecord::Base
 
   def prepare_address
     self.attributes.each do |name, value|
-      value.downcase! if value
+      value.downcase! if value && name!='on_campus'
     end
     self.full_address = "#{self.street} #{self.city} #{self.state} #{self.zip}"
     unless self.full_address.blank?

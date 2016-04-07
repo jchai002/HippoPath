@@ -14,7 +14,7 @@ var SubPanel = React.createClass({
     } else {
       console.log('got object', content)
       var details = Object.keys(content).map(function(label){
-        if (label != 'cssClass' && label != 'name' && label != 'avatar') {
+        if (label === 'school' || label === 'specialty' || label === 'gender') {
           return (
             <SubPanelLine key={label} lineLabel={label} lineContent={content[label]} />
           );
@@ -22,9 +22,14 @@ var SubPanel = React.createClass({
       });
       return (
         <div className={"panel panel-default " + content.cssClass}>
-          <div className="panel-heading relative">
-            {header}: <span className="dark-gray">{content['name']}</span>
-            <img className="panel-avatar" src={content['avatar']} />
+          <div className="panel-heading">
+            <div>
+              <img className="panel-avatar" src={content['avatar']} />
+              <span>{content['name']}</span>
+            </div>
+            <div className="dark-gray">
+              <p>{content['distance'] + ' miles away'}</p>
+            </div>
           </div>
           <div className="panel-body">
               {details}

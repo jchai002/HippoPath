@@ -27,7 +27,8 @@ class Interview < ActiveRecord::Base
         hospital: interview.hospital.name,
         specialty: interview.poster.specialty,
         gender: interview.poster.gender,
-        avatar: interview.poster.image.url(:med)
+        avatar: interview.poster.image.url(:med),
+        location: ([interview.poster.latitude, interview.poster.longitude] if interview.poster.address)
       }
       if interview.poster.school
         search_result[:school] = interview.poster.school.name

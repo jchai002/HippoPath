@@ -20,10 +20,7 @@ var SearchDashBoard = React.createClass({
     function onSuccess(position) {
       if (!component.state.userPosition){
         component.setState({
-          userPosition: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          }
+          userPosition: [position.coords.latitude,position.coords.longitude]
         })
       }
     }
@@ -52,6 +49,8 @@ var SearchDashBoard = React.createClass({
     var handleUpdate = this.handleUpdate;
     var token = this.props.token;
     var currentUserId = this.props.current_user_id;
+    var calculateDistance = this.calculateDistance;
+    var currentUserPosition = this.state.userPosition;
     var panels = data.map(function(interviewInfo){
       var bodyContent = {};
       bodyContent['date'] = interviewInfo['date'] || 'unknown';
@@ -62,6 +61,7 @@ var SearchDashBoard = React.createClass({
         'school':interviewInfo['school'] || 'unknown',
         'specialty': interviewInfo['specialty'] || 'unknown',
         'avatar':  interviewInfo['avatar'] || '',
+        'distance': calculateDistance(currentUserPosition, interviewInfo['location'], true) || 'unknown',
         'cssClass': 'panel-flex-item-large'
       }
       return <InfoPanel
@@ -97,7 +97,7 @@ var SearchDashBoard = React.createClass({
             </div>
           </div>
           <div className="row">
-            <div className="col-sm-12 isotope-sort">
+            <div className="col-sm-12 search-results">
               {panels}
             </div>
           </div>
@@ -120,15 +120,15 @@ var SearchDashBoard = React.createClass({
       // console.log(newArr)
       console.log(this.state)
     },
-    calculateDistance: function(){
-      function haversineDistance(coords1, coords2, isMiles) {
+    calculateDistance: function(coords1, coords2, isMiles){
+      if (coords1 && coords2) {
         function toRad(x) {
           return x * Math.PI / 180;
         }
-        var long1 = coords1[0];
-        var lat1 = coords1[1];
-        var long2 = coords2[0];
-        var lat2 = coords2[1];
+        var lat1 = coords1[0];
+        var long1 = coords1[1];
+        var lat2 = coords2[0];
+        var long2 = coords2[1];
         var R = 6371; // km
         var x1 = lat2 - lat1;
         var dLat = toRad(x1);
@@ -140,7 +140,9 @@ var SearchDashBoard = React.createClass({
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         var d = R * c;
         if(isMiles) d /= 1.60934;
-        return d;
+        return (Math.round(d * 10) / 10).toFixed(1);
+      } else {
+        return null
       }
     }
   });

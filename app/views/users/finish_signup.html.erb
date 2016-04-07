@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
       <%= f.text_field :address_city, :value => '', class: 'form-control mar-r-15 mar-b-15', placeholder: 'City', required: true, data: {'error-value-missing' => "Please Enter Your City"} %>
-      <%= f.text_field :address_state, :value => '', class: 'form-control mar-r-15 mar-b-15', id: 'state-autocomplete', placeholder: 'State', autocomplete: 'off', required: true, data: {'error-value-missing' => "Please Enter Your State"} %>
+      <%= select_tag "user[address_state]", options_for_select(us_states), { class: 'form-control mar-r-15 mar-b-15', required: true, data: {'error-value-missing' => "Please Enter Your State"}} %>
       <%= f.text_field :address_zip, :value => '', class: 'form-control mar-b-15', placeholder: 'Zip Code', required: true, pattern: '^\d{5}(?:[-\s]\d{4})?$', data: {'error-value-missing' => "Please Enter Your Zip Code", 'error-pattern-mismatch' => "Zip Code Format Invalid"} %>
     </div>
     <div class="actions">
