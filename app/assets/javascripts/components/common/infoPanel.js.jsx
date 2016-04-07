@@ -8,6 +8,7 @@ var InfoPanel = React.createClass({
     var interviewInfo = this.props.interviewInfo;
     var hospital = interviewInfo.hospital;
     var rideStatus = interviewInfo.ride_status;
+    var postedTime = moment(interviewInfo.created_at).fromNow();
     var bodyContent = this.props.bodyContent;
     var labelStyle;
     if (rideStatus=="Need Ride") {
@@ -26,6 +27,7 @@ var InfoPanel = React.createClass({
     });
 
     var buttons;
+    var postedTime = <span className="dark-gray">posted {postedTime}</span>;
     if (this.props.layoutType === 'interview') {
       buttons = <InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.handleDelete} />
     }
@@ -46,7 +48,12 @@ var InfoPanel = React.createClass({
               {bodyPanels}
             </div>
             <hr className="mar-y-15"></hr>
-              {buttons}
+              <div className="panel-flex-container">
+                <div className="mar-b-15 mar-l-20">
+                {postedTime}
+                </div>
+                {buttons}
+              </div>
           </div>
         </div>
       );

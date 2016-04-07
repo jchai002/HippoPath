@@ -21,6 +21,7 @@ class Interview < ActiveRecord::Base
         id: interview.id,
         date: interview.date,
         time: interview.time,
+        created_at: interview.created_at,
         ride_status: interview.ride_status,
         poster_id: interview.poster.id,
         name:  interview.poster.name || interview.poster.email.split('@')[0],
