@@ -41,7 +41,7 @@ gem 'private_pub'
 gem 'thin'
 gem 'lodash-rails'
 gem 'geocoder'
-
+gem 'will_paginate'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end

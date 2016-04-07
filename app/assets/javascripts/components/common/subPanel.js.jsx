@@ -12,7 +12,6 @@ var SubPanel = React.createClass({
         </div>
       );
     } else {
-      console.log('got object', content)
       var details = Object.keys(content).map(function(label){
         if (label === 'school' || label === 'specialty' || label === 'gender') {
           return (

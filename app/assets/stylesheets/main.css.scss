@@ -55,6 +55,12 @@ ul.navbar-right {
   justify-content: center;
 }
 
+.pagination-flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #menu-bar {
   z-index: 100 !important;
 }

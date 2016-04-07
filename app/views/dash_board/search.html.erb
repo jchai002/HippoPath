@@ -1,3 +1,8 @@
 <%= react_component 'SearchDashBoard', token: form_authenticity_token, current_user_id: current_user.id, user_coords: ([@address.latitude, @address.longitude] if @address) %>
+<div class="row">
+  <div class="pagination-flex-container">
+    <ul id="search-pagination" class="pagination-sm"></ul>
+  </div>
+</div>
 <%= content_tag :div, class: "hospital_names", data: {hospital_names: @hospital_names} do %>
 <% end %>
