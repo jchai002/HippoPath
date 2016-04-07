@@ -12,6 +12,7 @@ class DashBoardController < ApplicationController
     Hospital.all.each do |hospital|
       @hospital_names << hospital.attributes.slice('name')
     end
+    @address = current_user.address
   end
 
 end

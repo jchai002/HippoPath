@@ -3,7 +3,49 @@ var SearchDashBoard = React.createClass({
     return {
       searchResultPanels: undefined,
       searchResults:undefined,
-      searched: false
+      searched: false,
+      userPosition: this.props.user_coords
+    }
+  },
+  setBrowserCoords: function() {
+    component = this;
+    navigator.geolocation.getCurrentPosition(
+      onSuccess,
+      onError, {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 120000
+      }
+    );
+    function onSuccess(position) {
+      if (!component.state.userPosition){
+        component.setState({
+          userPosition: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+        })
+      }
+    }
+
+    function onError(err) {
+      var message;
+
+      switch (err.code) {
+        case 0:
+        message = 'Unknown error: ' + err.message;
+        break;
+        case 1:
+        message = 'You denied permission to retrieve a position.';
+        break;
+        case 2:
+        message = 'The browser was unable to determine a position: ' + error.message;
+        break;
+        case 3:
+        message = 'The browser timed out before retrieving the position.';
+        break;
+      }
+      console.log(message)
     }
   },
   setSearchResultPanels: function(data){
@@ -69,11 +111,14 @@ var SearchDashBoard = React.createClass({
         searched: true
       })
     },
+    componentDidMount: function(){
+      this.setBrowserCoords()
+    },
     componentDidUpdate: function(){
       // var searchResults = this.state.searchResults
       // var newArr = _.orderBy(searchResults, ['time'], ['asc']);
       // console.log(newArr)
-      console.log(this.props)
+      console.log(this.state)
     },
     calculateDistance: function(){
       function haversineDistance(coords1, coords2, isMiles) {
