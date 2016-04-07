@@ -9,6 +9,9 @@ var SearchDashBoard = React.createClass({
       currentPage: 1
     }
   },
+  arrayNotBlank: function(array) {
+    return array[0] && array[1]
+  },
   setBrowserCoords: function() {
     component = this;
     navigator.geolocation.getCurrentPosition(
@@ -20,10 +23,11 @@ var SearchDashBoard = React.createClass({
       }
     );
     function onSuccess(position) {
-      if (!component.state.userPosition){
+      if (!component.arrayNotBlank(component.state.userPosition)){
         component.setState({
           userPosition: [position.coords.latitude,position.coords.longitude]
         })
+        console.log('finished setting location', component.state.userPosition)
       }
     }
 
@@ -63,7 +67,7 @@ var SearchDashBoard = React.createClass({
         'school':interviewInfo['school'] || 'unknown',
         'specialty': interviewInfo['specialty'] || 'unknown',
         'avatar':  interviewInfo['avatar'] || '',
-        'distance': calculateDistance(currentUserPosition, interviewInfo['location'], true) || 'unknown',
+        'distance': interviewInfo['distance'] || 'unknown',
         'cssClass': 'panel-flex-item-large'
       }
       return <InfoPanel
@@ -99,6 +103,11 @@ var SearchDashBoard = React.createClass({
               </div>
             </div>
             <div className="row">
+              <div className="btn-group pad-l-15 pad-b-20">
+                <button type="button" className="btn btn-primary">Distance</button>
+                <button type="button" className="btn btn-primary">Posted On</button>
+                <button type="button" className="btn btn-primary">School</button>
+              </div>
               <div className="col-sm-12 search-results">
                 {panels}
               </div>
@@ -112,6 +121,10 @@ var SearchDashBoard = React.createClass({
           searched: true,
           searchResults:results,
           currentPage: 1
+        })
+        var setDistance = this.setDistance;
+        this.state.searchResults.map((interviewObject) => {
+          setDistance(interviewObject,true)
         })
         var resultCount = Object.size(results);
         if (resultCount>0){
@@ -131,15 +144,14 @@ var SearchDashBoard = React.createClass({
         this.setSearchResultPanels(resultsToShow);
       },
       componentDidMount: function(){
-        this.setBrowserCoords()
+        this.setBrowserCoords();
       },
-      componentDidUpdate: function(){
-        // var searchResults = this.state.searchResults
-        // var newArr = _.orderBy(searchResults, ['time'], ['asc']);
-        // console.log(newArr)
-      },
-      calculateDistance: function(coords1, coords2, isMiles){
-        if (coords1 && coords2) {
+      setDistance: function(interviewObject, isMiles){
+        var coords1 = this.state.userPosition;
+        var coords2 = interviewObject['location'];
+
+        if (this.arrayNotBlank(coords1) && this.arrayNotBlank(coords2)) {
+          console.log(coords2)
           function toRad(x) {
             return x * Math.PI / 180;
           }
@@ -158,9 +170,9 @@ var SearchDashBoard = React.createClass({
           var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
           var d = R * c;
           if(isMiles) d /= 1.60934;
-          return (Math.round(d * 10) / 10).toFixed(1);
+          interviewObject['distance'] = (Math.round(d * 10) / 10).toFixed(1);
         } else {
-          return null
+          interviewObject['distance'] = 'Unknown'
         }
       },
       handlePagination: function(totalResultsCount, resultsPerPage, currentPage) {
@@ -184,6 +196,11 @@ var SearchDashBoard = React.createClass({
             }
           }
         });
+      },
+      sortByDistance: function() {
+        var searchResults = this.state.searchResults
+        var newArr = _.orderBy(searchResults, ['time'], ['asc']);
+        console.log(newArr)
       }
     });
 
