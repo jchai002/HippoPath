@@ -124,8 +124,10 @@ var SearchDashBoard = React.createClass({
       panels = <div className="panel panel-default empty-result"><h1>Search For Carpool</h1></div>;
       } else {
         if (this.state.searchResults.length) {
+          $('.order-filter').show()
           panels = this.state.searchResultPanels;
         } else {
+          $('.order-filter').hide()
           panels = <div className="panel panel-default empty-result"><h1>0 Search Results</h1></div>;
           }
         }
@@ -137,9 +139,10 @@ var SearchDashBoard = React.createClass({
               </div>
             </div>
             <div className="row">
-              <div className="btn-group pad-l-30 pad-b-20">
-                <button type="button" className="btn btn-primary" onClick={this.orderByDistance}>Distance</button>
-                <button type="button" className="btn btn-primary"  onClick={this.orderByPostDate}>Posted On</button>
+              <div className="pad-l-30 pad-b-20 order-filter">
+                <span className="pad-r-5">Order By:</span>
+                <span className="label label-info mar-r-5 distance active" onClick={this.orderByDistance}>Distance From Me</span>
+                <span className="label label-info mar-r-5 most-recent"  onClick={this.orderByPostDate}>Most Recent</span>
               </div>
               <div className="col-sm-12 search-results">
                 {panels}
@@ -156,15 +159,17 @@ var SearchDashBoard = React.createClass({
           }
           return size;
         };
+        component = this;
         this.setState({
           searched: true,
           searchResults:results,
           currentPage: 1,
           resultsCount: Object.size(results)
-        })
-        var setDistance = this.setDistance;
-        this.state.searchResults.map((interviewObject) => {
-          setDistance(interviewObject,true)
+        },function(){
+          component.state.searchResults.map((interviewObject) => {
+            component.setDistance(interviewObject,true)
+          })
+          component.orderByDistance();
         })
 
         if (this.state.resultsCount>0){
@@ -207,6 +212,8 @@ var SearchDashBoard = React.createClass({
         });
       },
       orderByDistance: function() {
+        $('.active').removeClass('active');
+        $('.distance').addClass('active');
         var searchResults = this.state.searchResults;
         this.setState({
           searchResults: _.sortBy(searchResults, ['distance'])
@@ -215,11 +222,12 @@ var SearchDashBoard = React.createClass({
         })
       },
       orderByPostDate: function() {
+        $('.active').removeClass('active');
+        $('.most-recent').addClass('active');
         var searchResults = this.state.searchResults;
         this.setState({
           searchResults: _.orderBy(searchResults, ['created_at'], ['desc'])
         },function(){
-          console.log('sorted', this.state.searchResults)
           this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, 1);
         })
       }

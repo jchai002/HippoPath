@@ -64,3 +64,15 @@ ul.navbar-right {
 #menu-bar {
   z-index: 100 !important;
 }
+
+.order-filter {
+  display: none;
+  .label {
+    cursor: pointer;
+    cursor: hand;
+  }
+  .active {
+    background-color: lighten($theme-primary,5%);
+    border: 1px solid darken($theme-primary,5%);
+  }
+}
