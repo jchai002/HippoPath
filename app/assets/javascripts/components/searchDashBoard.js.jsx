@@ -2,13 +2,14 @@ var SearchDashBoard = React.createClass({
   getInitialState: function(){
     return {
       searchResultPanels: undefined,
-      searchResults:undefined,
-      resultsCount: 0,
+      originalResults:undefined,
+      modifiedResults:undefined,
       searched: false,
       userPosition: this.props.user_coords,
       resultsPerPage: 6,
       currentPage: 1,
-      showOwnResults: false
+      hidingOwnResults: false,
+      currentSortingBy: 'distance'
     }
   },
   arrayNotBlank: function(array) {
@@ -120,10 +121,10 @@ var SearchDashBoard = React.createClass({
   },
   render: function() {
     var panels;
-    if (!this.state.searchResults) {
+    if (!this.state.originalResults) {
       panels = <div className="panel panel-default empty-result"><h1>Search For Carpool</h1></div>;
       } else {
-        if (this.state.searchResults.length) {
+        if (this.state.originalResults.length) {
           $('.search-filters').css('display','flex')
           panels = this.state.searchResultPanels;
         } else {
@@ -149,7 +150,7 @@ var SearchDashBoard = React.createClass({
                 </span>
                 </span>
                 <span>
-                  <span className="label label-defualt show-own filter-group" onClick={this.handleShowOwnInterviews}>Show My Own Interviews
+                  <span className="label label-defualt hide-own filter-group" onClick={this.handleHideOwnInterviews}>Hide My Own Interviews
                   </span>
                 </span>
               </div>
@@ -161,45 +162,34 @@ var SearchDashBoard = React.createClass({
         );
       },
       handleSearch: function(results){
-        Object.size = function(obj) {
-          var size = 0, key;
-          for (key in obj) {
-            if (obj.hasOwnProperty(key)) size++;
-          }
-          return size;
-        };
+        $('.pagination-flex-container').html('')
         component = this;
         this.setState({
           searched: true,
-          searchResults:results,
-          currentPage: 1,
-          resultsCount: Object.size(results)
+          originalResults:results,
+          currentPage: 1
         },function(){
-          component.state.searchResults.map((interviewObject) => {
-            component.setDistance(interviewObject,true)
+          component.state.originalResults.map((interviewObject) => {
+          component.setDistance(interviewObject,true)
           })
-          component.orderByDistance();
+          component.setState({
+            modifiedResults:component.state.originalResults
+          },function(){
+            component.sortThenDisplay();
+          })
         })
-
-        if (this.state.resultsCount>0){
-          this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage);
+      },
+      handleResultsDisplay: function() {
+        if (Object.size(this.state.modifiedResults) > this.state.resultsPerPage) {
+          this.displayPaginatedResults(this.state.modifiedResults, Object.size(this.state.modifiedResults),this.state.resultsPerPage);
+        }
+        else if (Object.size(this.state.modifiedResults) > 0) {
+          this.setSearchResultPanels(this.state.modifiedResults);
         }
       },
-      displayResults: function(totalResultSet,pageNumber,resultsCount){
-        var groupSize = this.state.resultsPerPage;
-        var groups = _.map(totalResultSet, function(item, index){
-          return index % groupSize === 0 ? totalResultSet.slice(index, index + groupSize) : null;
-        })
-        .filter(function(item){
-          return item;
-        });
-        var resultsToShow = groups[pageNumber-1]
-        this.setSearchResultPanels(resultsToShow);
-      },
-      displayPaginatedResult: function(totalResultsCount, resultsPerPage) {
+      displayPaginatedResults: function(resultSet, totalResultsCount, resultsPerPage) {
         $('.pagination-flex-container').html('<ul id="search-pagination" class="pagination-sm"></ul>');
         component = this;
-        displayResults = this.displayResults;
         var maxPages = Math.ceil(totalResultsCount/resultsPerPage);
         var visible;
         if (maxPages > 5) {
@@ -213,34 +203,80 @@ var SearchDashBoard = React.createClass({
           onPageClick: function (event, page) {
             $('#page-content').text('Page ' + page);
             component.setState({currentPage: page});
-            if (component.state.searchResults) {
-              displayResults(component.state.searchResults,page,component.state.resultsCount);
+            if (resultSet) {
+              var groupSize = resultsPerPage;
+              var groups = _.map(resultSet, function(item, index){
+                return index % groupSize === 0 ? resultSet.slice(index, index + groupSize) : null;
+              })
+              .filter(function(item){
+                return item;
+              });
+              var resultsToShow = groups[page-1]
+              component.setSearchResultPanels(resultsToShow);
             }
           }
-
         });
       },
       orderByDistance: function() {
         $('.active').removeClass('active');
         $('.distance').addClass('active');
-        var searchResults = this.state.searchResults;
+        var resultSet = this.state.modifiedResults;
         this.setState({
-          searchResults: _.sortBy(searchResults, ['distance'])
+          modifiedResults: _.sortBy(resultSet, ['distance']),
+          currentSortingBy: 'distance'
         },function(){
-          this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, 1);
+          this.handleResultsDisplay();
         })
       },
       orderByPostDate: function() {
         $('.active').removeClass('active');
         $('.most-recent').addClass('active');
-        var searchResults = this.state.searchResults;
+        var resultSet = this.state.modifiedResults;
         this.setState({
-          searchResults: _.orderBy(searchResults, ['created_at'], ['desc'])
+          modifiedResults: _.orderBy(resultSet, ['created_at'], ['desc']),
+          currentSortingBy: 'created_at'
         },function(){
-          this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, 1);
+          this.handleResultsDisplay();
         })
       },
-      handleShowOwnInterviews: function() {
-        $('.show-own').toggleClass('show-own-active');
-      }
+      sortThenDisplay: function(){
+        if (this.state.currentSortingBy == 'distance') {
+          this.orderByDistance();
+        }
+        if (this.state.currentSortingBy == 'created_at') {
+          this.orderByPostDate();
+        }
+      },
+      handleHideOwnInterviews: function() {
+        $('.hide-own').toggleClass('hide-own-active');
+        component = this;
+        var resultSet = component.state.originalResults;
+        function isNotOwnInterview(interviewObject) {
+          return interviewObject['poster_id'] != component.props.current_user_id
+        }
+        if (!component.state.hidingOwnResults) {
+          component.setState({
+            modifiedResults:resultSet.filter(isNotOwnInterview),
+            hidingOwnResults:true
+          }, function(){
+            component.sortThenDisplay();
+          })
+        } else {
+          component.setState({
+            modifiedResults:resultSet,
+            hidingOwnResults:false
+          }, function(){
+            component.sortThenDisplay();
+          })
+        }
+      },
+
     });
+
+    Object.size = function(obj) {
+      var size = 0, key;
+      for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+      }
+      return size;
+    };
