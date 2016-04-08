@@ -124,10 +124,10 @@ var SearchDashBoard = React.createClass({
       panels = <div className="panel panel-default empty-result"><h1>Search For Carpool</h1></div>;
       } else {
         if (this.state.searchResults.length) {
-          $('.order-filter').show()
+          $('.search-filters').css('display','flex')
           panels = this.state.searchResultPanels;
         } else {
-          $('.order-filter').hide()
+          $('.search-filters').hide()
           panels = <div className="panel panel-default empty-result"><h1>0 Search Results</h1></div>;
           }
         }
@@ -139,10 +139,19 @@ var SearchDashBoard = React.createClass({
               </div>
             </div>
             <div className="row">
-              <div className="pad-l-30 pad-b-20 order-filter">
+              <div className="pad-l-30 pad-b-20 search-filters">
+
+                <span className="filter-group">
                 <span className="pad-r-5">Order By:</span>
+                <span>
                 <span className="label label-info mar-r-5 distance active" onClick={this.orderByDistance}>Distance From Me</span>
                 <span className="label label-info mar-r-5 most-recent"  onClick={this.orderByPostDate}>Most Recent</span>
+                </span>
+                </span>
+                <span>
+                  <span className="label label-defualt show-own filter-group" onClick={this.handleShowOwnInterviews}>Show My Own Interviews
+                  </span>
+                </span>
               </div>
               <div className="col-sm-12 search-results">
                 {panels}
@@ -230,5 +239,8 @@ var SearchDashBoard = React.createClass({
         },function(){
           this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, 1);
         })
+      },
+      handleShowOwnInterviews: function() {
+        $('.show-own').toggleClass('show-own-active');
       }
     });

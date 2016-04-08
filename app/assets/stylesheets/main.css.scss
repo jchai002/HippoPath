@@ -65,14 +65,44 @@ ul.navbar-right {
   z-index: 100 !important;
 }
 
-.order-filter {
+.search-filters {
   display: none;
+  justify-content: space-between;
+  @media (max-width: 480px) {
+    flex-direction: column;
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .label-defualt {
+    background-color: white;
+    color: darken($theme-gray,10%);
+    border: 1px solid darken($theme-gray,10%);
+    margin-right: 30px;
+    @media (max-width: 480px) {
+      margin-top: 10px;
+    }
+  }
+  .label-info {
+    border: 1px solid $theme-cyan;
+    background-color: $theme-cyan;
+    @media (max-width: 480px) {
+      margin-top: 5px;
+    }
+  }
   .label {
+    max-width:190px;
     cursor: pointer;
     cursor: hand;
   }
   .active {
     background-color: lighten($theme-primary,5%);
     border: 1px solid darken($theme-primary,5%);
+  }
+  .show-own-active {
+    color: white;
+    background-color: $theme-green;
+    border: 1px solid $theme-green;
   }
 }
