@@ -1,7 +1,6 @@
 module AddressesHelper
-  def us_states
-    [
-      ['Select Your State', ''],
+  def us_states(has_blank=false)
+    states= [
       ['Alabama', 'AL'],
       ['Alaska', 'AK'],
       ['Arizona', 'AZ'],
@@ -55,5 +54,7 @@ module AddressesHelper
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
+    states.unshift(['Select Your State', '']) if has_blank
+    return states
   end
 end

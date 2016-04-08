@@ -27,7 +27,7 @@ var SubPanel = React.createClass({
               <span>{content['name']}</span>
             </div>
             <div className="dark-gray">
-              <p>{content['distance'] + ' miles away'}</p>
+              <p>{content['distance'] < 88888 ? content['distance'] + ' miles away' : 'unknown miles away'}</p>
             </div>
           </div>
           <div className="panel-body">

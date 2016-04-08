@@ -25,7 +25,6 @@ var InfoPanel = React.createClass({
           <SubPanel key={header} header={header} content={bodyContent[header]} />
         );
     });
-
     var buttons;
     var postedTime = <span className="dark-gray">posted {postedTime}</span>;
     if (this.props.layoutType === 'interview') {

@@ -3,10 +3,12 @@ var SearchDashBoard = React.createClass({
     return {
       searchResultPanels: undefined,
       searchResults:undefined,
+      resultsCount: 0,
       searched: false,
       userPosition: this.props.user_coords,
       resultsPerPage: 6,
-      currentPage: 1
+      currentPage: 1,
+      showOwnResults: false
     }
   },
   arrayNotBlank: function(array) {
@@ -76,9 +78,9 @@ var SearchDashBoard = React.createClass({
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       var d = R * c;
       if(isMiles) d /= 1.60934;
-      interviewObject['distance'] = (Math.round(d * 10) / 10).toFixed(1);
+      interviewObject['distance'] = Number((Math.round(d * 10) / 10).toFixed(1));
     } else {
-      interviewObject['distance'] = 'Unknown'
+      interviewObject['distance'] = 99999
     }
   },
   setSearchResultPanels: function(data){
@@ -88,6 +90,7 @@ var SearchDashBoard = React.createClass({
     var calculateDistance = this.calculateDistance;
     var currentUserPosition = this.state.userPosition;
     var panels = data.map(function(interviewInfo){
+      var posterId =  interviewInfo['poster_id'];
       var bodyContent = {};
       bodyContent['date'] = interviewInfo['date'] || 'unknown';
       bodyContent['time'] = interviewInfo['time'] || 'unknown';
@@ -97,7 +100,7 @@ var SearchDashBoard = React.createClass({
         'school':interviewInfo['school'] || 'unknown',
         'specialty': interviewInfo['specialty'] || 'unknown',
         'avatar':  interviewInfo['avatar'] || '',
-        'distance': interviewInfo['distance'] || 'unknown',
+        'distance': interviewInfo['distance'],
         'cssClass': 'panel-flex-item-large'
       }
       return <InfoPanel
@@ -110,6 +113,7 @@ var SearchDashBoard = React.createClass({
         flexBoxClass="panel-flex-container-2"
         token={token}
         currentUserId={currentUserId}
+        isOwnInterview={currentUserId==posterId}
         />
     })
     this.setState({searchResultPanels:panels})
@@ -117,12 +121,12 @@ var SearchDashBoard = React.createClass({
   render: function() {
     var panels;
     if (!this.state.searchResults) {
-        panels = <div className="panel panel-default empty-result"><h1>Search For Carpool</h1></div>;
+      panels = <div className="panel panel-default empty-result"><h1>Search For Carpool</h1></div>;
+      } else {
+        if (this.state.searchResults.length) {
+          panels = this.state.searchResultPanels;
         } else {
-          if (this.state.searchResults.length) {
-            panels = this.state.searchResultPanels;
-          } else {
-            panels = <div className="panel panel-default empty-result"><h1>0 Search Results</h1></div>;
+          panels = <div className="panel panel-default empty-result"><h1>0 Search Results</h1></div>;
           }
         }
         return (
@@ -133,10 +137,9 @@ var SearchDashBoard = React.createClass({
               </div>
             </div>
             <div className="row">
-              <div className="btn-group pad-l-15 pad-b-20">
-                <button type="button" className="btn btn-primary" onClick={this.sortByDistance}>Distance</button>
-                <button type="button" className="btn btn-primary">Posted On</button>
-                <button type="button" className="btn btn-primary">School</button>
+              <div className="btn-group pad-l-30 pad-b-20">
+                <button type="button" className="btn btn-primary" onClick={this.orderByDistance}>Distance</button>
+                <button type="button" className="btn btn-primary"  onClick={this.orderByPostDate}>Posted On</button>
               </div>
               <div className="col-sm-12 search-results">
                 {panels}
@@ -165,7 +168,7 @@ var SearchDashBoard = React.createClass({
         })
 
         if (this.state.resultsCount>0){
-          this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, this.state.currentPage);
+          this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage);
         }
       },
       displayResults: function(totalResultSet,pageNumber,resultsCount){
@@ -179,7 +182,7 @@ var SearchDashBoard = React.createClass({
         var resultsToShow = groups[pageNumber-1]
         this.setSearchResultPanels(resultsToShow);
       },
-      displayPaginatedResult: function(totalResultsCount, resultsPerPage, currentPage) {
+      displayPaginatedResult: function(totalResultsCount, resultsPerPage) {
         $('.pagination-flex-container').html('<ul id="search-pagination" class="pagination-sm"></ul>');
         component = this;
         displayResults = this.displayResults;
@@ -200,13 +203,24 @@ var SearchDashBoard = React.createClass({
               displayResults(component.state.searchResults,page,component.state.resultsCount);
             }
           }
+
         });
       },
-      sortByDistance: function() {
-        var searchResults = this.state.searchResults
+      orderByDistance: function() {
+        var searchResults = this.state.searchResults;
         this.setState({
-          searchResults: _.orderBy(searchResults, ['distance'], ['asc'])
+          searchResults: _.sortBy(searchResults, ['distance'])
+        },function(){
+          this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, 1);
         })
-        this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, this.state.currentPage);
+      },
+      orderByPostDate: function() {
+        var searchResults = this.state.searchResults;
+        this.setState({
+          searchResults: _.orderBy(searchResults, ['created_at'], ['desc'])
+        },function(){
+          console.log('sorted', this.state.searchResults)
+          this.displayPaginatedResult(this.state.resultsCount,this.state.resultsPerPage, 1);
+        })
       }
     });
