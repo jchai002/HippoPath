@@ -1,17 +1,17 @@
 //global
-@import 'variables.css.scss';
+@import 'variables';
 @import "font-awesome";
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'bootstrap-datetimepicker';
 @import 'bootstrap_overrides.scss';
-@import 'helper_classes.css.scss';
-@import "social-buttons.css.scss";
-@import "main.css.scss";
+@import 'helper_classes';
+@import "social-buttons";
+@import "main";
 
 //scoped
-@import "forms.css.scss";
-@import "chat.css.scss";
-@import "home.css.scss";
-@import "panels.css.scss";
-@import 'conversation_list.css.scss';
+@import "forms";
+@import "chat";
+@import "home";
+@import "panels";
+@import 'conversation_list';
