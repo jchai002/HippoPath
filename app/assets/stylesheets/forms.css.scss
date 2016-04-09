@@ -23,8 +23,8 @@
   }
 
   .form-group {
-      padding-left: 0.5em;
-      padding-right: 0.5em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
     @media (min-width: 768px) {
       padding-left: 3em;
       padding-right: 3em;
@@ -42,10 +42,100 @@
 
 
 .login-form{
+  -webkit-animation: fadein-fall 1s ease-in-out;
+  -moz-animation: fadein-fall 1s ease-in-out; /* Firefox < 16 */
+  -ms-animation: fadein-fall 1s ease-in-out; /* Internet Explorer */
+  -o-animation: fadein-fall 1s ease-in-out; /* Opera < 12.1 */
+  animation: fadein-fall 1s ease-in-out;
   margin: 2em;
-  padding:2em;
-  border: solid 2px $theme-primary;
-  border-radius:3px;
+  padding: 1em;
+  border-radius:5px;
+  min-width: 360px;
+  background-color: white;
+  input[type=submit] {
+    width: 100%;
+  }
+  @media(min-width: 550px) {
+    min-width: 500px;
+  }
+  @media(min-width: 768px) {
+    padding:2em;
+    min-width: 700px;
+    border: solid 2px $theme-primary;
+  }
+  .social-flex-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .social-flex-item {
+      width: 100%;
+    }
+    @media(min-width: 768px) {
+      flex-direction: row;
+      .social-flex-item {
+        width: 33%;
+      }
+    }
+  }
+}
+
+@keyframes fadein-fall {
+    from {
+      opacity: 0;
+      transform: translateY(-400px);
+    }
+    to   {
+      opacity: 1;
+      transform : translateY(0);
+    }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein-fall {
+  from {
+    opacity: 0;
+    transform: translateY(-400px);
+  }
+  to   {
+    opacity: 1;
+    transform : translateY(0);
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein-fall {
+  from {
+    opacity: 0;
+    transform: translateY(-400px);
+  }
+  to   {
+    opacity: 1;
+    transform : translateY(0);
+  }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein-fall {
+  from {
+    opacity: 0;
+    transform: translateY(-400px);
+  }
+  to   {
+    opacity: 1;
+    transform : translateY(0);
+  }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein-fall {
+  from {
+    opacity: 0;
+    transform: translateY(-400px);
+  }
+  to   {
+    opacity: 1;
+    transform : translateY(0);
+  }
 }
 
 // jquery ui
@@ -80,46 +170,46 @@
 // additional info form
 .info-edit {
   .form-group {
-   display: flex;
-   flex-direction: row;
- }
+    display: flex;
+    flex-direction: row;
+  }
 
- .form-group label {
-   flex: none;
-   display: block;
-   width: 125px;
-   font-weight: bold;
-   font-size: 1em;
- }
- .form-group label.right-inline {
-   text-align: right;
-   padding-right: 8px;
-   padding-left: 10px;
-   width: auto;
- }
+  .form-group label {
+    flex: none;
+    display: block;
+    width: 125px;
+    font-weight: bold;
+    font-size: 1em;
+  }
+  .form-group label.right-inline {
+    text-align: right;
+    padding-right: 8px;
+    padding-left: 10px;
+    width: auto;
+  }
 
- .form-group .input-control {
-   flex: 1 1 auto;
-   display: block;
-   margin-bottom: 10px;
-   margin-right: 8px;
-   padding: 4px;
-   margin-top: -4px;
- }
+  .form-group .input-control {
+    flex: 1 1 auto;
+    display: block;
+    margin-bottom: 10px;
+    margin-right: 8px;
+    padding: 4px;
+    margin-top: -4px;
+  }
 
- button {
-   padding: 5px 15px;
-   margin: 5px;
-   min-width: 100px
- }
+  button {
+    padding: 5px 15px;
+    margin: 5px;
+    min-width: 100px
+  }
 
- .editable-field {
-   display: none;
- }
+  .editable-field {
+    display: none;
+  }
 
- .info-display {
-   font-size: 16px;
- }
+  .info-display {
+    font-size: 16px;
+  }
 }
 
 .edit-pencil {

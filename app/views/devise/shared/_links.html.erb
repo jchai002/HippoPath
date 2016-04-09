@@ -1,3 +1,4 @@
+<div class="mar-t-15">
 <%- if controller_name != 'sessions' %>
   <%= link_to "Log in", new_session_path(resource_name) %><br />
 <% end -%>
@@ -19,9 +20,12 @@
 <% end -%>
 
 <%- if devise_mapping.omniauthable? %>
-  <a href="/users/auth/facebook" class="btn btn-facebook"><i class="fa fa-facebook"></i> | Login with Facebook</a>
+  <div class="social-flex-container">
+  <a href="/users/auth/facebook" class="btn btn-facebook social-flex-item"><i class="fa fa-facebook"></i> | Login with Facebook</a>
 
-  <a href="/users/auth/linkedin" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> | Login with Linkedin</a>
+  <a href="/users/auth/linkedin" class="btn btn-linkedin social-flex-item"><i class="fa fa-linkedin"></i> | Login with Linkedin</a>
 
-  <a href="/users/auth/google_oauth2" class="btn btn-google-plus"><i class="fa fa-google-plus"></i> | Login with Google</a>
+  <a href="/users/auth/google_oauth2" class="btn btn-google-plus social-flex-item"><i class="fa fa-google-plus"></i> | Login with Google</a>
+  </div>
 <% end -%>
+</div>
