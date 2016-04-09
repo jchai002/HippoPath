@@ -21,5 +21,6 @@
 <div class="script-container"></div>
 <input type="hidden" id="open-conversations" value="<%=@open_conversations%>"/>
 <%= render 'partials/attach_chat' %>
+<%= render 'partials/display_unread_message' %>
 <audio id="chatAudio" style="display:none;" src="<%=asset_path('notify.mp3')%>">
 </html>

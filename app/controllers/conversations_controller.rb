@@ -1,5 +1,6 @@
 class ConversationsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :mark_messages_as_read, only: [:show]
   layout false
 
   def index
@@ -39,6 +40,13 @@ class ConversationsController < ApplicationController
 
   def interlocutor(conversation)
     current_user == conversation.recipient ? conversation.sender : conversation.recipient
+  end
+
+  def mark_messages_as_read
+    @conversation = Conversation.find(params[:id])
+    @conversation.messages.each do |message|
+      message.mark_as_read! :for => current_user if message.unread?(current_user)
+    end
   end
 
 end

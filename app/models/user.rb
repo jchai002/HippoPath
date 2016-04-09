@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :conversations, :foreign_key => :sender_id
   has_attached_file :image, styles: { small: "50x50", med: "100x100", large: "200x200" }, default_url:'/images/portraitplaceholder.png'
   validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
-  # acts_as_reader
+  acts_as_reader
 
   delegate :street, :to => :address
   delegate :apt, :to => :address
@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
 
   def involved_conversations
     Conversation.where("sender_id = ? OR recipient_id = ?", self.id, self.id)
+  end
+
+  def messages
+    Message.where("sender_id = ? OR recipient_id = ?", self.id, self.id)
   end
 
   def self.find_conversation(user_1, user_2)

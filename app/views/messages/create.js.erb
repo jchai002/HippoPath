@@ -1,7 +1,7 @@
 <% publish_to @path do %>
 var id = "<%= @conversation.id %>";
 var chatbox = $("#chatbox_" + id + " .chatboxcontent");
-var sender_id = "<%= @message.user.id %>";
+var sender_id = "<%= @message.sender.id %>";
 var reciever_id = $('meta[name=user-id]').attr("content");
 var conversation_tab = $("#conversation-tab-"+id);
 //create conversation tab
@@ -16,7 +16,6 @@ var messageId = "<%= @message.id %>";
 var lastMessageId = chatbox.data('last_message_id');
 var uniqueMessage = messageId !== lastMessageId
 if (uniqueMessage) {
-  console.log(conversation_tab)
   conversation_tab.html("<%= j render( partial: @message ) %>");
   chatbox.append("<%= j render( partial: @message ) %>");
   if (chatbox[0]) {
@@ -28,10 +27,10 @@ if (uniqueMessage) {
     if (chatbox[0]) {
       chatbox.scrollTop(chatbox[0].scrollHeight);
     }
-    console.log(messageId)
     chatBox.notify();
   }
   chatbox.data('last_message_id', messageId)
+  $.post("/mark_message_read/"+messageId, {user_id:reciever_id});
 }
 
 <% end %>

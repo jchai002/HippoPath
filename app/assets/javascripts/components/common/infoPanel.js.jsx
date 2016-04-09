@@ -35,7 +35,6 @@ var InfoPanel = React.createClass({
     }
 
     var url = this.props.url;
-    console.log(this.props)
       return (
         <div className={this.props.wrapperClass}>
           <div className="panel panel-info">

@@ -11,6 +11,7 @@ var ready = function () {
 
         $.post("/conversations", { sender_id: sender_id, recipient_id: recipient_id }, function (data) {
             chatBox.chatWith(data.conversation_id);
+            $.get('/unread_message_count');
         });
     });
 

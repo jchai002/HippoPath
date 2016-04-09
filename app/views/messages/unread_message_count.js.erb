@@ -1,0 +1,7 @@
+var unreadMessageCount = "<%=@unread_message_count%>"
+if (unreadMessageCount > 0) {
+  $('#unread-message').html(unreadMessageCount).show()
+} else {
+  $('#unread-message').hide()
+}
+console.log('unreadMessageCount',unreadMessageCount)
