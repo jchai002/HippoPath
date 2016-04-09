@@ -28,14 +28,14 @@ var InfoPanel = React.createClass({
     var buttons;
     var postedTime = <span className="dark-gray">posted {postedTime}</span>;
     if (this.props.layoutType === 'interview') {
-      buttons = <InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.handleDelete} />
+      buttons = <InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.props.handleDelete} />
     }
     if (this.props.layoutType === 'search') {
       buttons = <MessageButton data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId} />
     }
 
     var url = this.props.url;
-    if(!this.state.deleted){
+    console.log(this.props)
       return (
         <div className={this.props.wrapperClass}>
           <div className="panel panel-info">
@@ -56,14 +56,8 @@ var InfoPanel = React.createClass({
           </div>
         </div>
       );
-    } else {
-      return <div></div>
-    }
   },
   handleUpdate: function(event){
     this.props.handleUpdate();
-  },
-  handleDelete: function(){
-    this.setState({deleted:true});
   }
 });

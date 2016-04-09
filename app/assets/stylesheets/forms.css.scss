@@ -42,16 +42,19 @@
 
 
 .login-form{
-  -webkit-animation: fadein-fall 1s ease-in-out;
-  -moz-animation: fadein-fall 1s ease-in-out; /* Firefox < 16 */
-  -ms-animation: fadein-fall 1s ease-in-out; /* Internet Explorer */
-  -o-animation: fadein-fall 1s ease-in-out; /* Opera < 12.1 */
-  animation: fadein-fall 1s ease-in-out;
+  -webkit-animation: fade-in 0.8s ease-in-out;
+  -moz-animation: fade-in 0.8s ease-in-out; /* Firefox < 16 */
+  -ms-animation: fade-in 0.8s ease-in-out; /* Internet Explorer */
+  -o-animation: fade-in 0.8s ease-in-out; /* Opera < 12.1 */
+  animation: fade-in 0.8s ease-in-out;
   margin: 2em;
   padding: 1em;
   border-radius:5px;
   min-width: 360px;
   background-color: white;
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black;
   input[type=submit] {
     width: 100%;
   }
@@ -61,7 +64,6 @@
   @media(min-width: 768px) {
     padding:2em;
     min-width: 700px;
-    border: solid 2px $theme-primary;
   }
   .social-flex-container {
     display: flex;
@@ -79,9 +81,9 @@
   }
 }
 
-@keyframes fadein-fall {
+@keyframes fade-in {
     from {
-      opacity: 0;
+      opacity: 0.2;
       transform: translateY(-400px);
     }
     to   {
@@ -91,9 +93,9 @@
 }
 
 /* Firefox < 16 */
-@-moz-keyframes fadein-fall {
+@-moz-keyframes fade-in {
   from {
-    opacity: 0;
+    opacity: 0.2;
     transform: translateY(-400px);
   }
   to   {
@@ -103,9 +105,9 @@
 }
 
 /* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein-fall {
+@-webkit-keyframes fade-in {
   from {
-    opacity: 0;
+    opacity: 0.2;
     transform: translateY(-400px);
   }
   to   {
@@ -115,9 +117,9 @@
 }
 
 /* Internet Explorer */
-@-ms-keyframes fadein-fall {
+@-ms-keyframes fade-in {
   from {
-    opacity: 0;
+    opacity: 0.2;
     transform: translateY(-400px);
   }
   to   {
@@ -127,9 +129,9 @@
 }
 
 /* Opera < 12.1 */
-@-o-keyframes fadein-fall {
+@-o-keyframes fade-in {
   from {
-    opacity: 0;
+    opacity: 0.2;
     transform: translateY(-400px);
   }
   to   {

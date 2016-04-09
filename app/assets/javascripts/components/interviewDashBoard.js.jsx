@@ -1,7 +1,7 @@
 var InterviewDashBoard = React.createClass({
   getInitialState: function(){
     return ({
-      interviewPanels:undefined
+      interviewPanels:[]
     })
   },
   getData: function(){
@@ -21,19 +21,22 @@ var InterviewDashBoard = React.createClass({
   },
   setInterviewPanels: function(data){
     var handleUpdate = this.handleUpdate;
+    var handleDelete = this.handleDelete;
     var panels = data.map(function(interviewInfo){
       var bodyContent = {};
       bodyContent['date'] = interviewInfo['date'] || 'unknown';
       bodyContent['time'] = interviewInfo['time'] || 'unknown';
       return <InfoPanel
         url="/interviews"
+        id={interviewInfo.id}
         key={interviewInfo.id}
         layoutType='interview'
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
-        wrapperClass="col-sm-12 col-md-6 col-lg-4"
+        wrapperClass="col-sm-12 col-md-6 col-lg-4 fadein-grow"
         flexBoxClass="panel-flex-container-2"
         handleUpdate={handleUpdate}
+        handleDelete={handleDelete}
         />
     })
     this.setState({interviewPanels:panels})
@@ -44,11 +47,17 @@ var InterviewDashBoard = React.createClass({
   handleUpdate: function(){
     this.getData();
   },
+  handleDelete: function(deletedItemId){
+    var panels = this.state.interviewPanels.filter(function(panelItem){
+      return panelItem.props.id != deletedItemId
+    })
+    this.setState({interviewPanels:panels})
+  },
   render: function() {
-    if (this.state.interviewPanels) {
+    if (this.state.interviewPanels.length > 0) {
       panels = this.state.interviewPanels;
     } else {
-      panels = <div className="panel panel-default empty-result"><h1>You Have No Interviews</h1></div>;
+      panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-list fa-3x mar-b-20"></i></div><div className="slideUp"><h1>You Have No Interviews</h1></div></div>;
     }
     return (
       <div className="container">

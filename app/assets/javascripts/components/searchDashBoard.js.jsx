@@ -109,7 +109,7 @@ var SearchDashBoard = React.createClass({
         layoutType='search'
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
-        wrapperClass="col-sm-12 col-md-6 col-lg-4"
+        wrapperClass="col-sm-12 col-md-6 col-lg-4 fadein-grow"
         flexBoxClass="panel-flex-container-2"
         token={token}
         currentUserId={currentUserId}
@@ -125,12 +125,12 @@ var SearchDashBoard = React.createClass({
   render: function() {
     var panels;
     if (!this.state.searched) {
-      panels = <div className="panel panel-default empty-result"><h1>Search For Carpool</h1></div>;
+      panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-search fa-3x mar-b-20"></i></div><div className="slideUp"><h1>Search for interviews</h1></div></div>;
       } else {
         if (this.state.searchResultPanels) {
           panels = this.state.searchResultPanels;
         } else {
-          panels = <div className="panel panel-default empty-result"><h1>0 Search Results</h1></div>;
+          panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>Sorry, no interview was found :( </h1></div></div>;
           }
         }
         return (

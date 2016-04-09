@@ -31,10 +31,12 @@
 
 .empty-result {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
+  min-height: 268px;
   color: darken($theme-gray,10%);
   h1 {
     font-size: 25px;

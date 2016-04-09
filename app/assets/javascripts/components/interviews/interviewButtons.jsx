@@ -33,7 +33,7 @@ var InterviewButtons = React.createClass({
         url: url,
         type: 'DELETE',
         success: function(result) {
-          this.props.handleDelete()
+          this.props.handleDelete(this.props.data.id)
         }.bind(this),
         error: function(xhr, status, err) {
           console.error( status, err.toString());
