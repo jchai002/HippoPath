@@ -1,5 +1,9 @@
+<%new_message_visble = message.unread?(current_user) ? 'new-message-visble' : ''%>
 <li class="<%=  self_or_other(message) %>">
-  <div class="chatboxmessagecontent">
+  <div class="chatboxmessagecontent relative">
+    <span class="new-message-hidden <%=new_message_visble%> label label-success absolute">
+      NEW
+    </span>
     <div class="messagewrapper">
       <div class="avatar">
         <%if message_interlocutor(message).image.exists?%>

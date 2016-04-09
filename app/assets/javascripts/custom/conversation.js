@@ -64,8 +64,14 @@ var ready = function () {
     $(document).on('click', '.closeChat', function(){
       var conversationId = $(this).data('cid')
       $.get('/close_chat_box',{'conversation_id': conversationId})
-    })
+    });
 
+    $(document).on('click', '.start-conversation', function(){
+      var conversationId = $(this).data('cid')
+      $('#conversation-tab-'+conversationId)
+        .find($('.new-message-visble'))
+        .removeClass('new-message-visble');
+    });
 }
 
 $(document).ready(ready);

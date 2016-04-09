@@ -126,3 +126,14 @@ ul.navbar-right {
     color: white;
   }
 }
+
+.new-message-hidden {
+  display: none;
+}
+
+.conversation-list {
+  .new-message-visble {
+    display: block;
+    right: 10px;
+  }
+}
