@@ -91,7 +91,6 @@ var SearchDashBoard = React.createClass({
     var calculateDistance = this.calculateDistance;
     var currentUserPosition = this.state.userPosition;
     var panels = data.map(function(interviewInfo){
-      var posterId =  interviewInfo['poster_id'];
       var bodyContent = {};
       bodyContent['date'] = interviewInfo['date'] || 'unknown';
       bodyContent['time'] = interviewInfo['time'] || 'unknown';
@@ -114,21 +113,23 @@ var SearchDashBoard = React.createClass({
         flexBoxClass="panel-flex-container-2"
         token={token}
         currentUserId={currentUserId}
-        isOwnInterview={currentUserId==posterId}
         />
     })
-    this.setState({searchResultPanels:panels})
+
+    if (panels.length > 0) {
+      this.setState({searchResultPanels:panels})
+    } else {
+      this.setState({searchResultPanels:null})
+    }
   },
   render: function() {
     var panels;
-    if (!this.state.originalResults) {
+    if (!this.state.searched) {
       panels = <div className="panel panel-default empty-result"><h1>Search For Carpool</h1></div>;
       } else {
-        if (this.state.originalResults.length) {
-          $('.search-filters').css('display','flex')
+        if (this.state.searchResultPanels) {
           panels = this.state.searchResultPanels;
         } else {
-          $('.search-filters').hide()
           panels = <div className="panel panel-default empty-result"><h1>0 Search Results</h1></div>;
           }
         }
@@ -150,7 +151,7 @@ var SearchDashBoard = React.createClass({
                 </span>
                 </span>
                 <span>
-                  <span className="label label-defualt hide-own filter-group" onClick={this.handleHideOwnInterviews}>Hide My Own Interviews
+                  <span className="label label-defualt hide-own filter-group" onClick={this.toggleHideOwnInterviews}>Hide My Own Interviews
                   </span>
                 </span>
               </div>
@@ -163,9 +164,13 @@ var SearchDashBoard = React.createClass({
       },
       handleSearch: function(results){
         $('.pagination-flex-container').html('')
+        $('.hide-own')
+          .removeClass('hide-own-active')
+          .text('Hide My Own Interviews')
         component = this;
         this.setState({
           searched: true,
+          hidingOwnResults: false,
           originalResults:results,
           currentPage: 1
         },function(){
@@ -175,15 +180,19 @@ var SearchDashBoard = React.createClass({
           component.setState({
             modifiedResults:component.state.originalResults
           },function(){
-            component.sortThenDisplay();
+            console.log('hiding results?', component.state.hidingOwnResults)
+            if (component.state.hidingOwnResults) {
+              component.toggleHideOwnInterviews();
+            } else {
+              component.sortThenDisplay();
+            }
           })
         })
       },
       handleResultsDisplay: function() {
         if (Object.size(this.state.modifiedResults) > this.state.resultsPerPage) {
           this.displayPaginatedResults(this.state.modifiedResults, Object.size(this.state.modifiedResults),this.state.resultsPerPage);
-        }
-        else if (Object.size(this.state.modifiedResults) > 0) {
+        } else{
           this.setSearchResultPanels(this.state.modifiedResults);
         }
       },
@@ -240,6 +249,7 @@ var SearchDashBoard = React.createClass({
         })
       },
       sortThenDisplay: function(){
+        console.log(this.state)
         if (this.state.currentSortingBy == 'distance') {
           this.orderByDistance();
         }
@@ -247,30 +257,35 @@ var SearchDashBoard = React.createClass({
           this.orderByPostDate();
         }
       },
-      handleHideOwnInterviews: function() {
-        $('.hide-own').toggleClass('hide-own-active');
+      toggleHideOwnInterviews: function() {
         component = this;
-        var resultSet = component.state.originalResults;
+        $('.hide-own')
+          .toggleClass('hide-own-active')
+          .text(component.state.hidingOwnResults ? 'Hide My Own Interviews' : 'Show My Own Interviews');
         function isNotOwnInterview(interviewObject) {
           return interviewObject['poster_id'] != component.props.current_user_id
         }
+        var completeResults = component.state.originalResults;
+        var resultsWithHiddenInterviews = null;
+        if (completeResults) {
+          resultsWithHiddenInterviews = completeResults.filter(isNotOwnInterview);
+        }
         if (!component.state.hidingOwnResults) {
           component.setState({
-            modifiedResults:resultSet.filter(isNotOwnInterview),
+            modifiedResults:resultsWithHiddenInterviews,
             hidingOwnResults:true
           }, function(){
             component.sortThenDisplay();
           })
         } else {
           component.setState({
-            modifiedResults:resultSet,
+            modifiedResults:completeResults,
             hidingOwnResults:false
           }, function(){
             component.sortThenDisplay();
           })
         }
       },
-
     });
 
     Object.size = function(obj) {
