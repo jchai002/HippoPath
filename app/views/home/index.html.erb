@@ -1,36 +1,80 @@
 <%@landing_page = true%>
 <div class="bg-container">
-  <div class="stats">
-    <div class="text-center">
-      <h1 class="mar-b-40">HippoPath<i class="fa fa-stethoscope"></i></h1>
-      <h2 class="mar-y-15"><span class="count">597</span> Students <i class="fa fa-user-md"></i></h2>
-      <!-- <%=@student_count%> -->
-      <h2 class="mar-y-15"><span class="count">109</span> Schools <i class="fa fa-book"></i></h2>
-      <!-- <%=@school_count%> -->
-      <h2 class="mar-y-15"><span class="count">347</span> Hospitals <i class="fa fa-hospital-o"></i></h2>
-      <!-- <%=@hospital_count%> -->
-      <h2 class="mar-y-15">Tons of carpools arranged <i class="fa fa-car"></i></h2>
-      <p class="mar-t-30">Click <a href="/how_it_works">here</a> to see how it works, or click <a href="/users/sign_up">here</a> to sign up.</p>
+  <div id="impress">
+
+    <div class="slide step" data-x="0" data-y="0">
+      <div class="text-center">
+        <h1 class="mar-b-40">HippoPath<i class="fa fa-stethoscope"></i></h1>
+        <h2 class="mar-y-15"><span class="count">597</span> Students <i class="fa fa-user-md"></i></h2>
+        <!-- <%=@student_count%> -->
+        <h2 class="mar-y-15"><span class="count">109</span> Schools <i class="fa fa-book"></i></h2>
+        <!-- <%=@school_count%> -->
+        <h2 class="mar-y-15"><span class="count">347</span> Hospitals <i class="fa fa-hospital-o"></i></h2>
+        <!-- <%=@hospital_count%> -->
+        <h2 class="mar-y-15">Tons of carpools arranged <i class="fa fa-car"></i></h2>
+        <p class="mar-t-30">Click <a class="next-button" href="#step-2">here</a> to see how it works, or click <a href="/users/sign_up">here</a> to sign up.</p>
+      </div>
     </div>
-  </div>
+
+    <div class="slide step" data-x="700" data-y="0" data-z="1200">
+        <p>It’s a <strong>presentation tool</strong> <br/>
+        inspired by the idea behind <a href="http://prezi.com">prezi.com</a> <br/>
+        and based on the <strong>power of CSS3 transforms and transitions</strong> in modern browsers.</p>
+        <a class="next-button" href="#step-3">Next</a>
+    </div>
+
+    <div class="slide step" data-x="1400" data-y="0" data-z="2400">
+        <p>It’s a <strong>presentation tool</strong> <br/>
+        inspired by the idea behind <a href="http://prezi.com">prezi.com</a> <br/>
+        and based on the <strong>power of CSS3 transforms and transitions</strong> in modern browsers.</p>
+        <a class="last-button" href="#step-1">Next</a>
+    </div>
+</div>
 </div>
 
 <script>
 $(document).ready(function(){
-  var countStarted;
-  if  (!countStarted) {
-    countStarted = true;
-    $('.count').each(function () {
-      $(this).prop('Counter',0).animate({
-        Counter: $(this).text()
-      }, {
-        duration: 1500,
-        easing: 'swing',
-        step: function (now) {
-          $(this).text(Math.ceil(now));
-        }
-      });
-    });
+  function preparePage(callback){
+    impress().init();
+    callback();
   }
+  preparePage(function(){
+    $('#impress').fadeIn(800);
+    var countStarted;
+    if  (!countStarted) {
+      countStarted = true;
+      $('.count').each(function () {
+        $(this).prop('Counter',0).animate({
+          Counter: $(this).text()
+        }, {
+          duration: 1500,
+          easing: 'swing',
+          step: function (now) {
+            $(this).text(Math.ceil(now));
+          }
+        });
+      });
+    }
+  })
 })
+
+function showNextSlide($button) {
+  var currentSlide = $button.closest('.slide');
+  currentSlide.fadeOut();
+  var currentId = currentSlide.attr('id');
+  var slideNumber = Number(currentId.split('-')[1]);
+  slideNumber++
+  var nextSlide = $('#step-'+slideNumber);
+  nextSlide.show();
+}
+
+$('.next-button').click(function(){
+  showNextSlide($(this));
+})
+
+$('.last-button').click(function(){
+  showNextSlide($(this));
+  $('#step-1').fadeIn();
+})
+
 </script>
