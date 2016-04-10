@@ -57,6 +57,7 @@ gem 'figaro'
 
 #image handling
 gem 'paperclip'
+gem 'aws-sdk'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
