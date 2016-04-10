@@ -1,3 +1,9 @@
+.interview-panel {
+  overflow: scroll !important;
+  max-height: 185px !important;
+  height: 185px !important;
+}
+
 .panel {
   padding: 0px !important;
   min-height: 100px;
@@ -45,6 +51,11 @@
 }
 
 .search-results {
+  .flex-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .panel-heading {
     display: flex;
     justify-content: space-between;
@@ -60,24 +71,6 @@
     }
   }
 }
-
-// .search-results-enter {
-//   transform: translateX(-500px);
-// }
-//
-// .search-results-enter.search-results-enter-active {
-//   transform: translateX(0px);
-//   transition: transform 600ms ease-in;
-// }
-//
-// .search-results-leave {
-//   transform: translateX(0px);
-// }
-//
-// .search-results-leave.search-results-leave-active {
-//   transform: translateX(500px);
-//   transition: opacity 200ms ease-in;
-// }
 
 .slide-in-enter {
   opacity: 0;

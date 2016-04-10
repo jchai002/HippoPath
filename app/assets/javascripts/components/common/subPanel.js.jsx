@@ -20,13 +20,13 @@ var SubPanel = React.createClass({
         }
       });
       return (
-        <div className={"panel panel-default " + content.cssClass}>
+        <div className={"interview-panel panel panel-default " + content.cssClass}>
           <div className="panel-heading">
             <div>
               <img className="panel-avatar" src={content['avatar']} />
-              <span>{content['name']}</span>
             </div>
-            <div className="dark-gray">
+            <div className="flex-wrapper">{content['name']}</div>
+            <div className="dark-gray flex-wrapper">
               <p>{content['distance'] < 88888 ? content['distance'] + ' miles away' : 'unknown miles away'}</p>
             </div>
           </div>
