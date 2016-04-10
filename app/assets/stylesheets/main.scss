@@ -17,6 +17,24 @@ html, body, .container {
   }
 }
 
+.user-edit-wrapper {
+  border: 3px solid $theme-primary;
+  padding: 2em;
+  margin: 2em;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+  .flex-form {
+    width: 100%;
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+}
+
 #user_image {
   display: none;
 }
@@ -116,7 +134,7 @@ ul.navbar-right {
   border-radius: 9px;
   border-right: 1px solid red;
   font-family:  Arial, 'Helvetica Neue', Helvetica, sans-serif;;
-	line-height: 14px;
+  line-height: 14px;
   position: absolute;
   top:13px;
   left:7px;
