@@ -16,17 +16,13 @@
       </div>
     </div>
 
-    <div class="slide step" data-x="700" data-y="0" data-z="1200">
-        <p>It’s a <strong>presentation tool</strong> <br/>
-        inspired by the idea behind <a href="http://prezi.com">prezi.com</a> <br/>
-        and based on the <strong>power of CSS3 transforms and transitions</strong> in modern browsers.</p>
+    <div class="slide step" data-x="300" data-y="0" data-z="800">
+        <h1>Slide 1</h1>
         <a class="next-button" href="#step-3">Next</a>
     </div>
 
-    <div class="slide step" data-x="1400" data-y="0" data-z="2400">
-        <p>It’s a <strong>presentation tool</strong> <br/>
-        inspired by the idea behind <a href="http://prezi.com">prezi.com</a> <br/>
-        and based on the <strong>power of CSS3 transforms and transitions</strong> in modern browsers.</p>
+    <div class="slide step" data-x="600" data-y="0" data-z="1600">
+        <h1>Slide 2</h1>
         <a class="last-button" href="#step-1">Next</a>
     </div>
 </div>
@@ -56,25 +52,6 @@ $(document).ready(function(){
       });
     }
   })
-})
-
-function showNextSlide($button) {
-  var currentSlide = $button.closest('.slide');
-  currentSlide.fadeOut();
-  var currentId = currentSlide.attr('id');
-  var slideNumber = Number(currentId.split('-')[1]);
-  slideNumber++
-  var nextSlide = $('#step-'+slideNumber);
-  nextSlide.show();
-}
-
-$('.next-button').click(function(){
-  showNextSlide($(this));
-})
-
-$('.last-button').click(function(){
-  showNextSlide($(this));
-  $('#step-1').fadeIn();
 })
 
 </script>

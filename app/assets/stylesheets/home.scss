@@ -18,6 +18,8 @@
   height: 420px;
   width: 540px;
   display: flex;
+  flex-direction: column;
+  opacity: 0;
   align-items: center;
   justify-content: center;
   background-color: rgba(0,0,0,0.4);
@@ -26,4 +28,8 @@
   p {
     font-size: 14px;
   }
+}
+
+.slide.active {
+  opacity: 1;
 }
