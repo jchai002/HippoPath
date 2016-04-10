@@ -1,3 +1,4 @@
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var SearchDashBoard = React.createClass({
   getInitialState: function(){
     return {
@@ -109,7 +110,7 @@ var SearchDashBoard = React.createClass({
         layoutType='search'
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
-        wrapperClass="col-sm-12 col-md-6 col-lg-4 fadein-grow"
+        wrapperClass="col-sm-12 col-md-6 col-lg-4"
         flexBoxClass="panel-flex-container-2"
         token={token}
         currentUserId={currentUserId}
@@ -156,7 +157,9 @@ var SearchDashBoard = React.createClass({
                 </span>
               </div>
               <div className="col-sm-12 search-results">
-                {panels}
+                <ReactCSSTransitionGroup transitionName="slide-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+                  {panels}
+                </ReactCSSTransitionGroup>
               </div>
             </div>
           </div>
