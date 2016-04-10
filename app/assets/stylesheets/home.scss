@@ -18,7 +18,6 @@
   height: 420px;
   width: 540px;
   display: flex;
-  flex-direction: column;
   opacity: 0;
   align-items: center;
   justify-content: center;
@@ -27,6 +26,27 @@
   color: rgba(255,255,255,0.8);
   p {
     font-size: 14px;
+  }
+  a {
+    width: 10%;
+  }
+  .slide-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100%;
+    width: 90%;
+    .place-holder {
+      height: 250px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: $theme-gray;
+      color: darken($theme-gray,20%)
+    }
   }
 }
 

@@ -1,31 +1,44 @@
 <%@landing_page = true%>
 <div class="bg-container">
   <div id="impress">
-
-    <div class="slide step" data-x="0" data-y="0">
-      <div class="text-center">
-        <h1 class="mar-b-40">HippoPath<i class="fa fa-stethoscope"></i></h1>
-        <h2 class="mar-y-15"><span class="count">597</span> Students <i class="fa fa-user-md"></i></h2>
-        <!-- <%=@student_count%> -->
-        <h2 class="mar-y-15"><span class="count">109</span> Schools <i class="fa fa-book"></i></h2>
-        <!-- <%=@school_count%> -->
-        <h2 class="mar-y-15"><span class="count">347</span> Hospitals <i class="fa fa-hospital-o"></i></h2>
-        <!-- <%=@hospital_count%> -->
-        <h2 class="mar-y-15">Tons of carpools arranged <i class="fa fa-car"></i></h2>
-        <p class="mar-t-30">Click <a class="next-button" href="#step-2">here</a> to see how it works, or click <a href="/users/sign_up">here</a> to sign up.</p>
-      </div>
+  <div class="slide step" data-x="0" data-y="0">
+    <div class="text-center">
+      <h1 class="mar-b-40">HippoPath<i class="fa fa-stethoscope"></i></h1>
+      <h2 class="mar-y-15"><span class="count">597</span> Students <i class="fa fa-user-md"></i></h2>
+      <!-- <%=@student_count%> -->
+      <h2 class="mar-y-15"><span class="count">109</span> Schools <i class="fa fa-book"></i></h2>
+      <!-- <%=@school_count%> -->
+      <h2 class="mar-y-15"><span class="count">347</span> Hospitals <i class="fa fa-hospital-o"></i></h2>
+      <!-- <%=@hospital_count%> -->
+      <h2 class="mar-y-15">Tons of carpools arranged <i class="fa fa-car"></i></h2>
+      <p class="mar-t-30">Click <a class="next-button" href="#step-2">here</a> to see how it works, or click <a href="/users/sign_up">here</a> to sign up.</p>
     </div>
+  </div>
 
-    <div class="slide step" data-x="300" data-y="0" data-z="800">
-        <h1>Slide 1</h1>
-        <a class="next-button" href="#step-3">Next</a>
+  <div class="slide step" data-x="300" data-y="0" data-z="800">
+    <div class="slide-content">
+      <h1>Slide 1</h1>
+      <div class="place-holder">place holder</div>
+      </div>
+      <a href="#step-3"><i class="fa fa-angle-right fa-2x"></i></a>
     </div>
 
     <div class="slide step" data-x="600" data-y="0" data-z="1600">
+      <div class="slide-content">
         <h1>Slide 2</h1>
-        <a class="last-button" href="#step-1">Next</a>
+        <div class="place-holder">place holder</div>
+        </div>
+        <a href="#step-4"><i class="fa fa-angle-right fa-2x"></i></a>
+      </div>
+
+      <div class="slide step" data-x="900" data-y="0" data-z="2400">
+        <div class="slide-content">
+          <h1>Slide 3</h1>
+          <div class="place-holder">place holder</div>
+          </div>
+          <a href="#step-1"><i class="fa fa-angle-right fa-2x"></i></a>
+        </div>
     </div>
-</div>
 </div>
 
 <script>
