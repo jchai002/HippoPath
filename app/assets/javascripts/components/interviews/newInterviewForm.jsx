@@ -12,8 +12,8 @@ var NewInterviewForm = React.createClass({
       <form className="custom-form" onSubmit={this.handleSubmit}>
 
       <div className="flex-wrapper">
-        <div className="form-group mar-y-10">
-          <input type="text" name="hospital" className="form-control" id="autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange} placeholder="Enter Hospital"/>
+        <div className="form-group mar-y-10 hospital-input">
+          <input type="text" name="hospital" className="form-control" id="hospital-autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange} placeholder="Enter Hospital"/>
         </div>
 
         <div className="form-group mar-y-0">
@@ -45,7 +45,6 @@ var NewInterviewForm = React.createClass({
     var formData = {
       interview_info: this.state
     }
-
     return new Promise (function(resolved, rejected){
       $.ajax({
         url: "/interviews",
@@ -57,8 +56,34 @@ var NewInterviewForm = React.createClass({
       });
     }, formData) //pass the formData into the promise
   },
-  handleSubmit: function(){
-    this.postFormData()
+  handleSubmit: function(e){
+    var hospitalInvalid = !$('#hospital-autocomplete').val().match(/\S/)
+    var dateInvalid = !$('#interview-time').val()
+    if (hospitalInvalid) {
+      e.preventDefault();
+      $('.hospital-input')
+      .addClass('has-error')
+      .addClass('shake')
+      .promise()
+      .done(function() {
+        setTimeout(function(){ $('.hospital-input').removeClass('shake'); }, 1000);
+      })
+    }
+    else if (dateInvalid) {
+      e.preventDefault();
+      $('.hospital-input')
+        .removeClass('has-error')
+        $('.date')
+        .addClass('has-error')
+        .addClass('shake')
+        .promise()
+        .done(function() {
+          setTimeout(function(){ $('.date').removeClass('shake'); }, 1000);
+        })
+    }
+    else {
+      this.postFormData();
+    }
   },
   handleDateTimeChange: function(){
     var dateTime=$("#interview-time").val().split(' ')

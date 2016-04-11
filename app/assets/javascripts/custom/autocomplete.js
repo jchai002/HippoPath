@@ -1,9 +1,9 @@
-function activateAutocomplete() {
+function activateHospitalAutocomplete() {
   var hospitalNames = [];
   $('.hospital_names').data('hospitalNames').forEach(function(hospital){
     hospitalNames.push({'value': hospital['name']})
   });
-  $('#autocomplete').autocomplete({
+  $('#hospital-autocomplete').autocomplete({
     source: hospitalNames
   });
 }
@@ -20,8 +20,8 @@ function activateHospitalEditAutocomplete(modalID) {
 }
 
 $(window).load(function(){
-  if ($('#autocomplete')[0]) {
-    activateAutocomplete();
+  if ($('#hospital-autocomplete')[0]) {
+    activateHospitalAutocomplete();
   }
 });
 
