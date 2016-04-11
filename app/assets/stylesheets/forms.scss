@@ -242,3 +242,18 @@
 #password-change {
   display: none;
 }
+
+.success-message {
+  display: none;
+  position: absolute;
+  top:21px;
+  left:15px;
+  height: 20px;
+  padding: 4px;
+  font-size: 12px;
+}
+
+.fa-spin {
+    -webkit-transform-origin: 50% calc(50% - .5px);
+    transform-origin: 50% calc(50% - .5px);
+}

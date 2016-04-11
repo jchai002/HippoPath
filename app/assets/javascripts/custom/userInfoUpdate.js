@@ -60,9 +60,9 @@ $(document).ready(function(){
 
 function displaySuccessMessage(paramName){
   $('#'+paramName+'-status')
-  .html(paramName+' Updated')
+  .html('<i class="fa fa-refresh fa-spin mar-r-5"></i>'+paramName+' Updated')
   .fadeIn(150)
-  .delay(1000)
+  .delay(1500)
   .fadeOut(150)
 }
 

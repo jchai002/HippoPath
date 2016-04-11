@@ -15,9 +15,10 @@ var InterviewButtons = React.createClass({
                 <h4 className="modal-title" id="myModalLabel">Edit Interview</h4>
               </div>
               <div className="modal-body">
-                <EditInterviewForm handleUpdate={this.props.handleUpdate} data={rowData} key={rowID} />
+                <EditInterviewForm handleUpdate={this.props.handleUpdate} data={rowData} key={rowID} displayMessage={this.displayMessage}/>
               </div>
-              <div className="modal-footer">
+              <div className="modal-footer relative">
+                <span className="label label-success success-message"><i className="fa fa-refresh fa-spin mar-r-5"></i><span className="success-message-content"></span></span>
                 <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
@@ -40,5 +41,12 @@ var InterviewButtons = React.createClass({
         }.bind(this)
       })
     }
+  },
+  displayMessage: function(data){
+    $('.success-message-content').text(data['message']);
+    $('.success-message')
+      .fadeIn(150)
+      .delay(1500)
+      .fadeOut(150);
   }
 });
