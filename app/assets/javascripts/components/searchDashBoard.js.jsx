@@ -10,7 +10,7 @@ var SearchDashBoard = React.createClass({
       resultsPerPage: 6,
       currentPage: 1,
       hidingOwnResults: false,
-      currentSortingBy: 'distance'
+      currentlySortingBy: 'distance'
     }
   },
   arrayNotBlank: function(array) {
@@ -142,17 +142,17 @@ var SearchDashBoard = React.createClass({
               </div>
             </div>
             <div className="row">
-              <div className="pad-l-30 pad-b-20 search-filters">
+              <div className="pad-l-30 pad-b-20 filters">
 
                 <span className="filter-group">
                 <span className="pad-r-5">Order By:</span>
                 <span>
-                <span className="label label-info mar-r-5 distance active" onClick={this.orderByDistance}>Distance From Me</span>
-                <span className="label label-info mar-r-5 most-recent"  onClick={this.orderByPostDate}>Most Recent</span>
+                <span className="label label-info mar-r-5 distance-sort active" onClick={this.orderByDistance}>Distance From Me</span>
+                <span className="label label-info mar-r-5 most-recent-sort"  onClick={this.orderByPostDate}>Most Recent</span>
                 </span>
                 </span>
                 <span>
-                  <span className="label label-defualt hide-own filter-group" onClick={this.toggleHideOwnInterviews}>Hide My Own Interviews
+                  <span className="label label-defualt hide-own filter-group" onClick={this.toggleDisplayOwnInterviews}>Hide My Own Interviews
                   </span>
                 </span>
               </div>
@@ -185,7 +185,7 @@ var SearchDashBoard = React.createClass({
           },function(){
             console.log('hiding results?', component.state.hidingOwnResults)
             if (component.state.hidingOwnResults) {
-              component.toggleHideOwnInterviews();
+              component.toggleDisplayOwnInterviews();
             } else {
               component.sortThenDisplay();
             }
@@ -231,36 +231,35 @@ var SearchDashBoard = React.createClass({
       },
       orderByDistance: function() {
         $('.active').removeClass('active');
-        $('.distance').addClass('active');
+        $('.distance-sort').addClass('active');
         var resultSet = this.state.modifiedResults;
         this.setState({
           modifiedResults: _.sortBy(resultSet, ['distance']),
-          currentSortingBy: 'distance'
+          currentlySortingBy: 'distance'
         },function(){
           this.handleResultsDisplay();
         })
       },
       orderByPostDate: function() {
         $('.active').removeClass('active');
-        $('.most-recent').addClass('active');
+        $('.most-recent-sort').addClass('active');
         var resultSet = this.state.modifiedResults;
         this.setState({
           modifiedResults: _.orderBy(resultSet, ['created_at'], ['desc']),
-          currentSortingBy: 'created_at'
+          currentlySortingBy: 'created_at'
         },function(){
           this.handleResultsDisplay();
         })
       },
       sortThenDisplay: function(){
-        console.log(this.state)
-        if (this.state.currentSortingBy == 'distance') {
+        if (this.state.currentlySortingBy == 'distance') {
           this.orderByDistance();
         }
-        if (this.state.currentSortingBy == 'created_at') {
+        if (this.state.currentlySortingBy == 'created_at') {
           this.orderByPostDate();
         }
       },
-      toggleHideOwnInterviews: function() {
+      toggleDisplayOwnInterviews: function() {
         component = this;
         $('.hide-own')
           .toggleClass('hide-own-active')

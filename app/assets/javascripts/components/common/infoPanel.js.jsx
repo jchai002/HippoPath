@@ -25,13 +25,12 @@ var InfoPanel = React.createClass({
           <SubPanel key={header} header={header} content={bodyContent[header]} />
         );
     });
-    var buttons;
-    var postedTime = <span className="dark-gray">posted {postedTime}</span>;
+    var actions;
     if (this.props.layoutType === 'interview') {
-      buttons = <InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.props.handleDelete} />
+      actions = <div className="panel-flex-container"><InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.props.handleDelete} /></div>
     }
     if (this.props.layoutType === 'search') {
-      buttons = <MessageButton data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId} />
+      actions = <div className="panel-flex-container"><span className="dark-gray">posted {postedTime}</span><MessageButton data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId} /></div>;
     }
 
     var url = this.props.url;
@@ -46,12 +45,7 @@ var InfoPanel = React.createClass({
               {bodyPanels}
             </div>
             <hr className="mar-y-15"></hr>
-              <div className="panel-flex-container">
-                <div className="mar-b-15 mar-l-20">
-                {postedTime}
-                </div>
-                {buttons}
-              </div>
+              {actions}
           </div>
         </div>
       );

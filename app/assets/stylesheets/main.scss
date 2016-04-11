@@ -83,7 +83,7 @@ ul.navbar-right {
   z-index: 100 !important;
 }
 
-.search-filters {
+.filters {
   display: flex;
   justify-content: space-between;
   @media (max-width: 480px) {
@@ -122,6 +122,27 @@ ul.navbar-right {
     color: white;
     background-color: $theme-green;
     border: 1px solid $theme-green;
+  }
+  .date-sort,.hospital-sort{
+    i {
+      display: none;
+    }
+  }
+  .asc {
+    i.fa-caret-down {
+      display: none;
+    }
+    i.fa-caret-up {
+      display: inline;
+    }
+  }
+  .desc {
+    i.fa-caret-down {
+      display: inline;
+    }
+    i.fa-caret-up {
+      display: none;
+    }
   }
 }
 
