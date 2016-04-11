@@ -13,7 +13,7 @@ var SubPanel = React.createClass({
       );
     } else {
       var details = Object.keys(content).map(function(label){
-        if (label === 'school' || label === 'specialty' || label === 'gender') {
+        if (label === 'school' || label === 'specialty') {
           return (
             <SubPanelLine key={label} lineLabel={label} lineContent={content[label]} />
           );
@@ -22,10 +22,7 @@ var SubPanel = React.createClass({
       return (
         <div className={"interview-panel panel panel-default " + content.cssClass}>
           <div className="panel-heading">
-            <div>
-              <img className="panel-avatar" src={content['avatar']} />
-            </div>
-            <div className="flex-wrapper">{content['name']}</div>
+            <div className="flex-wrapper">{content['gender'] +' interviewee'}</div>
             <div className="dark-gray flex-wrapper">
               <p>{content['distance'] < 88888 ? content['distance'] + ' miles away' : 'unknown miles away'}</p>
             </div>
