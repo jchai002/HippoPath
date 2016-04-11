@@ -8,6 +8,7 @@ var InfoPanel = React.createClass({
     var interviewInfo = this.props.interviewInfo;
     var hospital = interviewInfo.hospital;
     var rideStatus = interviewInfo.ride_status;
+    var date = interviewInfo.date;
     var postedTime = moment(interviewInfo.created_at).fromNow();
     var bodyContent = this.props.bodyContent;
     var labelStyle;
@@ -27,10 +28,11 @@ var InfoPanel = React.createClass({
     });
     var actions;
     if (this.props.layoutType === 'interview') {
-      actions = <div className="panel-flex-container"><InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.props.handleDelete} /></div>
+      var searchButton = <a className="btn btn-primary mar-b-15 mar-l-20 mar-r-5" href={"/interview_search/?hospital="+hospital+"&ride_status="+rideStatus+"&date="+date}>Search Match</a>
+      actions = <div className="panel-flex-container"><span>{searchButton}</span><InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.props.handleDelete} /></div>
     }
     if (this.props.layoutType === 'search') {
-      actions = <div className="panel-flex-container"><span className="dark-gray">posted {postedTime}</span><MessageButton data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId} /></div>;
+      actions = <div className="panel-flex-container"><span className="dark-gray mar-l-15 mar-b-10">posted {postedTime}</span><MessageButton data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId} /></div>;
     }
 
     var url = this.props.url;

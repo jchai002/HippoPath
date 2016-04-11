@@ -1,4 +1,4 @@
-<%= react_component 'SearchDashBoard', token: form_authenticity_token, current_user_id: current_user.id, user_coords: ([@address.latitude, @address.longitude] if @address) %>
+<%= react_component 'SearchDashBoard', data: @interviews,token: form_authenticity_token, current_user_id: current_user.id, user_coords: ([@address.latitude, @address.longitude] if @address) %>
 <div class="row">
   <div class="pagination-flex-container"></div>
 </div>

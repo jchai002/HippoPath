@@ -100,8 +100,6 @@ var InterviewDashBoard = React.createClass({
           .removeClass('asc')
           .addClass('desc')
         this.setInterviewPanels(this.state.modifiedResults);
-        console.log('sort', this.state.currentHospitalSortDirection)
-
       })
     } else {
       this.setState({
@@ -112,7 +110,6 @@ var InterviewDashBoard = React.createClass({
           .removeClass('desc')
           .addClass('asc')
         this.setInterviewPanels(this.state.modifiedResults);
-        console.log('sort', this.state.currentHospitalSortDirection)
       })
     }
   },

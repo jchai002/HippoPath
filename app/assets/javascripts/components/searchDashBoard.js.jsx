@@ -3,15 +3,20 @@ var SearchDashBoard = React.createClass({
   getInitialState: function(){
     return {
       searchResultPanels: undefined,
-      originalResults:undefined,
-      modifiedResults:undefined,
-      searched: false,
+      originalResults:this.props.data || null,
+      modifiedResults:this.props.data || null,
       userPosition: this.props.user_coords,
       resultsPerPage: 6,
       currentPage: 1,
       hidingOwnResults: false,
       currentlySortingBy: 'distance'
     }
+  },
+  componentWillMount: function(){
+    //results come from a html request, auto hide own results
+    if (this.state.modifiedResults) {
+      this.toggleDisplayOwnInterviews();
+      }
   },
   arrayNotBlank: function(array) {
     return array[0] && array[1]
@@ -125,51 +130,44 @@ var SearchDashBoard = React.createClass({
   },
   render: function() {
     var panels;
-    if (!this.state.searched) {
-      panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-search fa-3x mar-b-20"></i></div><div className="slideUp"><h1>Search for interviews</h1></div></div>;
-      } else {
-        if (this.state.searchResultPanels) {
-          panels = this.state.searchResultPanels;
-        } else {
-          panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>Sorry, no interview was found :( </h1></div></div>;
-          }
-        }
-        return (
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-12">
-                <InterviewSearchForm handleSearch={this.handleSearch}/>
-              </div>
-            </div>
-            <div className="row">
-              <div className="pad-l-30 pad-b-20 filters">
-
-                <span className="filter-group">
-                <span className="pad-r-5">Order By:</span>
-                <span>
-                <span className="label label-info mar-r-5 distance-sort active" onClick={this.orderByDistance}>Distance From Me</span>
-                <span className="label label-info mar-r-5 most-recent-sort"  onClick={this.orderByPostDate}>Most Recent</span>
-                </span>
-                </span>
-                <span>
-                  <span className="label label-defualt hide-own filter-group" onClick={this.toggleDisplayOwnInterviews}>Hide My Own Interviews
-                  </span>
-                </span>
-              </div>
-              <div className="col-sm-12 search-results">
-                <ReactCSSTransitionGroup transitionName="slide-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-                  {panels}
-                </ReactCSSTransitionGroup>
-              </div>
-            </div>
+    if (this.state.searchResultPanels) {
+      panels = this.state.searchResultPanels;
+    } else {
+      panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Results Found</h1></div></div>;
+    }
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12">
+            <InterviewSearchForm handleSearch={this.handleSearch}/>
           </div>
-        );
+        </div>
+        <div className="row">
+          <div className="pad-l-30 pad-b-20 filters">
+
+            <span className="filter-group">
+            <span className="pad-r-5">Order By:</span>
+            <span>
+            <span className="label label-info mar-r-5 distance-sort active" onClick={this.orderByDistance}>Distance From Me</span>
+            <span className="label label-info mar-r-5 most-recent-sort"  onClick={this.orderByPostDate}>Most Recent</span>
+            </span>
+            </span>
+            <span>
+              <span className="label label-defualt hide-own filter-group" onClick={this.toggleDisplayOwnInterviews}>Hide My Own Interviews
+              </span>
+            </span>
+          </div>
+          <div className="col-sm-12 search-results">
+            <ReactCSSTransitionGroup transitionName="slide-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+              {panels}
+            </ReactCSSTransitionGroup>
+          </div>
+        </div>
+      </div>
+    );
       },
       handleSearch: function(results){
         $('.pagination-flex-container').html('')
-        $('.hide-own')
-          .removeClass('hide-own-active')
-          .text('Hide My Own Interviews')
         component = this;
         this.setState({
           searched: true,
@@ -183,12 +181,7 @@ var SearchDashBoard = React.createClass({
           component.setState({
             modifiedResults:component.state.originalResults
           },function(){
-            console.log('hiding results?', component.state.hidingOwnResults)
-            if (component.state.hidingOwnResults) {
-              component.toggleDisplayOwnInterviews();
-            } else {
-              component.sortThenDisplay();
-            }
+            component.sortThenDisplay();
           })
         })
       },
@@ -261,9 +254,6 @@ var SearchDashBoard = React.createClass({
       },
       toggleDisplayOwnInterviews: function() {
         component = this;
-        $('.hide-own')
-          .toggleClass('hide-own-active')
-          .text(component.state.hidingOwnResults ? 'Hide My Own Interviews' : 'Show My Own Interviews');
         function isNotOwnInterview(interviewObject) {
           return interviewObject['poster_id'] != component.props.current_user_id
         }
@@ -288,6 +278,20 @@ var SearchDashBoard = React.createClass({
           })
         }
       },
+      toggleHideOwnInterviewsButton: function(){
+        if (this.state.hidingOwnResults) {
+          $('.hide-own')
+            .addClass('hide-own-active')
+            .text('Show My Own Interviews');
+        } else {
+          $('.hide-own')
+            .removeClass('hide-own-active')
+            .text('Hide My Own Interviews');
+        }
+      },
+      componentDidUpdate: function(){
+        this.toggleHideOwnInterviewsButton();
+      }
     });
 
     Object.size = function(obj) {

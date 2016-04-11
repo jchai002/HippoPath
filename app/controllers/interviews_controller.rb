@@ -11,16 +11,25 @@ class InterviewsController < ApplicationController
 
   #find the interviews by search parameters
   def search_interviews
-    hospital = params[:interview_info][:hospital].titleize if params[:interview_info][:hospital]
-    search_parameters = {
-      hospital: hospital,
-      date: params[:interview_info][:date],
-      ride_status: params[:interview_info][:ride_status]
-    }
+    if params[:interview_info] #ajax request
+      hospital = params[:interview_info][:hospital].titleize
+      search_parameters = {
+        hospital: hospital,
+        date: params[:interview_info][:date],
+        ride_status: params[:interview_info][:ride_status]
+      }
+    else #html request
+      hospital = params[:hospital].titleize
+      search_parameters = {
+        hospital: hospital,
+        date: params[:date],
+        ride_status: params[:ride_status]
+      }
+    end
     interview_records=Interview.search(search_parameters).all
     @interviews = Interview.build_search_result(interview_records)
     respond_to do |format|
-      format.html
+      format.html { render 'dash_board/search'}
       format.json
     end
   end
