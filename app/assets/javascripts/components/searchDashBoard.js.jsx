@@ -8,7 +8,7 @@ var SearchDashBoard = React.createClass({
       userPosition: this.props.user_coords,
       resultsPerPage: 6,
       currentPage: 1,
-      hidingOwnResults: false,
+      hidingOwnInterviews: false,
       currentlySortingBy: 'distance'
     }
   },
@@ -171,7 +171,7 @@ var SearchDashBoard = React.createClass({
         component = this;
         this.setState({
           searched: true,
-          hidingOwnResults: false,
+          hidingOwnInterviews: false,
           originalResults:results,
           currentPage: 1
         },function(){
@@ -262,24 +262,24 @@ var SearchDashBoard = React.createClass({
         if (completeResults) {
           resultsWithHiddenInterviews = completeResults.filter(isNotOwnInterview);
         }
-        if (!component.state.hidingOwnResults) {
+        if (!component.state.hidingOwnInterviews) {
           component.setState({
             modifiedResults:resultsWithHiddenInterviews,
-            hidingOwnResults:true
+            hidingOwnInterviews:true
           }, function(){
             component.sortThenDisplay();
           })
         } else {
           component.setState({
             modifiedResults:completeResults,
-            hidingOwnResults:false
+            hidingOwnInterviews:false
           }, function(){
             component.sortThenDisplay();
           })
         }
       },
       toggleHideOwnInterviewsButton: function(){
-        if (this.state.hidingOwnResults) {
+        if (this.state.hidingOwnInterviews) {
           $('.hide-own')
             .addClass('hide-own-active')
             .text('Show My Own Interviews');

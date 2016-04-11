@@ -3,9 +3,12 @@ var InterviewDashBoard = React.createClass({
     return ({
       interviewPanels:[],
       originalResults:undefined,
-      modifiedResults:undefined,
+      upcomingInterviews:undefined,
+      pastInterviews:undefined,
+      currentlySortingBy: 'date',
       currentDateSortDirection: 'desc',
-      currentHospitalSortDirection: 'desc'
+      currentHospitalSortDirection: 'desc',
+      hidingPastInterviews:true
     })
   },
   getData: function(){
@@ -16,9 +19,9 @@ var InterviewDashBoard = React.createClass({
         if (results[0]) {
           this.setState({
             originalResults:results,
-            modifiedResults:results
+            upcomingInterviews:results
           },function(){
-            this.orderByDate();
+            this.sortThenDisplay(this.state.upcomingInterviews);
           })
         }
       }.bind(this),
@@ -27,7 +30,7 @@ var InterviewDashBoard = React.createClass({
       }.bind(this)
     });
   },
-  setInterviewPanels: function(data){
+  getInterviewPanels: function(data){
     var handleUpdate = this.handleUpdate;
     var handleDelete = this.handleDelete;
     var panels = data.map(function(interviewInfo){
@@ -47,7 +50,8 @@ var InterviewDashBoard = React.createClass({
         handleDelete={handleDelete}
         />
     })
-    this.setState({interviewPanels:panels})
+    console.log(panels)
+    return panels
   },
   componentWillMount: function() {
     this.getData();
@@ -61,64 +65,69 @@ var InterviewDashBoard = React.createClass({
     })
     this.setState({interviewPanels:panels})
   },
-  orderByDate: function(){
+  sortThenDisplay: function(resultSet){
+    if (this.state.currentlySortingBy == 'date') {
+      this.orderByDate(resultSet);
+    }
+    if (this.state.currentlySortingBy == 'hospital') {
+      this.orderByHospital(resultSet);
+    }
+  },
+  orderByDate: function(resultSet){
     $('.active').removeClass('active');
     $('.date-sort').addClass('active');
-    var resultSet = this.state.modifiedResults;
+    this.setState({currentlySortingBy:'date'})
     if (this.state.currentDateSortDirection === 'asc') {
       this.setState({
-        modifiedResults: _.orderBy(resultSet, ['date'], ['desc']),
+        upcomingInterviews: _.orderBy(resultSet, ['date'], ['desc']),
         currentDateSortDirection: 'desc'
       },function(){
         $('.date-sort')
           .removeClass('asc')
           .addClass('desc')
-        this.setInterviewPanels(this.state.modifiedResults);
       })
     } else {
       this.setState({
-        modifiedResults: _.orderBy(resultSet, ['date'], ['asc']),
+        upcomingInterviews: _.orderBy(resultSet, ['date'], ['asc']),
         currentDateSortDirection: 'asc'
       },function(){
         $('.date-sort')
           .removeClass('desc')
           .addClass('asc')
-        this.setInterviewPanels(this.state.modifiedResults);
       })
     }
   },
-  orderByHospital: function(){
+  orderByHospital: function(resultSet){
     $('.active').removeClass('active');
     $('.hospital-sort').addClass('active');
-    var resultSet = this.state.modifiedResults;
+    this.setState({currentlySortingBy:'hospital'})
     if (this.state.currentHospitalSortDirection === 'asc') {
       this.setState({
-        modifiedResults: _.orderBy(resultSet, ['hospital'], ['desc']),
+        upcomingInterviews: _.orderBy(resultSet, ['hospital'], ['desc']),
         currentHospitalSortDirection: 'desc'
       },function(){
         $('.hospital-sort')
           .removeClass('asc')
           .addClass('desc')
-        this.setInterviewPanels(this.state.modifiedResults);
       })
     } else {
       this.setState({
-        modifiedResults: _.orderBy(resultSet, ['hospital'], ['asc']),
+        upcomingInterviews: _.orderBy(resultSet, ['hospital'], ['asc']),
         currentHospitalSortDirection: 'asc'
       },function(){
         $('.hospital-sort')
           .removeClass('desc')
           .addClass('asc')
-        this.setInterviewPanels(this.state.modifiedResults);
       })
     }
   },
   render: function() {
-    if (this.state.interviewPanels.length > 0) {
-      panels = this.state.interviewPanels;
+    if (this.state.upcomingInterviews && this.state.upcomingInterviews.length > 0) {
+      panels = this.getInterviewPanels(this.state.upcomingInterviews)
     } else {
-      panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-list fa-3x mar-b-20"></i></div><div className="slideUp"><h1>You Have No Interviews</h1></div></div>;
+      panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-list fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Interviews To Show</h1></div></div>;
     }
+    var component = this;
     return (
       <div className="container">
         <div className="row">
@@ -129,14 +138,10 @@ var InterviewDashBoard = React.createClass({
 
         <div className="pad-l-15 pad-b-20 filters">
           <span className="filter-group">
-          <span className="pad-r-5">Order By:</span>
-          <span>
-          <span className="label label-info mar-r-5 date-sort active" onClick={this.orderByDate}>Date<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
-          <span className="label label-info mar-r-5 hospital-sort"  onClick={this.orderByHospital}>Hospital<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
-          </span>
-          </span>
-          <span>
-            <span className="label label-defualt hide-own filter-group" onClick={this.toggleDisplayPastInterviews}>Hide Past Interviews
+            <span className="pad-r-5">Order By:</span>
+            <span>
+            <span className="label label-info mar-r-5 date-sort active" onClick={component.orderByDate.bind(this,component.state.upcomingInterviews)}>Date<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
+            <span className="label label-info mar-r-5 hospital-sort"  onClick={component.orderByHospital.bind(this,component.state.upcomingInterviews)}>Hospital<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
             </span>
           </span>
         </div>
@@ -150,5 +155,48 @@ var InterviewDashBoard = React.createClass({
         </div>
       </div>
     );
+  },
+  toggleDisplayPastInterviews: function() {
+    component = this;
+    function isNotPastInterview(interviewObject) {
+      var date =  interviewObject['date']
+      var time = interviewObject['time']
+      var dateTime = date+' '+time
+      return moment(dateTime, "MM-DD-YYYY HH:mm").isAfter(moment())
+    }
+    var completeResults = component.state.originalResults;
+    var resultsWithHiddenInterviews = null;
+    if (completeResults) {
+      resultsWithHiddenInterviews = completeResults.filter(isNotPastInterview);
+    }
+    if (!component.state.hidingPastInterviews) {
+      component.setState({
+        upcomingInterviews:resultsWithHiddenInterviews,
+        hidingPastInterviews:true
+      }, function(){
+        component.sortThenDisplay(component.state.upcomingInterviews);
+      })
+    } else {
+      component.setState({
+        upcomingInterviews:completeResults,
+        hidingPastInterviews:false
+      }, function(){
+        component.sortThenDisplay(component.state.upcomingInterviews);
+      })
+    }
+  },
+  toggleHidePastInterviewsButton: function(){
+    if (this.state.hidingOwnResults) {
+      $('.hide-past')
+        .addClass('hide-past-active')
+        .text('Show Past Interviews');
+    } else {
+      $('.hide-past')
+        .removeClass('hide-past-active')
+        .text('Hide Past Interviews');
+    }
+  },
+  componentDidUpdate: function(){
+    this.toggleHidePastInterviewsButton();
   }
 });

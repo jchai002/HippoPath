@@ -118,7 +118,7 @@ ul.navbar-right {
     background-color: lighten($theme-primary,5%);
     border: 1px solid darken($theme-primary,5%);
   }
-  .hide-own-active {
+  .hide-own-active,.hide-past-active {
     color: white;
     background-color: $theme-green;
     border: 1px solid $theme-green;
