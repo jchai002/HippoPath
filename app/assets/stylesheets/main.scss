@@ -84,6 +84,11 @@ ul.navbar-right {
 }
 
 .sort-filter {
+  span {
+    @media (max-width: 480px) {
+      margin-top: 10px;
+    }
+  }
   display: flex;
   justify-content: space-between;
   @media (max-width: 480px) {
@@ -93,35 +98,32 @@ ul.navbar-right {
       flex-direction: column;
     }
   }
-  .label-defualt {
+  .label-defualt,.label-info {
     background-color: white;
     color: darken($theme-gray,10%);
     border: 1px solid darken($theme-gray,10%);
     margin-right: 30px;
-    @media (max-width: 480px) {
-      margin-top: 10px;
-    }
   }
-  .label-info {
-    border: 1px solid $theme-cyan;
-    background-color: $theme-cyan;
-    @media (max-width: 480px) {
-      margin-top: 5px;
-    }
-  }
+
   .label {
     max-width:190px;
     cursor: pointer;
     cursor: hand;
   }
   .active,.active-sort {
+    color: white;
     background-color: lighten($theme-primary,5%);
     border: 1px solid darken($theme-primary,5%);
   }
-  .hide-own-active,.active-filter {
+  .hide-own-active, {
     color: white;
-    background-color: $theme-green;
-    border: 1px solid $theme-green;
+    background-color: lighten($theme-green,5%);
+    border: 1px solid darken($theme-green,5%);
+  }
+  .active-filter {
+    color: white;
+    background-color: lighten($theme-yellow,5%);
+    border: 1px solid darken($theme-yellow,5%);
   }
   .date-sort,.hospital-sort{
     i {
