@@ -2,13 +2,12 @@ var InterviewDashBoard = React.createClass({
   getInitialState: function(){
     return ({
       interviewPanels:[],
-      originalResults:undefined,
-      upcomingInterviews:undefined,
-      pastInterviews:undefined,
+      originalData:undefined,
+      currentDataStore:undefined,
       currentlySortingBy: 'date',
       currentDateSortDirection: 'desc',
       currentHospitalSortDirection: 'desc',
-      hidingPastInterviews:true
+      currentlyFilteringBy: 'upcoming'
     })
   },
   getData: function(){
@@ -18,10 +17,11 @@ var InterviewDashBoard = React.createClass({
       success: function(results) {
         if (results[0]) {
           this.setState({
-            originalResults:results,
-            upcomingInterviews:results
+            originalData:results,
+            currentDataStore:results
           },function(){
-            this.sortThenDisplay(this.state.upcomingInterviews);
+            var filteredData = this.filterData(this.state.currentDataStore, 'upcoming');
+            var sortedData = this.sortData(filteredData, 'date', 'asc');
           })
         }
       }.bind(this),
@@ -50,7 +50,6 @@ var InterviewDashBoard = React.createClass({
         handleDelete={handleDelete}
         />
     })
-    console.log(panels)
     return panels
   },
   componentWillMount: function() {
@@ -60,74 +59,166 @@ var InterviewDashBoard = React.createClass({
     this.getData();
   },
   handleDelete: function(deletedItemId){
-    var panels = this.state.interviewPanels.filter(function(panelItem){
-      return panelItem.props.id != deletedItemId
+    var interviewsToKeep = this.state.currentDataStore.filter(function(interivew){
+      return interivew['id'] != deletedItemId
     })
-    this.setState({interviewPanels:panels})
+    this.setState({currentDataStore:interviewsToKeep})
   },
-  sortThenDisplay: function(resultSet){
-    if (this.state.currentlySortingBy == 'date') {
-      this.orderByDate(resultSet);
-    }
-    if (this.state.currentlySortingBy == 'hospital') {
-      this.orderByHospital(resultSet);
+  handleDateSortClick: function() {
+    var dataSet = this.state.currentDataStore;
+    var sortedData;
+    if (this.state.currentDateSortDirection === 'asc') {
+      sortedData = this.sortByDate(dataSet,'desc')
+      this.setState({
+        currentDataStore: sortedData,
+        currentDateSortDirection:'desc'
+      })
+    } else {
+      sortedData = this.sortByDate(dataSet,'asc')
+      this.setState({
+        currentDataStore: sortedData,
+        currentDateSortDirection:'asc'
+      })
     }
   },
-  orderByDate: function(resultSet){
+  handleHospitalSortClick: function() {
+    var dataSet = this.state.currentDataStore;
+    var sortedData;
+    if (this.state.currentHospitalSortDirection === 'asc') {
+      sortedData = this.sortByDate(dataSet,'desc')
+      this.setState({
+        currentDataStore: sortedData,
+        currentDateSortDirection:'desc'
+      })
+    } else {
+      sortedData = this.sortByDate(dataSet,'asc')
+      this.setState({
+        currentDataStore: sortedData,
+        currentDateSortDirection:'asc'
+      })
+    }
+  },
+  handleUpcomingFilterClick: function(){
+    var filteredData = this.getUpcomingInterviews(this.state.originalData);
+    var sortBy = this.state.currentlySortingBy;
+    var sortDirection;
+    if (sortBy === 'date') {
+      sortDirection = this.state.currentDateSortDirection;
+    }
+    if (sortBy === 'hospital') {
+      sortDirection = this.state.currentHospitalSortDirection;
+    }
+    var sortedData = sortData(filteredData, sortBy, sortDirection);
+    this.setState({
+      currentlyFilteringBy: 'upcoming',
+      currentDataStore:sortedData
+    })
+  },
+  handlePastFilterClick: function(){
+    var filteredData = this.getPastInterviews(this.state.originalData);
+    var sortBy = this.state.currentlySortingBy;
+    var sortDirection;
+    if (sortBy === 'date') {
+      sortDirection = this.state.currentDateSortDirection;
+    }
+    if (sortBy === 'hospital') {
+      sortDirection = this.state.currentHospitalSortDirection;
+    }
+    var sortedData = sortData(filteredData, sortBy, sortDirection);
+    this.setState({
+      currentlyFilteringBy: 'past',
+      currentDataStore:sortedData
+    })
+  },
+  handleAllFilterClick: function(){
+    var dataSet = this.state.originalData;
+    var sortBy = this.state.currentlySortingBy;
+    var sortDirection;
+    if (sortBy === 'date') {
+      sortDirection = this.state.currentDateSortDirection;
+    }
+    if (sortBy === 'hospital') {
+      sortDirection = this.state.currentHospitalSortDirection;
+    }
+    var sortedData = sortData(dataSet, sortBy, sortDirection);
+    this.setState(currentDataStore:sortedData)
+  },
+  getUpcomingInterviews: function(dataSet) {
+    var interviews = dataSet.filter(function(interview){
+      var dateTime = interview['date']+' '+interview['time'];
+      return moment(dateTime, "MM-DD-YYYY HH:mm").isAfter(moment())
+    })
+    return interviews
+  },
+  getPastInterviews: function(dataSet){
+    var interviews = dataSet.filter(function(interview){
+      var dateTime = interview['date']+' '+interview['time'];
+      return moment(dateTime, "MM-DD-YYYY HH:mm").isAfter(moment())
+    })
+    return interviews
+  },
+  filterData: function(dataSet, filterBy){
+    var filteredData;
+    switch(filterBy) {
+    case 'upcoming':
+        filteredData = this.getUpcomingInterviews(dataSet);
+        break;
+    case 'past':
+        filteredData = this.getPastInterviews(dataSet);
+        break;
+    default:
+        filteredData = this.getUpcomingInterviews(dataSet);
+    }
+    return filteredData
+  },
+  sortData: function(dataSet, sortBy, sortDirection){
+    var sortedData;
+    if (sortBy == 'date') {
+      sortedData = this.sortByDate(dataSet, sortDirection);
+    }
+    if (sortBy == 'hospital') {
+      sortedData = this.sortByHospital(dataSet, sortDirection);
+    }
+    return sortedData
+  },
+  sortByDate: function(dataSet, sortDirection){
     $('.active').removeClass('active');
     $('.date-sort').addClass('active');
-    this.setState({currentlySortingBy:'date'})
-    if (this.state.currentDateSortDirection === 'asc') {
-      this.setState({
-        upcomingInterviews: _.orderBy(resultSet, ['date'], ['desc']),
-        currentDateSortDirection: 'desc'
-      },function(){
-        $('.date-sort')
-          .removeClass('asc')
-          .addClass('desc')
-      })
+    if (sortDirection === 'asc') {
+      $('.date-sort')
+        .removeClass('asc')
+        .addClass('desc');
+      return _.orderBy(dataSet, ['date'], ['desc'])
     } else {
-      this.setState({
-        upcomingInterviews: _.orderBy(resultSet, ['date'], ['asc']),
-        currentDateSortDirection: 'asc'
-      },function(){
-        $('.date-sort')
-          .removeClass('desc')
-          .addClass('asc')
-      })
+      $('.date-sort')
+        .removeClass('desc')
+        .addClass('asc')
+      return _.orderBy(dataSet, ['date'], ['asc']),
     }
   },
-  orderByHospital: function(resultSet){
+  sortByHospital: function(dataSet, sortDirection){
     $('.active').removeClass('active');
     $('.hospital-sort').addClass('active');
-    this.setState({currentlySortingBy:'hospital'})
-    if (this.state.currentHospitalSortDirection === 'asc') {
-      this.setState({
-        upcomingInterviews: _.orderBy(resultSet, ['hospital'], ['desc']),
-        currentHospitalSortDirection: 'desc'
-      },function(){
-        $('.hospital-sort')
-          .removeClass('asc')
-          .addClass('desc')
-      })
+    if (sortDirection === 'asc') {
+      $('.hospital-sort')
+        .removeClass('asc')
+        .addClass('desc');
+      return _.orderBy(dataSet, ['hospital'], ['desc'])
     } else {
-      this.setState({
-        upcomingInterviews: _.orderBy(resultSet, ['hospital'], ['asc']),
-        currentHospitalSortDirection: 'asc'
-      },function(){
-        $('.hospital-sort')
-          .removeClass('desc')
-          .addClass('asc')
-      })
+      $('.hospital-sort')
+        .removeClass('desc')
+        .addClass('asc')
+      return _.orderBy(dataSet, ['hospital'], ['asc']),
     }
   },
   render: function() {
-    if (this.state.upcomingInterviews && this.state.upcomingInterviews.length > 0) {
-      panels = this.getInterviewPanels(this.state.upcomingInterviews)
+    var component = this;
+    if (this.state.currentDataStore && this.state.currentDataStore.length > 0) {
+      panels = this.getInterviewPanels(this.state.currentDataStore);
     } else {
       panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-list fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Interviews To Show</h1></div></div>;
     }
-    var component = this;
+
     return (
       <div className="container">
         <div className="row">
@@ -140,8 +231,8 @@ var InterviewDashBoard = React.createClass({
           <span className="filter-group">
             <span className="pad-r-5">Order By:</span>
             <span>
-            <span className="label label-info mar-r-5 date-sort active" onClick={component.orderByDate.bind(this,component.state.upcomingInterviews)}>Date<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
-            <span className="label label-info mar-r-5 hospital-sort"  onClick={component.orderByHospital.bind(this,component.state.upcomingInterviews)}>Hospital<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
+            <span className="label label-info mar-r-5 date-sort active" onClick={component.sortByDate.bind(this,component.state.currentDataStore)}>Date<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
+            <span className="label label-info mar-r-5 hospital-sort"  onClick={component.sortByHospital.bind(this,component.state.currentDataStore)}>Hospital<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
             </span>
           </span>
         </div>
@@ -155,48 +246,5 @@ var InterviewDashBoard = React.createClass({
         </div>
       </div>
     );
-  },
-  toggleDisplayPastInterviews: function() {
-    component = this;
-    function isNotPastInterview(interviewObject) {
-      var date =  interviewObject['date']
-      var time = interviewObject['time']
-      var dateTime = date+' '+time
-      return moment(dateTime, "MM-DD-YYYY HH:mm").isAfter(moment())
-    }
-    var completeResults = component.state.originalResults;
-    var resultsWithHiddenInterviews = null;
-    if (completeResults) {
-      resultsWithHiddenInterviews = completeResults.filter(isNotPastInterview);
-    }
-    if (!component.state.hidingPastInterviews) {
-      component.setState({
-        upcomingInterviews:resultsWithHiddenInterviews,
-        hidingPastInterviews:true
-      }, function(){
-        component.sortThenDisplay(component.state.upcomingInterviews);
-      })
-    } else {
-      component.setState({
-        upcomingInterviews:completeResults,
-        hidingPastInterviews:false
-      }, function(){
-        component.sortThenDisplay(component.state.upcomingInterviews);
-      })
-    }
-  },
-  toggleHidePastInterviewsButton: function(){
-    if (this.state.hidingOwnResults) {
-      $('.hide-past')
-        .addClass('hide-past-active')
-        .text('Show Past Interviews');
-    } else {
-      $('.hide-past')
-        .removeClass('hide-past-active')
-        .text('Hide Past Interviews');
-    }
-  },
-  componentDidUpdate: function(){
-    this.toggleHidePastInterviewsButton();
   }
 });
