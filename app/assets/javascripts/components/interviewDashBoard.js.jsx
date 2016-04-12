@@ -5,6 +5,7 @@ var InterviewDashBoard = React.createClass({
       originalData:undefined,
       currentDataStore:undefined,
       currentlySortingBy: 'date',
+      currentlyFilteringBy: 'all',
       currentDateSortDirection: 'asc',
       currentHospitalSortDirection: 'desc'
     })
@@ -18,7 +19,7 @@ var InterviewDashBoard = React.createClass({
           this.setState({
             originalData:results
           },function(){
-            var filteredData = this.getUpcomingInterviews(this.state.originalData);
+            var filteredData = this.filterData(this.state.originalData, this.state.currentlyFilteringBy);
             var sortedData;
             var sortingBy = this.state.currentlySortingBy;
             if (sortingBy==='date') {
@@ -50,7 +51,7 @@ var InterviewDashBoard = React.createClass({
         layoutType='interview'
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
-        wrapperClass="col-sm-12 col-md-6 col-lg-4"
+        wrapperClass="col-sm-12 col-md-6 col-lg-4 slideFromLeft"
         flexBoxClass="panel-flex-container-2"
         handleUpdate={handleUpdate}
         handleDelete={handleDelete}
@@ -141,6 +142,7 @@ var InterviewDashBoard = React.createClass({
   handleAllFilterClick: function(){
     $('.active-filter').removeClass('active-filter');
     $('.all-filter').addClass('active-filter');
+    this.setState({currentlyFilteringBy:'all'})
     var dataSet = this.state.originalData;
     var sortBy = this.state.currentlySortingBy;
     var sortDirection;
@@ -154,6 +156,7 @@ var InterviewDashBoard = React.createClass({
     this.setState({currentDataStore:sortedData})
   },
   getUpcomingInterviews: function(dataSet) {
+    this.setState({currentlyFilteringBy:'upcoming'})
     var interviews = dataSet.filter(function(interview){
       var dateTime = interview['date']+' '+interview['time'];
       return moment(dateTime, "MM-DD-YYYY HH:mm").isAfter(moment())
@@ -161,6 +164,7 @@ var InterviewDashBoard = React.createClass({
     return interviews
   },
   getPastInterviews: function(dataSet){
+    this.setState({currentlyFilteringBy:'past'})
     var interviews = dataSet.filter(function(interview){
       var dateTime = interview['date']+' '+interview['time'];
       return moment(dateTime, "MM-DD-YYYY HH:mm").isBefore(moment())
@@ -177,7 +181,23 @@ var InterviewDashBoard = React.createClass({
     }
     return sortedData
   },
+  filterData: function(dataSet, filterBy){
+    var filteredData;
+    switch(filterBy) {
+    case 'upcoming':
+        filteredData = this.getUpcomingInterviews(dataSet);
+        break;
+    case 'past':
+        filteredData = this.getPastInterviews(dataSet);
+        break;
+    case 'all':
+        filteredData = this.state.originalData;
+        break;
+    }
+    return filteredData
+  },
   sortByDate: function(dataSet, sortDirection){
+    this.setState({currentlySortingBy:'date'})
     if (sortDirection === 'asc') {
       $('.date-sort')
         .removeClass('asc')
@@ -191,6 +211,7 @@ var InterviewDashBoard = React.createClass({
     }
   },
   sortByHospital: function(dataSet, sortDirection){
+    this.setState({currentlySortingBy:'hospital'})
     if (sortDirection === 'asc') {
       $('.hospital-sort')
         .removeClass('asc')
@@ -228,16 +249,16 @@ var InterviewDashBoard = React.createClass({
           <span>
             <span className="pad-r-5">Filter By:</span>
               <span>
-                <span className="label label-defualt upcoming-filter active-filter mar-r-5" onClick={this.handleUpcomingFilterClick}>Upcoming Interviews</span>
+                <span className="label label-defualt all-filter mar-r-10 active-filter" onClick={this.handleAllFilterClick}>All</span>
+                <span className="label label-defualt upcoming-filter mar-r-5" onClick={this.handleUpcomingFilterClick}>Upcoming Interviews</span>
                 <span className="label label-defualt past-filter mar-r-5" onClick={this.handlePastFilterClick}>Past Interviews</span>
-                <span className="label label-defualt all-filter mar-r-10" onClick={this.handleAllFilterClick}>All</span>
               </span>
           </span>
         </div>
 
         <div className="row">
           <div className="col-sm-12">
-            <div className="row pad-x-15 slide-from-left">
+            <div className="row pad-x-15">
               {panels}
             </div>
           </div>
