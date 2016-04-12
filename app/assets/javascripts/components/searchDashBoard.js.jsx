@@ -3,16 +3,13 @@ var SearchDashBoard = React.createClass({
   getInitialState: function(){
     return {
       searchResultPanels: undefined,
-      originalResults:this.props.data || null,
+      originalData:this.props.data || null,
       currentDataStore:this.props.data || null,
       userPosition: this.props.current_user_coords,
       resultsPerPage: 6,
       currentPage: 1,
       hidingOwnInterviews: false,
       currentlySortingBy: 'distance',
-      originalData:undefined,
-      currentDataStore:undefined,
-      currentlySortingBy: 'date',
       filters: [],
       currentTimeSortDirection: 'asc',
       currentCreatedAtSortDirection: 'asc'
@@ -127,17 +124,11 @@ var SearchDashBoard = React.createClass({
         currentUserId={currentUserId}
         />
     })
-
-    if (panels.length > 0) {
-      this.setState({searchResultPanels:panels})
-    } else {
-      this.setState({searchResultPanels:null})
-    }
+    return panels
   },
   render: function() {
-    var panels;
-    if (this.state.searchResultPanels) {
-      panels = this.state.searchResultPanels;
+    if (this.state.resultsToDisplay && this.state.resultsToDisplay.length > 0) {
+      panels = this.setSearchResultPanels(this.state.resultsToDisplay);
     } else {
       panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Results Found</h1></div></div>;
     }
@@ -173,31 +164,31 @@ var SearchDashBoard = React.createClass({
       },
       handleSearch: function(results){
         $('.pagination-flex-container').html('')
-        component = this;
         this.setState({
           searched: true,
-          hidingOwnInterviews: false,
-          originalResults:results,
+          originalData:results,
           currentPage: 1
-        },function(){
-          component.state.originalResults.map((interviewObject) => {
-          component.setDistance(interviewObject,true)
-          })
-          component.setState({
-            currentDataStore:component.state.originalResults
           },function(){
-            component.sortThenDisplay();
+          this.state.originalData.map((interviewObject) => {
+            this.setDistance(interviewObject,true)
+          })
+          var filteredData = this.filterData(this.state.originalData, this.state.filters);
+          var sortedData = this.sortData(filteredData);
+          this.setState({
+            currentDataStore:sortedData
+          },function(){
+            this.handleResultsDisplay();
           })
         })
       },
       handleResultsDisplay: function() {
         if (Object.size(this.state.currentDataStore) > this.state.resultsPerPage) {
-          this.displayPaginatedResults(this.state.currentDataStore, Object.size(this.state.currentDataStore),this.state.resultsPerPage);
+          this.handlePagination(this.state.currentDataStore, Object.size(this.state.currentDataStore),this.state.resultsPerPage);
         } else{
-          this.setSearchResultPanels(this.state.currentDataStore);
+          this.setState({resultsToDisplay: this.state.currentDataStore});
         }
       },
-      displayPaginatedResults: function(resultSet, totalResultsCount, resultsPerPage) {
+      handlePagination: function(resultSet, totalResultsCount, resultsPerPage) {
         $('.pagination-flex-container').html('<ul id="search-pagination" class="pagination-sm"></ul>');
         component = this;
         var maxPages = Math.ceil(totalResultsCount/resultsPerPage);
@@ -221,8 +212,8 @@ var SearchDashBoard = React.createClass({
               .filter(function(item){
                 return item;
               });
-              var resultsToShow = groups[page-1]
-              component.setSearchResultPanels(resultsToShow);
+              var resultsToDisplay = groups[page-1]
+              component.setState({resultsToDisplay:resultsToDisplay});
             }
           }
         });
@@ -259,7 +250,7 @@ var SearchDashBoard = React.createClass({
           return _.orderBy(dataSet, ['time'], ['asc'])
         }
       },
-      handleSort: function(dataSet){
+      sortData: function(dataSet){
         var sortedData;
         switch(this.state.currentlySortingBy) {
         case 'distance':
@@ -275,30 +266,48 @@ var SearchDashBoard = React.createClass({
         return sortedData
       },
       filterBySchool: function(dataSet){
+        var component = this;
         var interviews = dataSet.filter(function(interview){
-          return interview['school'] == this.props.current_user_school
+          return interview['school'] == component.props.current_user_school
         })
         return interviews
       },
       filterBySpecialty: function(dataSet){
+        var component = this;
         var interviews = dataSet.filter(function(interview){
-          return interview['specialty'] == this.props.current_user_spectialty
+          return interview['specialty'] == component.props.current_user_spectialty
         })
         return interviews
       },
-      handleFilter: function(dataSet, filters){
-        var filteredArray = []
-        filters.forEach(function(filterBy){
-          switch(filterBy) {
-          case 'school':
-              filteredData = this.filterBySchool(dataSet);
-              break;
-          case 'specialty':
-              filteredData = this.filterBySpecialty(dataSet);
-              break;
-          }
-          filteredArray.push(filteredData);
+      filterOwnInterviews: function(dataSet) {
+        var component = this;
+        var interviews = dataSet.filter(function(){
+          return interviewObject['poster_id'] != component.props.current_user_id
         })
+        return interviews
+      },
+      filterData: function(dataSet, filters){
+        if (filters.length) {
+          var filteredArray = [];
+          var component = this;
+          filters.forEach(function(filterBy){
+            switch(filterBy) {
+            case 'school':
+                filteredData = component.filterBySchool(dataSet);
+                break;
+            case 'specialty':
+                filteredData = component.filterBySpecialty(dataSet);
+                break;
+            case 'hide-own':
+                filteredData = component.filterOwnInterviews(dataSet);
+                break;
+            }
+            filteredArray.push(filteredData)
+          })
+          return _.flatten(filteredArray)
+        } else {
+          return dataSet
+        }
       },
       sortThenDisplay: function(){
         if (this.state.currentlySortingBy == 'distance') {
@@ -313,7 +322,7 @@ var SearchDashBoard = React.createClass({
         function isNotOwnInterview(interviewObject) {
           return interviewObject['poster_id'] != component.props.current_user_id
         }
-        var completeResults = component.state.originalResults;
+        var completeResults = component.state.originalData;
         var resultsWithHiddenInterviews = null;
         if (completeResults) {
           resultsWithHiddenInterviews = completeResults.filter(isNotOwnInterview);

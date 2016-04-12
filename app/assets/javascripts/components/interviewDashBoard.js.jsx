@@ -19,8 +19,8 @@ var InterviewDashBoard = React.createClass({
           this.setState({
             originalData:results
           },function(){
-            var filteredData = this.handleFilter(this.state.originalData, this.state.currentlyFilteringBy);
-            var sortedData = this.handleSort(filteredData);
+            var filteredData = this.filterData(this.state.originalData, this.state.currentlyFilteringBy);
+            var sortedData = this.sortData(filteredData);
             this.setState({currentDataStore:sortedData});
           })
         }
@@ -106,21 +106,21 @@ var InterviewDashBoard = React.createClass({
     $('.active-filter').removeClass('active-filter');
     $('.upcoming-filter').addClass('active-filter');
     var filteredData = this.getUpcomingInterviews(this.state.originalData);
-    var sortedData = this.handleSort(filteredData);
+    var sortedData = this.sortData(filteredData);
     this.setState({currentDataStore:sortedData})
   },
   toggleFilterByPast: function(){
     $('.active-filter').removeClass('active-filter');
     $('.past-filter').addClass('active-filter');
     var filteredData = this.getPastInterviews(this.state.originalData);
-    var sortedData = this.handleSort(filteredData);
+    var sortedData = this.sortData(filteredData);
     this.setState({currentDataStore:sortedData})
   },
   toggleFilterByAll: function(){
     $('.active-filter').removeClass('active-filter');
     $('.all-filter').addClass('active-filter');
     this.setState({currentlyFilteringBy:'all'})
-    var sortedData = this.handleSort(this.state.originalData);
+    var sortedData = this.sortData(this.state.originalData);
     this.setState({currentDataStore:sortedData})
   },
   getUpcomingInterviews: function(dataSet) {
@@ -139,7 +139,7 @@ var InterviewDashBoard = React.createClass({
     })
     return interviews
   },
-  handleSort: function(dataSet){
+  sortData: function(dataSet){
     var sortedData;
     if (this.state.currentlySortingBy == 'date') {
       sortedData = this.sortByDate(dataSet, this.state.currentDateSortDirection);
@@ -149,7 +149,7 @@ var InterviewDashBoard = React.createClass({
     }
     return sortedData
   },
-  handleFilter: function(dataSet, filterBy){
+  filterData: function(dataSet, filterBy){
     var filteredData;
     switch(filterBy) {
     case 'upcoming':
