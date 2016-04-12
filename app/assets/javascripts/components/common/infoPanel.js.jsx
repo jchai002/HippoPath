@@ -28,7 +28,7 @@ var InfoPanel = React.createClass({
     });
     var actions;
     if (this.props.layoutType === 'interview') {
-      var searchButton = <a className="btn btn-primary mar-b-15 mar-l-20 mar-r-5" href={"/interview_search/?hospital="+hospital+"&ride_status="+rideStatus+"&date="+date}>Search Match</a>
+      var searchButton = <a className="btn btn-primary mar-b-15 mar-l-20 mar-r-5" href={"/interview_search/?hospital="+hospital+"&ride_status="+rideStatus+"&date="+date}>Find Match</a>
       actions = <div className="panel-flex-container"><span>{searchButton}</span><InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.props.handleDelete} /></div>
     }
     if (this.props.layoutType === 'search') {
