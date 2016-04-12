@@ -217,9 +217,9 @@ var SearchDashBoard = React.createClass({
       sortByCreatedAt: function(dataSet, sortDirection) {
         console.log(dataSet)
         if (sortDirection === 'asc') {
-          return _.orderBy(dataSet, ['created-at'], ['asc'])
+          return _.orderBy(dataSet, ['created_at'], ['asc'])
         } else {
-          return _.orderBy(dataSet, ['created-at'], ['desc'])
+          return _.orderBy(dataSet, ['created_at'], ['desc'])
         }
       },
       sortByTime: function(dataSet, sortDirection){
