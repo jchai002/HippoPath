@@ -20,7 +20,7 @@ var InterviewDashBoard = React.createClass({
             originalData:results
           },function(){
             var filteredData = this.filterData(this.state.originalData, this.state.currentlyFilteringBy);
-            var sortedData = this.sortData(filteredData);
+            var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
             this.setState({currentDataStore:sortedData});
           })
         }
@@ -67,6 +67,7 @@ var InterviewDashBoard = React.createClass({
   toggleDateSort: function() {
     $('.active-sort').removeClass('active-sort');
     $('.date-sort').addClass('active-sort');
+    this.setState({currentlySortingBy:'date'})
     var dataSet = this.state.currentDataStore;
     var sortedData;
     if (this.state.currentDateSortDirection === 'asc') {
@@ -86,6 +87,7 @@ var InterviewDashBoard = React.createClass({
   toggleHospitalSort: function() {
     $('.active-sort').removeClass('active-sort');
     $('.hospital-sort').addClass('active-sort');
+    this.setState({currentlySortingBy:'hospital'})
     var dataSet = this.state.currentDataStore;
     var sortedData;
     if (this.state.currentHospitalSortDirection === 'asc') {
@@ -106,21 +108,21 @@ var InterviewDashBoard = React.createClass({
     $('.active-filter').removeClass('active-filter');
     $('.upcoming-filter').addClass('active-filter');
     var filteredData = this.getUpcomingInterviews(this.state.originalData);
-    var sortedData = this.sortData(filteredData);
+    var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
     this.setState({currentDataStore:sortedData})
   },
   toggleFilterByPast: function(){
     $('.active-filter').removeClass('active-filter');
     $('.past-filter').addClass('active-filter');
     var filteredData = this.getPastInterviews(this.state.originalData);
-    var sortedData = this.sortData(filteredData);
+    var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
     this.setState({currentDataStore:sortedData})
   },
   toggleFilterByAll: function(){
     $('.active-filter').removeClass('active-filter');
     $('.all-filter').addClass('active-filter');
     this.setState({currentlyFilteringBy:'all'})
-    var sortedData = this.sortData(this.state.originalData);
+    var sortedData = this.sortData(this.state.originalData, this.state.currentlySortingBy);
     this.setState({currentDataStore:sortedData})
   },
   getUpcomingInterviews: function(dataSet) {
@@ -139,12 +141,12 @@ var InterviewDashBoard = React.createClass({
     })
     return interviews
   },
-  sortData: function(dataSet){
+  sortData: function(dataSet, sortBy){
     var sortedData;
-    if (this.state.currentlySortingBy == 'date') {
+    if (sortBy == 'date') {
       sortedData = this.sortByDate(dataSet, this.state.currentDateSortDirection);
     }
-    if (this.state.currentlySortingBy == 'hospital') {
+    if (sortBy == 'hospital') {
       sortedData = this.sortByHospital(dataSet, this.state.currentHospitalSortDirection);
     }
     return sortedData
@@ -165,7 +167,6 @@ var InterviewDashBoard = React.createClass({
     return filteredData
   },
   sortByDate: function(dataSet, sortDirection){
-    this.setState({currentlySortingBy:'date'})
     if (sortDirection === 'asc') {
       $('.date-sort')
         .removeClass('asc')
@@ -179,7 +180,6 @@ var InterviewDashBoard = React.createClass({
     }
   },
   sortByHospital: function(dataSet, sortDirection){
-    this.setState({currentlySortingBy:'hospital'})
     if (sortDirection === 'asc') {
       $('.hospital-sort')
         .removeClass('asc')
