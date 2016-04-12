@@ -4,17 +4,24 @@ var SearchDashBoard = React.createClass({
     return {
       searchResultPanels: undefined,
       originalResults:this.props.data || null,
-      modifiedResults:this.props.data || null,
-      userPosition: this.props.user_coords,
+      currentDataStore:this.props.data || null,
+      userPosition: this.props.current_user_coords,
       resultsPerPage: 6,
       currentPage: 1,
       hidingOwnInterviews: false,
-      currentlySortingBy: 'distance'
+      currentlySortingBy: 'distance',
+      originalData:undefined,
+      currentDataStore:undefined,
+      currentlySortingBy: 'date',
+      filters: [],
+      currentTimeSortDirection: 'asc',
+      currentCreatedAtSortDirection: 'asc'
     }
   },
   componentWillMount: function(){
+    console.log(this.props)
     //results come from a html request, auto hide own results
-    if (this.state.modifiedResults) {
+    if (this.state.currentDataStore) {
       this.toggleDisplayOwnInterviews();
       }
   },
@@ -42,7 +49,6 @@ var SearchDashBoard = React.createClass({
 
     function onError(err) {
       var message;
-
       switch (err.code) {
         case 0:
         message = 'Unknown error: ' + err.message;
@@ -147,8 +153,8 @@ var SearchDashBoard = React.createClass({
             <span className="button-group">
               <span className="pad-r-5">Order By:</span>
               <span>
-              <span className="label label-info mar-r-5 distance-sort active" onClick={this.orderByDistance}>Distance From Me</span>
-              <span className="label label-info mar-r-5 most-recent-sort"  onClick={this.orderByPostDate}>Most Recent</span>
+              <span className="label label-info mar-r-5 distance-sort active" onClick={this.sortByDistance}>Distance From Me</span>
+              <span className="label label-info mar-r-5 most-recent-sort"  onClick={this.sortByCreatedAt}>Most Recent</span>
               </span>
             </span>
             <span>
@@ -178,17 +184,17 @@ var SearchDashBoard = React.createClass({
           component.setDistance(interviewObject,true)
           })
           component.setState({
-            modifiedResults:component.state.originalResults
+            currentDataStore:component.state.originalResults
           },function(){
             component.sortThenDisplay();
           })
         })
       },
       handleResultsDisplay: function() {
-        if (Object.size(this.state.modifiedResults) > this.state.resultsPerPage) {
-          this.displayPaginatedResults(this.state.modifiedResults, Object.size(this.state.modifiedResults),this.state.resultsPerPage);
+        if (Object.size(this.state.currentDataStore) > this.state.resultsPerPage) {
+          this.displayPaginatedResults(this.state.currentDataStore, Object.size(this.state.currentDataStore),this.state.resultsPerPage);
         } else{
-          this.setSearchResultPanels(this.state.modifiedResults);
+          this.setSearchResultPanels(this.state.currentDataStore);
         }
       },
       displayPaginatedResults: function(resultSet, totalResultsCount, resultsPerPage) {
@@ -221,34 +227,85 @@ var SearchDashBoard = React.createClass({
           }
         });
       },
-      orderByDistance: function() {
-        $('.active').removeClass('active');
-        $('.distance-sort').addClass('active');
-        var resultSet = this.state.modifiedResults;
-        this.setState({
-          modifiedResults: _.sortBy(resultSet, ['distance']),
-          currentlySortingBy: 'distance'
-        },function(){
-          this.handleResultsDisplay();
-        })
+      sortByDistance: function(dataSet) {
+        this.setState({currentlySortingBy:'distance'})
+        return _.sortBy(dataSet, ['distance'])
       },
-      orderByPostDate: function() {
-        $('.active').removeClass('active');
-        $('.most-recent-sort').addClass('active');
-        var resultSet = this.state.modifiedResults;
-        this.setState({
-          modifiedResults: _.orderBy(resultSet, ['created_at'], ['desc']),
-          currentlySortingBy: 'created_at'
-        },function(){
-          this.handleResultsDisplay();
+      sortByCreatedAt: function(dataSet, sortDirection) {
+        this.setState({currentlySortingBy:'created_at'})
+        if (sortDirection === 'asc') {
+          $('.created-at-sort')
+            .removeClass('asc')
+            .addClass('desc');
+          return _.orderBy(dataSet, ['created-at'], ['desc'])
+        } else {
+          $('.created-at-sort')
+            .removeClass('desc')
+            .addClass('asc')
+          return _.orderBy(dataSet, ['created-at'], ['asc'])
+        }
+      },
+      sortByTime: function(dataSet, sortDirection){
+        this.setState({currentlySortingBy:'time'})
+        if (sortDirection === 'asc') {
+          $('.time-sort')
+            .removeClass('asc')
+            .addClass('desc');
+          return _.orderBy(dataSet, ['time'], ['desc'])
+        } else {
+          $('.time-sort')
+            .removeClass('desc')
+            .addClass('asc')
+          return _.orderBy(dataSet, ['time'], ['asc'])
+        }
+      },
+      handleSort: function(dataSet){
+        var sortedData;
+        switch(this.state.currentlySortingBy) {
+        case 'distance':
+            sortedData = this.sortByDistance(dataSet);
+            break;
+        case 'created_at':
+            sortedData = this.sortByCreatedAt(dataSet, this.state.currentCreatedAtSortDirection);
+            break;
+        case 'time':
+            sortedData = this.sortByTime(dataSet, this.state.currentTimeSortDirection);
+            break;
+        }
+        return sortedData
+      },
+      filterBySchool: function(dataSet){
+        var interviews = dataSet.filter(function(interview){
+          return interview['school'] == this.props.current_user_school
+        })
+        return interviews
+      },
+      filterBySpecialty: function(dataSet){
+        var interviews = dataSet.filter(function(interview){
+          return interview['specialty'] == this.props.current_user_spectialty
+        })
+        return interviews
+      },
+      handleFilter: function(dataSet, filters){
+        var filteredArray = []
+        filters.forEach(function(filterBy){
+          switch(filterBy) {
+          case 'school':
+              filteredData = this.filterBySchool(dataSet);
+              break;
+          case 'specialty':
+              filteredData = this.filterBySpecialty(dataSet);
+              break;
+          }
+          filteredArray.push(filteredData);
         })
       },
       sortThenDisplay: function(){
         if (this.state.currentlySortingBy == 'distance') {
-          this.orderByDistance();
+          this.sortByDistance();
         }
         if (this.state.currentlySortingBy == 'created_at') {
-          this.orderByPostDate();
+          this.sortByCreatedAt();
         }
       },
       toggleDisplayOwnInterviews: function() {
@@ -263,14 +320,14 @@ var SearchDashBoard = React.createClass({
         }
         if (!component.state.hidingOwnInterviews) {
           component.setState({
-            modifiedResults:resultsWithHiddenInterviews,
+            currentDataStore:resultsWithHiddenInterviews,
             hidingOwnInterviews:true
           }, function(){
             component.sortThenDisplay();
           })
         } else {
           component.setState({
-            modifiedResults:completeResults,
+            currentDataStore:completeResults,
             hidingOwnInterviews:false
           }, function(){
             component.sortThenDisplay();
