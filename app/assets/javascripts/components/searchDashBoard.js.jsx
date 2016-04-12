@@ -143,8 +143,12 @@ var SearchDashBoard = React.createClass({
               </span>
             </span>
             <span>
-              <span className="label label-defualt hide-own button-group">Hide My Own Interviews
-              </span>
+              <span className="pad-r-5">Filters:</span>
+                <span>
+                  <span className="label label-defualt school-filter mar-r-10" onClick={this.toggleFilterBySchool}>My School</span>
+                  <span className="label label-defualt specialty-filter mar-r-5" onClick={this.toggleFilterBySpecialty}>My Specialty</span>
+                  <span className="label label-defualt hide-own-filter mar-r-5" onClick={this.toggleFilterOwnInterviews}>Hide My Own Interviews</span>
+                </span>
             </span>
           </div>
           <div className="col-sm-12 search-results">
@@ -157,7 +161,6 @@ var SearchDashBoard = React.createClass({
     );
       },
       handleSearch: function(results){
-        $('.pagination-flex-container').html('')
         this.setState({
           searched: true,
           originalData:results
@@ -167,18 +170,15 @@ var SearchDashBoard = React.createClass({
           })
           var filteredData = this.filterData(this.state.originalData, this.state.filters);
           var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
-          this.setState({
-            currentDataStore:sortedData
-          },function(){
-            this.handleDataDisplay();
-          })
+          this.setCurrentDataStore(sortedData)
         })
       },
-      handleDataDisplay: function() {
-        if (Object.size(this.state.currentDataStore) > this.state.resultsPerPage) {
-          this.displayPaginateResults(this.state.currentDataStore,Object.size(this.state.currentDataStore),this.state.resultsPerPage);
+      handleDataDisplay: function(dataSet) {
+        if (Object.size(dataSet) > this.state.resultsPerPage) {
+          this.displayPaginateResults(dataSet,Object.size(dataSet),this.state.resultsPerPage);
         } else {
-          this.setState({resultsToDisplay:this.state.currentDataStore})
+          $('.pagination-flex-container').html('')
+          this.setState({resultsToDisplay:dataSet})
         }
       },
       displayPaginateResults: function(resultSet, totalResultsCount, resultsPerPage) {
@@ -310,14 +310,18 @@ var SearchDashBoard = React.createClass({
       filterBySchool: function(dataSet){
         var component = this;
         var interviews = dataSet.filter(function(interview){
-          return interview['school'].toLowerCase() == component.props.current_user_school.toLowerCase()
+          if (interview['school'] && component.props.current_user_school) {
+            return interview['school'].toLowerCase() == component.props.current_user_school.toLowerCase()
+          }
         })
         return interviews
       },
       filterBySpecialty: function(dataSet){
         var component = this;
         var interviews = dataSet.filter(function(interview){
-          return interview['specialty'].toLowerCase() === component.props.current_user_specialty.toLowerCase()
+          if (interview['specialty'] && component.props.current_user_specialty) {
+            return interview['specialty'].toLowerCase() == component.props.current_user_specialty.toLowerCase()
+          }
         })
         return interviews
       },
@@ -328,38 +332,106 @@ var SearchDashBoard = React.createClass({
         })
         return interviews
       },
-      filterData: function(dataSet, filters){
-        if (filters.length) {
-          var component = this;
-          var counter = 0;
-          var filteredResult;
-          function recursiveFilter(dataToFilter) {
-            if (counter === filters.length) {
-              filteredResult = dataToFilter
-              return
-            } else {
-              var filterBy = filters[counter];
-              var filteredData;
-              switch(filterBy) {
-                case 'school':
-                filteredData = component.filterBySchool(dataToFilter);
-                break;
-                case 'specialty':
-                filteredData = component.filterBySpecialty(dataToFilter);
-                break;
-                case 'hide-own':
-                filteredData = component.filterOwnInterviews(dataToFilter);
-                break;
-              }
-              counter++
-              recursiveFilter(filteredData);
-            }
-          }
-          recursiveFilter(dataSet);
-          return filteredResult
+      toggleFilterBySchool: function(){
+        var currentFilters = this.state.filters;
+        if (_.includes(currentFilters,'school')) {
+          _.pull(currentFilters, 'school');
+          this.setState({
+            filters:currentFilters
+          },function(){
+            var filteredData = this.filterData(this.state.originalData, this.state.filters);
+            var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
+            this.setCurrentDataStore(sortedData);
+          })
         } else {
-          return dataSet
+          currentFilters.push('school');
+          this.setState({
+            filters:currentFilters
+          },function(){
+            var filteredData = this.filterData(this.state.originalData, this.state.filters);
+            var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
+            this.setCurrentDataStore(sortedData);
+          })
         }
+        console.log(currentFilters)
+      },
+      toggleFilterBySpecialty: function(){
+        var currentFilters = this.state.filters;
+        if (_.includes(currentFilters,'specialty')) {
+          _.pull(currentFilters, 'specialty');
+          this.setState({
+            filters:currentFilters
+          },function(){
+            var filteredData = this.filterData(this.state.originalData, this.state.filters);
+            var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
+            this.setCurrentDataStore(sortedData);
+          })
+        } else {
+          currentFilters.push('specialty');
+          this.setState({
+            filters:currentFilters
+          },function(){
+            var filteredData = this.filterData(this.state.originalData, this.state.filters);
+            var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
+            this.setCurrentDataStore(sortedData);
+          })
+        }
+        console.log(currentFilters)
+      },
+      toggleFilterOwnInterviews: function(){
+        var currentFilters = this.state.filters;
+        if (_.includes(currentFilters,'hide-own')) {
+          _.pull(currentFilters, 'hide-own');
+          this.setState({
+            filters:currentFilters
+          },function(){
+            var filteredData = this.filterData(this.state.originalData, this.state.filters);
+            var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
+            this.setCurrentDataStore(sortedData);
+          })
+        } else {
+          currentFilters.push('hide-own');
+          this.setState({
+            filters:currentFilters
+          },function(){
+            var filteredData = this.filterData(this.state.originalData, this.state.filters);
+            var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
+            console.log('sorted after hide own',sortedData)
+            this.setCurrentDataStore(sortedData);
+          })
+        }
+        console.log(currentFilters)
+      },
+      filterData: function(dataSet, filters){
+        if (!dataSet) {
+          var dataSet = [];
+        }
+        var component = this;
+        var counter = 0;
+        var filteredResult;
+        function recursiveFilter(dataToFilter) {
+          if (counter === filters.length) {
+            filteredResult = dataToFilter
+          } else {
+            var filterBy = filters[counter];
+            var filteredData;
+            switch(filterBy) {
+              case 'school':
+              filteredData = component.filterBySchool(dataToFilter);
+              break;
+              case 'specialty':
+              filteredData = component.filterBySpecialty(dataToFilter);
+              break;
+              case 'hide-own':
+              filteredData = component.filterOwnInterviews(dataToFilter);
+              break;
+            }
+            counter++
+            recursiveFilter(filteredData);
+          }
+        }
+        recursiveFilter(dataSet)
+        return filteredResult
       },
       styleSortDirectionButtons: function(){
         switch (this.state.currentlySortingBy) {
@@ -379,8 +451,23 @@ var SearchDashBoard = React.createClass({
           break;
         }
       },
+      styleFilterButtons: function(){
+        $('.active-filter').removeClass('active-filter')
+        this.state.filters.forEach(function(filterName){
+          $('.'+filterName+'-filter').addClass('active-filter');
+        })
+      },
       componentDidUpdate: function(){
         this.styleSortDirectionButtons();
+        this.styleFilterButtons();
+      },
+      setCurrentDataStore: function(dataSet){
+        console.log('data to set',dataSet)
+        this.setState({
+          currentDataStore:dataSet
+        }, function(){
+          this.handleDataDisplay(this.state.currentDataStore);
+        })
       }
     });
 
