@@ -16,7 +16,6 @@ var SearchDashBoard = React.createClass({
     }
   },
   componentWillMount: function(){
-    console.log(this.props)
     //results come from a html request, auto hide own results
     if (this.state.currentDataStore) {
       this.toggleDisplayOwnInterviews();
@@ -132,6 +131,7 @@ var SearchDashBoard = React.createClass({
     } else {
       panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Results Found</h1></div></div>;
     }
+    console.log(this.props)
     return (
       <div className="container">
         <div className="row">
@@ -268,43 +268,54 @@ var SearchDashBoard = React.createClass({
       filterBySchool: function(dataSet){
         var component = this;
         var interviews = dataSet.filter(function(interview){
-          return interview['school'] == component.props.current_user_school
+          return interview['school'].toLowerCase() == component.props.current_user_school.toLowerCase()
         })
         return interviews
       },
       filterBySpecialty: function(dataSet){
         var component = this;
         var interviews = dataSet.filter(function(interview){
-          return interview['specialty'] == component.props.current_user_spectialty
+          return interview['specialty'].toLowerCase() === component.props.current_user_specialty.toLowerCase()
         })
         return interviews
       },
       filterOwnInterviews: function(dataSet) {
         var component = this;
-        var interviews = dataSet.filter(function(){
+        var interviews = dataSet.filter(function(interviewObject){
           return interviewObject['poster_id'] != component.props.current_user_id
         })
         return interviews
       },
       filterData: function(dataSet, filters){
         if (filters.length) {
-          var filteredArray = [];
           var component = this;
-          filters.forEach(function(filterBy){
-            switch(filterBy) {
-            case 'school':
-                filteredData = component.filterBySchool(dataSet);
+          var counter = 0;
+          var filteredResult;
+          function recursiveFilter(dataToFilter) {
+            if (counter === filters.length) {
+              filteredResult = dataToFilter
+              return
+            } else {
+              var filterBy = filters[counter];
+              var filteredData;
+              switch(filterBy) {
+                case 'school':
+                filteredData = component.filterBySchool(dataToFilter);
                 break;
-            case 'specialty':
-                filteredData = component.filterBySpecialty(dataSet);
+                case 'specialty':
+                filteredData = component.filterBySpecialty(dataToFilter);
                 break;
-            case 'hide-own':
-                filteredData = component.filterOwnInterviews(dataSet);
+                case 'hide-own':
+                filteredData = component.filterOwnInterviews(dataToFilter);
                 break;
+              }
+              counter++
+              recursiveFilter(filteredData);
             }
-            filteredArray.push(filteredData)
-          })
-          return _.flatten(filteredArray)
+          }
+          recursiveFilter(dataSet);
+          console.log(filteredResult);
+          return filteredResult
         } else {
           return dataSet
         }
