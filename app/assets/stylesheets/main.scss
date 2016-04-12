@@ -109,23 +109,6 @@ ul.navbar-right {
     max-width:190px;
     cursor: pointer;
     cursor: hand;
-  }
-  .active,.active-sort {
-    color: white;
-    background-color: lighten($theme-primary,5%);
-    border: 1px solid darken($theme-primary,5%);
-  }
-  .hide-own-active, {
-    color: white;
-    background-color: lighten($theme-green,5%);
-    border: 1px solid darken($theme-green,5%);
-  }
-  .active-filter {
-    color: white;
-    background-color: lighten($theme-yellow,5%);
-    border: 1px solid darken($theme-yellow,5%);
-  }
-  .date-sort,.hospital-sort{
     i {
       display: none;
     }
@@ -145,6 +128,21 @@ ul.navbar-right {
     i.fa-caret-up {
       display: none;
     }
+  }
+  .active-sort {
+    color: white;
+    background-color: lighten($theme-primary,5%);
+    border: 1px solid darken($theme-primary,5%);
+  }
+  .hide-own-active, {
+    color: white;
+    background-color: lighten($theme-green,5%);
+    border: 1px solid darken($theme-green,5%);
+  }
+  .active-filter {
+    color: white;
+    background-color: lighten($theme-yellow,5%);
+    border: 1px solid darken($theme-yellow,5%);
   }
 }
 

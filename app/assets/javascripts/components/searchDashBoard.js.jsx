@@ -7,19 +7,13 @@ var SearchDashBoard = React.createClass({
       currentDataStore:this.props.data || null,
       userPosition: this.props.current_user_coords,
       resultsPerPage: 6,
-      currentPage: 1,
+      currentPage: null,
       hidingOwnInterviews: false,
       currentlySortingBy: 'distance',
       filters: [],
       currentTimeSortDirection: 'asc',
       currentCreatedAtSortDirection: 'asc'
     }
-  },
-  componentWillMount: function(){
-    //results come from a html request, auto hide own results
-    if (this.state.currentDataStore) {
-      this.toggleDisplayOwnInterviews();
-      }
   },
   arrayNotBlank: function(array) {
     return array[0] && array[1]
@@ -131,7 +125,6 @@ var SearchDashBoard = React.createClass({
     } else {
       panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Results Found</h1></div></div>;
     }
-    console.log(this.props)
     return (
       <div className="container">
         <div className="row">
@@ -142,14 +135,15 @@ var SearchDashBoard = React.createClass({
         <div className="row">
           <div className="pad-l-30 pad-b-20 sort-filter">
             <span className="button-group">
-              <span className="pad-r-5">Order By:</span>
+              <span className="pad-r-5">Sort By:</span>
               <span>
-              <span className="label label-info mar-r-5 distance-sort active" onClick={this.sortByDistance}>Distance From Me</span>
-              <span className="label label-info mar-r-5 most-recent-sort"  onClick={this.sortByCreatedAt}>Most Recent</span>
+              <span className="label label-info mar-r-5 distance-sort active-sort" onClick={this.activateDistanceSort}>Distance From Me</span>
+              <span className="label label-info mar-r-5 created-at-sort"  onClick={this.toggleCreatedAtSort}>Most Recent<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
+              <span className="label label-info mar-r-5 time-sort" onClick={this.toggleTimeSort}>Time<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
               </span>
             </span>
             <span>
-              <span className="label label-defualt hide-own button-group" onClick={this.toggleDisplayOwnInterviews}>Hide My Own Interviews
+              <span className="label label-defualt hide-own button-group">Hide My Own Interviews
               </span>
             </span>
           </div>
@@ -166,31 +160,31 @@ var SearchDashBoard = React.createClass({
         $('.pagination-flex-container').html('')
         this.setState({
           searched: true,
-          originalData:results,
-          currentPage: 1
+          originalData:results
           },function(){
           this.state.originalData.map((interviewObject) => {
             this.setDistance(interviewObject,true)
           })
           var filteredData = this.filterData(this.state.originalData, this.state.filters);
-          var sortedData = this.sortData(filteredData);
+          var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
           this.setState({
             currentDataStore:sortedData
           },function(){
-            this.handleResultsDisplay();
+            this.handleDataDisplay();
           })
         })
       },
-      handleResultsDisplay: function() {
+      handleDataDisplay: function() {
         if (Object.size(this.state.currentDataStore) > this.state.resultsPerPage) {
-          this.handlePagination(this.state.currentDataStore, Object.size(this.state.currentDataStore),this.state.resultsPerPage);
-        } else{
-          this.setState({resultsToDisplay: this.state.currentDataStore});
+          this.displayPaginateResults(this.state.currentDataStore,Object.size(this.state.currentDataStore),this.state.resultsPerPage);
+        } else {
+          this.setState({resultsToDisplay:this.state.currentDataStore})
         }
       },
-      handlePagination: function(resultSet, totalResultsCount, resultsPerPage) {
+      displayPaginateResults: function(resultSet, totalResultsCount, resultsPerPage) {
         $('.pagination-flex-container').html('<ul id="search-pagination" class="pagination-sm"></ul>');
         component = this;
+        var dataToReturn;
         var maxPages = Math.ceil(totalResultsCount/resultsPerPage);
         var visible;
         if (maxPages > 5) {
@@ -203,7 +197,7 @@ var SearchDashBoard = React.createClass({
           visiblePages: visible,
           onPageClick: function (event, page) {
             $('#page-content').text('Page ' + page);
-            component.setState({currentPage: page});
+            component.setState({currentPage:page})
             if (resultSet) {
               var groupSize = resultsPerPage;
               var groups = _.map(resultSet, function(item, index){
@@ -212,47 +206,35 @@ var SearchDashBoard = React.createClass({
               .filter(function(item){
                 return item;
               });
-              var resultsToDisplay = groups[page-1]
-              component.setState({resultsToDisplay:resultsToDisplay});
+              component.setState({resultsToDisplay:groups[page-1]})
             }
           }
         });
       },
       sortByDistance: function(dataSet) {
-        this.setState({currentlySortingBy:'distance'})
         return _.sortBy(dataSet, ['distance'])
       },
       sortByCreatedAt: function(dataSet, sortDirection) {
-        this.setState({currentlySortingBy:'created_at'})
+        console.log(dataSet)
         if (sortDirection === 'asc') {
-          $('.created-at-sort')
-            .removeClass('asc')
-            .addClass('desc');
-          return _.orderBy(dataSet, ['created-at'], ['desc'])
-        } else {
-          $('.created-at-sort')
-            .removeClass('desc')
-            .addClass('asc')
           return _.orderBy(dataSet, ['created-at'], ['asc'])
+        } else {
+          return _.orderBy(dataSet, ['created-at'], ['desc'])
         }
       },
       sortByTime: function(dataSet, sortDirection){
-        this.setState({currentlySortingBy:'time'})
+        dataSet.forEach(function(data){
+          data['formattedTime'] = moment(data['time'],["h:mm A"]).format("HH:mm");
+        })
         if (sortDirection === 'asc') {
-          $('.time-sort')
-            .removeClass('asc')
-            .addClass('desc');
-          return _.orderBy(dataSet, ['time'], ['desc'])
+          return _.orderBy(dataSet, ['formattedTime'], ['asc'])
         } else {
-          $('.time-sort')
-            .removeClass('desc')
-            .addClass('asc')
-          return _.orderBy(dataSet, ['time'], ['asc'])
+          return _.orderBy(dataSet, ['formattedTime'], ['desc'])
         }
       },
-      sortData: function(dataSet){
+      sortData: function(dataSet, sortBy){
         var sortedData;
-        switch(this.state.currentlySortingBy) {
+        switch(sortBy) {
         case 'distance':
             sortedData = this.sortByDistance(dataSet);
             break;
@@ -264,6 +246,66 @@ var SearchDashBoard = React.createClass({
             break;
         }
         return sortedData
+      },
+      toggleTimeSort: function() {
+        $('.active-sort').removeClass('active-sort');
+        $('.time-sort').addClass('active-sort');
+        this.setState({currentlySortingBy:'time'})
+        var dataSet = this.state.currentDataStore;
+        var sortedData;
+        if (this.state.currentTimeSortDirection === 'asc') {
+          sortedData = this.sortByTime(dataSet,'desc')
+          this.setState({
+            currentDataStore: sortedData,
+            currentTimeSortDirection:'desc'
+          }, function(){
+            this.handleDataDisplay();
+          });
+        } else {
+          sortedData = this.sortByTime(dataSet,'asc')
+          this.setState({
+            currentDataStore: sortedData,
+            currentTimeSortDirection:'asc'
+          }, function(){
+            this.handleDataDisplay();
+          });
+        }
+      },
+      toggleCreatedAtSort: function() {
+        $('.active-sort').removeClass('active-sort');
+        $('.created-at-sort').addClass('active-sort');
+        this.setState({currentlySortingBy:'created_at'})
+        var dataSet = this.state.currentDataStore;
+        var sortedData;
+        if (this.state.currentCreatedAtSortDirection === 'asc') {
+          sortedData = this.sortByCreatedAt(dataSet,'desc')
+          this.setState({
+            currentDataStore: sortedData,
+            currentCreatedAtSortDirection:'desc'
+          }, function(){
+            this.handleDataDisplay();
+          });
+        } else {
+          sortedData = this.sortByCreatedAt(dataSet,'asc')
+          this.setState({
+            currentDataStore: sortedData,
+            currentCreatedAtSortDirection:'asc'
+          }, function(){
+            this.handleDataDisplay();
+          });
+        }
+      },
+      activateDistanceSort: function(){
+        $('.active-sort').removeClass('active-sort');
+        $('.direction-sort').addClass('active-sort');
+        var dataSet = this.state.currentDataStore;
+        sortedData = this.sortByDistance(dataSet);
+        this.setState({
+          currentlySortingBy:'direction',
+          currentDataStore: sortedData
+        }, function(){
+          this.handleDataDisplay();
+        });
       },
       filterBySchool: function(dataSet){
         var component = this;
@@ -314,59 +356,31 @@ var SearchDashBoard = React.createClass({
             }
           }
           recursiveFilter(dataSet);
-          console.log(filteredResult);
           return filteredResult
         } else {
           return dataSet
         }
       },
-      sortThenDisplay: function(){
-        if (this.state.currentlySortingBy == 'distance') {
-          this.sortByDistance();
-        }
-        if (this.state.currentlySortingBy == 'created_at') {
-          this.sortByCreatedAt();
-        }
-      },
-      toggleDisplayOwnInterviews: function() {
-        component = this;
-        function isNotOwnInterview(interviewObject) {
-          return interviewObject['poster_id'] != component.props.current_user_id
-        }
-        var completeResults = component.state.originalData;
-        var resultsWithHiddenInterviews = null;
-        if (completeResults) {
-          resultsWithHiddenInterviews = completeResults.filter(isNotOwnInterview);
-        }
-        if (!component.state.hidingOwnInterviews) {
-          component.setState({
-            currentDataStore:resultsWithHiddenInterviews,
-            hidingOwnInterviews:true
-          }, function(){
-            component.sortThenDisplay();
-          })
-        } else {
-          component.setState({
-            currentDataStore:completeResults,
-            hidingOwnInterviews:false
-          }, function(){
-            component.sortThenDisplay();
-          })
-        }
-      },
-      toggleHideOwnInterviewsButton: function(){
-        if (this.state.hidingOwnInterviews) {
-          $('.hide-own')
-            .addClass('hide-own-active')
-            .text('Show My Own Interviews');
-        } else {
-          $('.hide-own')
-            .removeClass('hide-own-active')
-            .text('Hide My Own Interviews');
+      styleSortDirectionButtons: function(){
+        switch (this.state.currentlySortingBy) {
+          case 'time':
+            if (this.state.currentTimeSortDirection === 'asc') {
+              $('.time-sort').removeClass('desc').addClass('asc')
+            } else {
+              $('.time-sort').removeClass('asc').addClass('desc')
+            }
+          break;
+          case 'created_at':
+            if (this.state.currentCreatedAtSortDirection === 'asc') {
+              $('.created-at-sort').removeClass('desc').addClass('asc')
+            } else {
+              $('.created-at-sort').removeClass('asc').addClass('desc')
+            }
+          break;
         }
       },
       componentDidUpdate: function(){
-        this.toggleHideOwnInterviewsButton();
+        this.styleSortDirectionButtons();
       }
     });
 
