@@ -6,7 +6,7 @@ var InterviewDashBoard = React.createClass({
       currentDataStore:undefined,
       currentlySortingBy: 'date',
       currentlyFilteringBy: 'all',
-      currentDateSortDirection: 'asc',
+      currentDateSortDirection: 'desc',
       currentHospitalSortDirection: 'desc'
     })
   },
@@ -71,12 +71,18 @@ var InterviewDashBoard = React.createClass({
     var dataSet = this.state.currentDataStore;
     var sortedData;
     if (this.state.currentDateSortDirection === 'asc') {
+      $('.date-sort')
+        .removeClass('desc')
+        .addClass('asc')
       sortedData = this.sortByDate(dataSet,'desc')
       this.setState({
         currentDataStore: sortedData,
         currentDateSortDirection:'desc'
       })
     } else {
+      $('.date-sort')
+        .removeClass('asc')
+        .addClass('desc')
       sortedData = this.sortByDate(dataSet,'asc')
       this.setState({
         currentDataStore: sortedData,
@@ -91,12 +97,18 @@ var InterviewDashBoard = React.createClass({
     var dataSet = this.state.currentDataStore;
     var sortedData;
     if (this.state.currentHospitalSortDirection === 'asc') {
+      $('.hospital-sort')
+        .removeClass('desc')
+        .addClass('asc');
       sortedData = this.sortByHospital(dataSet,'desc')
       this.setState({
         currentDataStore: sortedData,
         currentHospitalSortDirection:'desc'
       })
     } else {
+      $('.hospital-sort')
+        .removeClass('asc')
+        .addClass('desc');
       sortedData = this.sortByHospital(dataSet,'asc')
       this.setState({
         currentDataStore: sortedData,
@@ -168,27 +180,15 @@ var InterviewDashBoard = React.createClass({
   },
   sortByDate: function(dataSet, sortDirection){
     if (sortDirection === 'asc') {
-      $('.date-sort')
-        .removeClass('asc')
-        .addClass('desc');
       return _.orderBy(dataSet, ['date'], ['desc'])
     } else {
-      $('.date-sort')
-        .removeClass('desc')
-        .addClass('asc')
       return _.orderBy(dataSet, ['date'], ['asc'])
     }
   },
   sortByHospital: function(dataSet, sortDirection){
     if (sortDirection === 'asc') {
-      $('.hospital-sort')
-        .removeClass('asc')
-        .addClass('desc');
       return _.orderBy(dataSet, ['hospital'], ['desc'])
     } else {
-      $('.hospital-sort')
-        .removeClass('desc')
-        .addClass('asc')
       return _.orderBy(dataSet, ['hospital'], ['asc'])
     }
   },
@@ -210,7 +210,7 @@ var InterviewDashBoard = React.createClass({
           <span className="button-group">
             <span className="pad-r-5">Order By:</span>
               <span>
-                <span className="label label-info mar-r-5 date-sort active-sort" onClick={this.toggleDateSort}>Date<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
+                <span className="label label-info mar-r-5 date-sort asc active-sort" onClick={this.toggleDateSort}>Date<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
                 <span className="label label-info mar-r-5 hospital-sort"  onClick={this.toggleHospitalSort}>Hospital<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
               </span>
             </span>
