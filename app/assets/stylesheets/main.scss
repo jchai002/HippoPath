@@ -83,12 +83,12 @@ ul.navbar-right {
   z-index: 100 !important;
 }
 
-.filters {
+.sort-filter {
   display: flex;
   justify-content: space-between;
   @media (max-width: 480px) {
     flex-direction: column;
-    .filter-group {
+    .button-group {
       display: flex;
       flex-direction: column;
     }
@@ -114,11 +114,11 @@ ul.navbar-right {
     cursor: pointer;
     cursor: hand;
   }
-  .active {
+  .active,.active-sort {
     background-color: lighten($theme-primary,5%);
     border: 1px solid darken($theme-primary,5%);
   }
-  .hide-own-active,.hide-past-active {
+  .hide-own-active,.active-filter {
     color: white;
     background-color: $theme-green;
     border: 1px solid $theme-green;

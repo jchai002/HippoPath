@@ -143,17 +143,16 @@ var SearchDashBoard = React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="pad-l-30 pad-b-20 filters">
-
-            <span className="filter-group">
-            <span className="pad-r-5">Order By:</span>
-            <span>
-            <span className="label label-info mar-r-5 distance-sort active" onClick={this.orderByDistance}>Distance From Me</span>
-            <span className="label label-info mar-r-5 most-recent-sort"  onClick={this.orderByPostDate}>Most Recent</span>
+          <div className="pad-l-30 pad-b-20 sort-filter">
+            <span className="button-group">
+              <span className="pad-r-5">Order By:</span>
+              <span>
+              <span className="label label-info mar-r-5 distance-sort active" onClick={this.orderByDistance}>Distance From Me</span>
+              <span className="label label-info mar-r-5 most-recent-sort"  onClick={this.orderByPostDate}>Most Recent</span>
+              </span>
             </span>
-            </span>
             <span>
-              <span className="label label-defualt hide-own filter-group" onClick={this.toggleDisplayOwnInterviews}>Hide My Own Interviews
+              <span className="label label-defualt hide-own button-group" onClick={this.toggleDisplayOwnInterviews}>Hide My Own Interviews
               </span>
             </span>
           </div>
