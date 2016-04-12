@@ -47,6 +47,10 @@ var InterviewButtons = React.createClass({
     $('.success-message')
       .fadeIn(150)
       .delay(1500)
-      .fadeOut(150);
+      .fadeOut(150)
+      .promise()
+      .done(function(){
+        $('.modal').modal('hide');
+      })
   }
 });
