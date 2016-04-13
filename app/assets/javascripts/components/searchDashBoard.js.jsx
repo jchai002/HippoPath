@@ -366,6 +366,7 @@ var SearchDashBoard = React.createClass({
   componentDidUpdate: function(){
     this.styleSortButtons();
     this.styleFilterButtons();
+    $('[data-toggle="tooltip"]').tooltip();
   },
   setCurrentDataStore: function(dataSet){
     this.setState({

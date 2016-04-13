@@ -13,7 +13,6 @@ var TableRow = React.createClass({
         labelStyle = "label-warning";
       break;
     }
-    console.log(data)
     return (
       <tr className="slideFromLeft">
         <td>
@@ -26,7 +25,7 @@ var TableRow = React.createClass({
         <td>{data.specialty}</td>
         <td>{data.gender}</td>
         <td className="dark-gray">{data.distance < 99998 ? data.distance : 'Unknown'} Miles Away</td>
-        <td><SearchButtons currentUserId={this.props.currentUserId} PosterId={data.poster_id}/></td>
+        <td><SearchButtons interviewId={data.interview_id} currentUserId={this.props.currentUserId} PosterId={data.poster_id}/></td>
       </tr>
     );
   }

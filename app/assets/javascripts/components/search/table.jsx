@@ -12,7 +12,8 @@ var Table = React.createClass({
         gender: interviewInfo['gender'] || 'unknown',
         distance: interviewInfo['distance'],
         posted: moment(interviewInfo.created_at).fromNow(),
-        poster_id: interviewInfo['poster_id']
+        poster_id: interviewInfo['poster_id'],
+        interview_id: interviewInfo['id']
       };
       return <TableRow key={interviewInfo.id} data={rowData} currentUserId={currentUserId} />
     });

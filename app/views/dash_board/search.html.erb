@@ -2,7 +2,8 @@
 <%= content_tag :div, class: "hospital_names", data: {hospital_names: @hospital_names} do %>
 <% end %>
 <script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
+  $(document).on('click', '.save-interview', function(){
+    var url = $(this).data('url')
+    $.post(url)
+  })
 </script>
