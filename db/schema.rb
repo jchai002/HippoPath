@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160404042620) do
     t.string   "preinterview_dinner"
     t.string   "ride_status"
     t.integer  "poster_id"
+    t.integer  "saver_id"
     t.integer  "hospital_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false

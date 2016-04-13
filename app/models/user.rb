@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   belongs_to :school
   belongs_to :address
   has_many   :messages
-  has_many   :interviews, foreign_key: 'poster_id'
+  has_many   :posted_interviews, foreign_key: 'poster_id', class_name: 'Interview'
+  has_many   :saved_interviews, foreign_key: 'saver_id', class_name: 'Interview'
   has_many :conversations, :foreign_key => :sender_id
   has_attached_file :image, styles: { small: "50x50", med: "100x100", large: "200x200" }, default_url:'/images/portraitplaceholder.png'
   validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }

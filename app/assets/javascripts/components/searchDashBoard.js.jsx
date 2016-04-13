@@ -411,6 +411,9 @@ var SearchDashBoard = React.createClass({
               {display}
             </div>
           </div>
+          <div className="row">
+            <div className="pagination-flex-container"></div>
+          </div>
         </div>
       );
     }

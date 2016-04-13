@@ -2,7 +2,7 @@ class InterviewsController < ApplicationController
 
   def get_interviews
     user=current_user
-    @interviews=user.interviews.order(:created_at)
+    @interviews=user.posted_interviews.order(:created_at)
     respond_to do |format|
       format.html
       format.json
@@ -39,7 +39,7 @@ class InterviewsController < ApplicationController
 
   def create
     user=current_user
-    @interview = user.interviews.build(interview_params)
+    @interview = user.posted_interviews.build(interview_params)
     hospital_name = params["interview_info"]["hospital"].titleize
     @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     if @interview.save
@@ -51,7 +51,7 @@ class InterviewsController < ApplicationController
 
   def update
     user=current_user
-    @interview = user.interviews.find_by({id: params[:id]})
+    @interview = user.posted_interviews.find_by({id: params[:id]})
     hospital_name = params["interview_info"]["hospital"].titleize
     @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     @interview.assign_attributes(interview_params)

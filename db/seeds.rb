@@ -45,7 +45,7 @@ u8.address=a8
 
 users.each do |user|
   5.times do
-    user.interviews.create({date: "04/01/2016",time:"8:00AM", ride_status:"Need Ride", hospital:hospitals.first})
+    user.posted_interviews.create({date: "04/01/2016",time:"8:00AM", ride_status:"Need Ride", hospital:hospitals.first})
   end
   user.save!
 end
