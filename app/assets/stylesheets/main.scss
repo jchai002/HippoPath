@@ -16,7 +16,21 @@ html, body, .container {
     border-radius: 8px;
   }
 }
-
+.interview-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+.search-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.disabled {
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  opacity: .65;
+}
 .user-edit-wrapper {
   border: 3px solid $theme-primary;
   padding: 2em;

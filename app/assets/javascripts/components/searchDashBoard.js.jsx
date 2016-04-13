@@ -5,11 +5,11 @@ var SearchDashBoard = React.createClass({
       originalData:this.props.data || null,
       currentDataStore:this.props.data || null,
       userPosition: this.props.current_user_coords,
-      resultsPerPage: 6,
+      resultsPerPage: 10,
       currentPage: null,
       hidingOwnInterviews: false,
       currentlySortingBy: 'distance',
-      filters: [],
+      filters: ['hide-own'],
       currentTimeSortDirection: 'asc',
       currentCreatedAtSortDirection: 'asc'
     }
@@ -34,7 +34,6 @@ var SearchDashBoard = React.createClass({
         })
       }
     }
-
     function onError(err) {
       var message;
       switch (err.code) {
@@ -54,6 +53,13 @@ var SearchDashBoard = React.createClass({
     }
   },
   componentDidMount: function(){
+    if (this.state.originalData) {
+      var interviews = this.state.originalData.map((interviewObject) => {
+        return this.setDistance(interviewObject,true)
+      });
+    }
+    var processedData = this.processData();
+    this.setCurrentDataStore(processedData);
     this.setBrowserCoords();
   },
   setDistance: function(interviewObject, isMiles){
@@ -82,21 +88,22 @@ var SearchDashBoard = React.createClass({
     } else {
       interviewObject['distance'] = 99999
     }
+    return interviewObject
   },
-  setTable: function() {
-
+  processData: function() {
+    var filteredData = this.filterData(this.state.originalData, this.state.filters);
+    return this.sortData(filteredData, this.state.currentlySortingBy);
   },
   handleSearch: function(results){
     this.setState({
       searched: true,
       originalData:results
     },function(){
-      this.state.originalData.map((interviewObject) => {
-        this.setDistance(interviewObject,true)
-      })
-      var filteredData = this.filterData(this.state.originalData, this.state.filters);
-      var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
-      this.setCurrentDataStore(sortedData)
+      var interviews = this.state.originalData.map((interviewObject) => {
+        return this.setDistance(interviewObject,true)
+      });
+      var processedData = this.processData();
+      this.setCurrentDataStore(processedData)
     })
   },
   handleDataDisplay: function(dataSet) {
@@ -197,8 +204,8 @@ var SearchDashBoard = React.createClass({
       sortedData = this.sortByCreatedAt(dataSet,'desc');
       this.setCurrentDataStore(sortedData);
     } else {
-      sortedData = this.sortByCreatedAt(dataSet,'asc');
       this.setState({currentCreatedAtSortDirection:'asc'});
+      sortedData = this.sortByCreatedAt(dataSet,'asc');
       this.setCurrentDataStore(sortedData);
     }
   },
@@ -206,8 +213,8 @@ var SearchDashBoard = React.createClass({
     $('.active-sort').removeClass('active-sort');
     $('.direction-sort').addClass('active-sort');
     var dataSet = this.state.currentDataStore;
-    sortedData = this.sortByDistance(dataSet);
     this.setState({currentlySortingBy:'distance'});
+    sortedData = this.sortByDistance(dataSet);
     this.setCurrentDataStore(sortedData);
   },
   filterBySchool: function(dataSet){
@@ -242,18 +249,16 @@ var SearchDashBoard = React.createClass({
       this.setState({
         filters:currentFilters
       },function(){
-        var filteredData = this.filterData(this.state.originalData, this.state.filters);
-        var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
-        this.setCurrentDataStore(sortedData);
+        var processedData = this.processData();
+        this.setCurrentDataStore(processedData);
       })
     } else {
       currentFilters.push('school');
       this.setState({
         filters:currentFilters
       },function(){
-        var filteredData = this.filterData(this.state.originalData, this.state.filters);
-        var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
-        this.setCurrentDataStore(sortedData);
+        var processedData = this.processData();
+        this.setCurrentDataStore(processedData);
       })
     }
   },
@@ -264,18 +269,16 @@ var SearchDashBoard = React.createClass({
       this.setState({
         filters:currentFilters
       },function(){
-        var filteredData = this.filterData(this.state.originalData, this.state.filters);
-        var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
-        this.setCurrentDataStore(sortedData);
+        var processedData = this.processData();
+        this.setCurrentDataStore(processedData);
       })
     } else {
       currentFilters.push('specialty');
       this.setState({
         filters:currentFilters
       },function(){
-        var filteredData = this.filterData(this.state.originalData, this.state.filters);
-        var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
-        this.setCurrentDataStore(sortedData);
+        var processedData = this.processData();
+        this.setCurrentDataStore(processedData);
       })
     }
   },
@@ -286,18 +289,16 @@ var SearchDashBoard = React.createClass({
       this.setState({
         filters:currentFilters
       },function(){
-        var filteredData = this.filterData(this.state.originalData, this.state.filters);
-        var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
-        this.setCurrentDataStore(sortedData);
+        var processedData = this.processData();
+        this.setCurrentDataStore(processedData);
       })
     } else {
       currentFilters.push('hide-own');
       this.setState({
         filters:currentFilters
       },function(){
-        var filteredData = this.filterData(this.state.originalData, this.state.filters);
-        var sortedData = this.sortData(filteredData, this.state.currentlySortingBy);
-        this.setCurrentDataStore(sortedData);
+        var processedData = this.processData();
+        this.setCurrentDataStore(processedData);
       })
     }
   },
@@ -374,10 +375,11 @@ var SearchDashBoard = React.createClass({
     })
   },
   render: function() {
+    var display;
     if (this.state.resultsToDisplay && this.state.resultsToDisplay.length > 0) {
-      resultsToDisplay = this.setSearchResultPanels(this.state.resultsToDisplay);
+      display = <Table data={this.state.resultsToDisplay} currentUserId={this.props.current_user_id}/>
     } else {
-      resultsToDisplay = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Results Found</h1></div></div>;
+      display = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Results Found</h1></div></div>;
     }
       return (
         <div className="container">
@@ -406,7 +408,7 @@ var SearchDashBoard = React.createClass({
               </span>
             </div>
             <div className="col-sm-12">
-              {resultsToDisplay}
+              {display}
             </div>
           </div>
         </div>

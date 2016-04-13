@@ -19,7 +19,7 @@
 //     }
 //     return <InfoPanel
 //       url="/interviews"
-//       key={interviewInfo.id}
+//       
 //       layoutType='search'
 //       interviewInfo={interviewInfo}
 //       bodyContent={bodyContent}

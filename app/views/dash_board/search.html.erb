@@ -4,3 +4,8 @@
 </div>
 <%= content_tag :div, class: "hospital_names", data: {hospital_names: @hospital_names} do %>
 <% end %>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>

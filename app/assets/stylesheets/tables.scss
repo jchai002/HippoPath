@@ -1,0 +1,21 @@
+.table {
+  border-color: $theme-cyan !important;
+  thead {
+    border: 1px solid $theme-cyan;
+    background-color: $theme-cyan;
+    color: $theme-primary;
+  }
+  td {
+    border: 1px solid $theme-cyan;
+    max-width: 150px;
+    border-left: none;
+    border-right: none;
+  }
+  th {
+    border-bottom: none;
+  }
+}
+
+.table-container {
+  border: 1px solid $theme-cyan;
+}

@@ -4,7 +4,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
-@import "bootstrap_overrides.scss";
+@import "navbar";
 @import "helper_classes";
 @import "social-buttons";
 @import "main";
@@ -15,5 +15,6 @@
 @import "chat";
 @import "home";
 @import "panels";
+@import "tables";
 @import "conversation_list";
 @import "impress";

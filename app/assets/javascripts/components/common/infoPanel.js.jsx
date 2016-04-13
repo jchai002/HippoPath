@@ -12,14 +12,16 @@ var InfoPanel = React.createClass({
     var postedTime = moment(interviewInfo.created_at).fromNow();
     var bodyContent = this.props.bodyContent;
     var labelStyle;
-    if (rideStatus=="Need Ride") {
-      labelStyle = "label-danger";
-    }
-    else if (rideStatus=="Offering Ride") {
-      labelStyle = "label-success";
-    }
-    else if (rideStatus=="Either") {
-      labelStyle = "label-warning";
+    switch (rideStatus) {
+      case 'Need Ride':
+        labelStyle = "label-danger";
+      break;
+      case 'Offering Ride':
+        labelStyle = "label-success";
+      break;
+      case 'Either':
+        labelStyle = "label-warning";
+      break;
     }
     var bodyPanels = Object.keys(bodyContent).map(function(header){
         return (

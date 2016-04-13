@@ -3,7 +3,7 @@ var InterviewButtons = React.createClass({
     var rowData= this.props.data
     var rowID= rowData.id
     return (
-      <div className="buttons">
+      <div className="interview-buttons">
         <button type="button" className="btn btn-danger mar-b-15 mar-l-20 mar-r-5" onClick={this.handleDeleteClick}>Delete</button>
         <button type="button"  data-toggle="modal" data-target={"#myModal"+rowID} className="btn btn-success edit-button mar-b-15 mar-r-20 mar-l-5">Edit</button>
 
@@ -46,7 +46,7 @@ var InterviewButtons = React.createClass({
     $('.success-message-content').text(data['message']);
     $('.success-message')
       .fadeIn(150)
-      .delay(1500)
+      .delay(1000)
       .fadeOut(150)
       .promise()
       .done(function(){
