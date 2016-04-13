@@ -18,13 +18,15 @@ class InterviewsController < ApplicationController
         date: params[:interview_info][:date],
         ride_status: params[:interview_info][:ride_status]
       }
-    else #html request
+    else #html request, auto change ride status
       hospital = params[:hospital].titleize
       search_parameters = {
         hospital: hospital,
         date: params[:date],
         ride_status: params[:ride_status]
       }
+      search_parameters[:ride_status] = "Need Ride" if params[:ride_status] == "Offering Ride"
+      search_parameters[:ride_status] = "Offering Ride" if params[:ride_status] == "Need Ride"
     end
     interview_records=Interview.search(search_parameters).all
     @interviews = Interview.build_search_result(interview_records)
