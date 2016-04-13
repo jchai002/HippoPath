@@ -1,8 +1,9 @@
 class InterviewsController < ApplicationController
+  before_filter :authenticate_user!
+  before_action :set_interview, only: [:destroy, :save_for_current_user]
 
   def get_interviews
-    user=current_user
-    @interviews=user.posted_interviews.order(:created_at)
+    @interviews = current_user.posted_interviews.order(:created_at)
     respond_to do |format|
       format.html
       format.json
@@ -38,8 +39,7 @@ class InterviewsController < ApplicationController
   end
 
   def create
-    user=current_user
-    @interview = user.posted_interviews.build(interview_params)
+    @interview = current_user.posted_interviews.build(interview_params)
     hospital_name = params["interview_info"]["hospital"].titleize
     @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     if @interview.save
@@ -50,8 +50,7 @@ class InterviewsController < ApplicationController
   end
 
   def update
-    user=current_user
-    @interview = user.posted_interviews.find_by({id: params[:id]})
+    @interview = current_user.posted_interviews.find_by({id: params[:id]})
     hospital_name = params["interview_info"]["hospital"].titleize
     @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     @interview.assign_attributes(interview_params)
@@ -62,8 +61,14 @@ class InterviewsController < ApplicationController
     end
   end
 
+  def save_for_current_user
+    current_user.update_attributes({saved_interviews:@interview})
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def destroy
-    @interview=Interview.find_by({id: params[:id]})
     if @interview.destroy
       render :json => {message:"Interview Successfully Deleted."} # send back any data if necessary
     else
@@ -72,6 +77,10 @@ class InterviewsController < ApplicationController
   end
 
   private
+    def set_interview
+      @interview=Interview.find_by({id: params[:id]})
+    end
+
     def interview_params
     params.require(:interview_info).permit(:id, :date, :time, :ride_status,:preinterview_dinner)
     end
