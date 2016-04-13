@@ -2,6 +2,8 @@ class Interview < ActiveRecord::Base
   belongs_to :poster, :class_name => 'User'
   belongs_to :saver, :class_name => 'User'
   belongs_to :hospital
+  attr_accessor :hospital_name
+
   #takes a search object with properties
   def self.search(search_parameters)
     hospital_name = search_parameters[:hospital].downcase
@@ -39,6 +41,31 @@ class Interview < ActiveRecord::Base
       search_results << search_result
     end
     search_results
+  end
+
+  def self.build_saved_interviews(records)
+    saved_interviews = []
+    records.each do |interview|
+      interview_object= {
+        id: interview.id,
+        date: interview.date,
+        time: interview.time,
+        created_at: interview.created_at,
+        ride_status: interview.ride_status,
+        poster_id: interview.poster.id,
+        hospital: interview.hospital.name,
+        specialty: interview.poster.specialty,
+        gender: interview.poster.gender,
+        location: ([interview.poster.latitude, interview.poster.longitude] if interview.poster.address)
+      }
+      if interview.poster.school
+        interview_object[:school] = interview.poster.school.name
+      else
+        interview_object[:school] = nil
+      end
+      saved_interviews << interview_object
+    end
+    saved_interviews
   end
 
 end

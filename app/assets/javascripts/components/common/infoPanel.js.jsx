@@ -33,8 +33,8 @@ var InfoPanel = React.createClass({
       var searchButton = <a className="btn btn-primary mar-b-15 mar-l-20 mar-r-5" href={"/interview_search/?hospital="+hospital+"&ride_status="+rideStatus+"&date="+date}>Find Match</a>
       actions = <div className="panel-flex-container"><span>{searchButton}</span><InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.props.handleDelete} /></div>
     }
-    if (this.props.layoutType === 'search') {
-      actions = <div className="panel-flex-container"><span className="dark-gray mar-l-15 mar-b-10">posted {postedTime}</span><MessageButton data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId} /></div>;
+    if (this.props.layoutType === 'saved') {
+      actions = <div className="panel-flex-container"><span className="dark-gray mar-l-15 mar-b-10">posted {postedTime}</span><SearchButtons data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId} /></div>;
     }
 
     var url = this.props.url;

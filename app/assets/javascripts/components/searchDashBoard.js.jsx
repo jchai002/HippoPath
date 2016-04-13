@@ -28,11 +28,9 @@ var SearchDashBoard = React.createClass({
       }
     );
     function onSuccess(position) {
-      if (!component.state.userPosition || !component.arrayNotBlank(component.state.userPosition)){
-        component.setState({
-          userPosition: [position.coords.latitude,position.coords.longitude]
-        })
-      }
+      component.setState({
+        userPosition: [position.coords.latitude,position.coords.longitude]
+      })
     }
     function onError(err) {
       var message;
@@ -53,6 +51,9 @@ var SearchDashBoard = React.createClass({
     }
   },
   componentDidMount: function(){
+    if (!this.state.userPosition || !this.arrayNotBlank(this.state.userPosition)){
+      this.setBrowserCoords();
+    }
     if (this.state.originalData) {
       var interviews = this.state.originalData.map((interviewObject) => {
         return this.setDistance(interviewObject,true)
@@ -60,7 +61,6 @@ var SearchDashBoard = React.createClass({
     }
     var processedData = this.processData();
     this.setCurrentDataStore(processedData);
-    this.setBrowserCoords();
   },
   setDistance: function(interviewObject, isMiles){
     var coords1 = this.state.userPosition;

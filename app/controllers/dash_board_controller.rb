@@ -15,4 +15,9 @@ class DashBoardController < ApplicationController
     @address = current_user.address
   end
 
+  def saved
+    @interviews = Interview.build_saved_interviews(current_user.saved_interviews)
+    @address = current_user.address
+  end
+
 end
