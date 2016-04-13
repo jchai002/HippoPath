@@ -137,7 +137,7 @@ var SearchDashBoard = React.createClass({
             <span className="button-group">
               <span className="pad-r-5">Sort By:</span>
               <span>
-              <span className="label label-info mar-r-5 distance-sort active-sort" onClick={this.activateDistanceSort}>Distance From Me</span>
+              <span className="label label-info mar-r-5 distance-sort active-sort" onClick={this.activateDistanceSort}>Closest To Me</span>
               <span className="label label-info mar-r-5 created-at-sort"  onClick={this.toggleCreatedAtSort}>Most Recent<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
               <span className="label label-info mar-r-5 time-sort" onClick={this.toggleTimeSort}>Time<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
               </span>
@@ -250,49 +250,31 @@ var SearchDashBoard = React.createClass({
       toggleTimeSort: function() {
         $('.active-sort').removeClass('active-sort');
         $('.time-sort').addClass('active-sort');
-        this.setState({currentlySortingBy:'time'})
+        this.setState({currentlySortingBy:'time'});
         var dataSet = this.state.currentDataStore;
         var sortedData;
         if (this.state.currentTimeSortDirection === 'asc') {
-          sortedData = this.sortByTime(dataSet,'desc')
-          this.setState({
-            currentDataStore: sortedData,
-            currentTimeSortDirection:'desc'
-          }, function(){
-            this.handleDataDisplay();
-          });
+          sortedData = this.sortByTime(dataSet,'desc');
+          this.setState({currentTimeSortDirection:'desc'});
+          this.setCurrentDataStore(sortedData);
         } else {
-          sortedData = this.sortByTime(dataSet,'asc')
-          this.setState({
-            currentDataStore: sortedData,
-            currentTimeSortDirection:'asc'
-          }, function(){
-            this.handleDataDisplay();
-          });
+          sortedData = this.sortByTime(dataSet,'asc');
+          this.setState({currentTimeSortDirection:'asc'});
+          this.setCurrentDataStore(sortedData);
         }
       },
       toggleCreatedAtSort: function() {
-        $('.active-sort').removeClass('active-sort');
-        $('.created-at-sort').addClass('active-sort');
         this.setState({currentlySortingBy:'created_at'})
         var dataSet = this.state.currentDataStore;
         var sortedData;
         if (this.state.currentCreatedAtSortDirection === 'asc') {
-          sortedData = this.sortByCreatedAt(dataSet,'desc')
-          this.setState({
-            currentDataStore: sortedData,
-            currentCreatedAtSortDirection:'desc'
-          }, function(){
-            this.handleDataDisplay();
-          });
+          this.setState({currentCreatedAtSortDirection:'desc'})
+          sortedData = this.sortByCreatedAt(dataSet,'desc');
+          this.setCurrentDataStore(sortedData);
         } else {
-          sortedData = this.sortByCreatedAt(dataSet,'asc')
-          this.setState({
-            currentDataStore: sortedData,
-            currentCreatedAtSortDirection:'asc'
-          }, function(){
-            this.handleDataDisplay();
-          });
+          sortedData = this.sortByCreatedAt(dataSet,'asc');
+          this.setState({currentCreatedAtSortDirection:'asc'});
+          this.setCurrentDataStore(sortedData);
         }
       },
       activateDistanceSort: function(){
@@ -300,12 +282,8 @@ var SearchDashBoard = React.createClass({
         $('.direction-sort').addClass('active-sort');
         var dataSet = this.state.currentDataStore;
         sortedData = this.sortByDistance(dataSet);
-        this.setState({
-          currentlySortingBy:'direction',
-          currentDataStore: sortedData
-        }, function(){
-          this.handleDataDisplay();
-        });
+        this.setState({currentlySortingBy:'distance'});
+        this.setCurrentDataStore(sortedData);
       },
       filterBySchool: function(dataSet){
         var component = this;
@@ -433,9 +411,11 @@ var SearchDashBoard = React.createClass({
         recursiveFilter(dataSet)
         return filteredResult
       },
-      styleSortDirectionButtons: function(){
+      styleSortButtons: function(){
+        $('.active-sort').removeClass('active-sort')
         switch (this.state.currentlySortingBy) {
           case 'time':
+            $('.time-sort').addClass('active-sort');
             if (this.state.currentTimeSortDirection === 'asc') {
               $('.time-sort').removeClass('desc').addClass('asc')
             } else {
@@ -443,11 +423,15 @@ var SearchDashBoard = React.createClass({
             }
           break;
           case 'created_at':
+            $('.created-at-sort').addClass('active-sort');
             if (this.state.currentCreatedAtSortDirection === 'asc') {
               $('.created-at-sort').removeClass('desc').addClass('asc')
             } else {
               $('.created-at-sort').removeClass('asc').addClass('desc')
             }
+          break;
+          case 'distance':
+            $('.distance-sort').addClass('active-sort');
           break;
         }
       },
@@ -458,7 +442,7 @@ var SearchDashBoard = React.createClass({
         })
       },
       componentDidUpdate: function(){
-        this.styleSortDirectionButtons();
+        this.styleSortButtons();
         this.styleFilterButtons();
       },
       setCurrentDataStore: function(dataSet){
