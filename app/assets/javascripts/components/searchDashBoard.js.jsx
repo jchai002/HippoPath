@@ -1,4 +1,3 @@
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var SearchDashBoard = React.createClass({
   getInitialState: function(){
     return {
@@ -111,7 +110,7 @@ var SearchDashBoard = React.createClass({
         layoutType='search'
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
-        wrapperClass="col-sm-12 col-md-6 col-lg-4"
+        wrapperClass="col-sm-12 col-md-6 col-lg-4 slideFromLeft"
         flexBoxClass="panel-flex-container-2"
         token={token}
         currentUserId={currentUserId}
@@ -137,24 +136,22 @@ var SearchDashBoard = React.createClass({
             <span className="button-group">
               <span className="pad-r-5">Sort By:</span>
               <span>
-              <span className="label label-info mar-r-5 distance-sort active-sort" onClick={this.activateDistanceSort}>Closest To Me</span>
-              <span className="label label-info mar-r-5 created-at-sort"  onClick={this.toggleCreatedAtSort}>Most Recent<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
-              <span className="label label-info mar-r-5 time-sort" onClick={this.toggleTimeSort}>Time<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
+              <span className="label label-buttons mar-r-5 distance-sort active-sort" onClick={this.activateDistanceSort}>Closest To Me</span>
+              <span className="label label-buttons mar-r-5 created-at-sort"  onClick={this.toggleCreatedAtSort}>Most Recent<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
+              <span className="label label-buttons mar-r-5 time-sort" onClick={this.toggleTimeSort}>Time<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
               </span>
             </span>
             <span>
               <span className="pad-r-5">Filters:</span>
                 <span>
-                  <span className="label label-defualt school-filter mar-r-10" onClick={this.toggleFilterBySchool}>My School</span>
-                  <span className="label label-defualt specialty-filter mar-r-5" onClick={this.toggleFilterBySpecialty}>My Specialty</span>
-                  <span className="label label-defualt hide-own-filter mar-r-5" onClick={this.toggleFilterOwnInterviews}>Hide My Own Interviews</span>
+                  <span className="label label-buttons school-filter mar-r-10" onClick={this.toggleFilterBySchool}>My School</span>
+                  <span className="label label-buttons specialty-filter mar-r-5" onClick={this.toggleFilterBySpecialty}>My Specialty</span>
+                  <span className="label label-buttons hide-own-filter mar-r-5" onClick={this.toggleFilterOwnInterviews}>Hide My Own Interviews</span>
                 </span>
             </span>
           </div>
           <div className="col-sm-12 search-results">
-            <ReactCSSTransitionGroup transitionName="slide-in" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-              {panels}
-            </ReactCSSTransitionGroup>
+            {panels}
           </div>
         </div>
       </div>

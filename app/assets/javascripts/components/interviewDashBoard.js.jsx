@@ -233,16 +233,16 @@ var InterviewDashBoard = React.createClass({
           <span className="button-group">
             <span className="pad-r-5">Sort By:</span>
               <span>
-                <span className="label label-info mar-r-5 date-sort asc active-sort" onClick={this.toggleDateSort}>Date<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
-                <span className="label label-info mar-r-5 hospital-sort"  onClick={this.toggleHospitalSort}>Hospital<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
+                <span className="label label-buttons mar-r-5 date-sort asc active-sort" onClick={this.toggleDateSort}>Date<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
+                <span className="label label-buttons mar-r-5 hospital-sort"  onClick={this.toggleHospitalSort}>Hospital<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
               </span>
             </span>
           <span>
             <span className="pad-r-5">Display:</span>
               <span>
-                <span className="label label-defualt all-filter mar-r-10 active-filter" onClick={this.displayAll}>All</span>
-                <span className="label label-defualt upcoming-filter mar-r-5" onClick={this.displayUpcoming}>Upcoming Interviews</span>
-                <span className="label label-defualt past-filter mar-r-5" onClick={this.displayPast}>Past Interviews</span>
+                <span className="label label-buttons all-filter mar-r-10 active-filter" onClick={this.displayAll}>All</span>
+                <span className="label label-buttons upcoming-filter mar-r-5" onClick={this.displayUpcoming}>Upcoming Interviews</span>
+                <span className="label label-buttons past-filter mar-r-5" onClick={this.displayPast}>Past Interviews</span>
               </span>
           </span>
         </div>

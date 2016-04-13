@@ -98,11 +98,15 @@ ul.navbar-right {
       flex-direction: column;
     }
   }
-  .label-defualt,.label-info {
+  .label-buttons {
     background-color: white;
     color: darken($theme-gray,10%);
     border: 1px solid darken($theme-gray,10%);
     margin-right: 30px;
+    &:hover {
+      color: darken($theme-gray,40%);
+      border: 1px solid darken($theme-gray,40%);
+    }
   }
 
   .label {
@@ -133,16 +137,22 @@ ul.navbar-right {
     color: white;
     background-color: lighten($theme-primary,5%);
     border: 1px solid darken($theme-primary,5%);
+    &:hover{
+      color: white;
+      background-color: lighten($theme-primary,10%);
+      border: 1px solid darken($theme-primary,10%);
+    }
   }
-  .hide-own-active, {
-    color: white;
-    background-color: lighten($theme-green,5%);
-    border: 1px solid darken($theme-green,5%);
-  }
+
   .active-filter {
     color: white;
     background-color: lighten($theme-yellow,5%);
     border: 1px solid darken($theme-yellow,5%);
+    &:hover{
+      color: white;
+      background-color: lighten($theme-yellow,10%);
+      border: 1px solid darken($theme-yellow,10%);
+    }
   }
 }
 
