@@ -64,19 +64,18 @@ var SavedDashBoard = React.createClass({
       var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       var d = R * c;
       if(isMiles) d /= 1.60934;
-      interviewObject['distance'] = Number((Math.round(d * 10) / 10).toFixed(1));
+      return Number((Math.round(d * 10) / 10).toFixed(1));
     } else {
-      interviewObject['distance'] = 99999
+      return 99999
     }
-    return interviewObject
+  },
+  componentWillMount: function(){
+    var setDistance = this.setDistance;
+    this.props.data.forEach((interviewObject) => {
+      interviewObject['distance'] = setDistance(interviewObject,true);
+    });
   },
   componentDidMount: function(){
-    if (this.props.data) {
-      var interviews = this.props.data.map((interviewObject) => {
-        return this.setDistance(interviewObject,true)
-      });
-      debugger
-    }
     if (!this.state.userPosition || !this.arrayNotBlank(this.state.userPosition)){
       this.setBrowserCoords();
     }
@@ -92,7 +91,7 @@ var SavedDashBoard = React.createClass({
     var token = this.props.token;
     var currentUserId = this.props.current_user_id;
     var currentUserPosition = this.state.userPosition;
-    console.log(this.state.data)
+    var setDistance=this.setDistance;
     var panels = this.state.data.map(function(interviewInfo){
       var bodyContent = {};
       bodyContent['date'] = interviewInfo['date'] || 'unknown';
@@ -108,8 +107,7 @@ var SavedDashBoard = React.createClass({
       }
       return <InfoPanel
         key={interviewInfo.id}
-        url="/interviews"
-        handleRemove={this.handleRemove}
+        handleRemove={handleRemove}
         layoutType='saved'
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
@@ -119,11 +117,18 @@ var SavedDashBoard = React.createClass({
         currentUserId={currentUserId}
         />
     })
+    var display;
+    if (panels && panels.length > 0) {
+      display = panels;
+    } else {
+      display = display = <div className="panel panel-default empty-result"><div className="slideDown"><i class="fa fa-save fa-3x"></i></div><div className="slideUp"><h1>You Have No Saved Interviews</h1></div></div>;
+    }
+    console.log(panels)
     return (
       <div className="container">
         <div className="row">
-          <div className="col-sm-12">
-            {panels}
+          <div className="col-sm-12 mar-t-30">
+            {display}
           </div>
         </div>
       </div>

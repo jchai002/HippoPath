@@ -1,6 +1,6 @@
 class InterviewsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_interview, only: [:destroy, :save_interview, :delete_from_saved]
+  before_action :set_interview, only: [:destroy, :save_interview, :remove_from_saved]
 
   def get_interviews
     @interviews = current_user.posted_interviews.order(:created_at)
@@ -69,7 +69,7 @@ class InterviewsController < ApplicationController
     end
   end
 
-  def delete_from_saved
+  def remove_from_saved
     current_user.saved_interviews.delete(@interview)
     respond_to do |format|
       format.js

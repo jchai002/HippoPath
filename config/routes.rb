@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/interviews' => 'interviews#get_interviews'
   get '/interview_search' => 'interviews#search_interviews'
   post '/save_interview/:id' => 'interviews#save_interview'
+  delete '/remove_from_saved/:id' => 'interviews#remove_from_saved'
 
   match '/assign_address_to_user/:user_id' => 'address#assign_address_to_user', via: [:post, :put, :patch], :as => :assign_address
   post '/mark_message_read/:id' => 'messages#mark_message_read'
