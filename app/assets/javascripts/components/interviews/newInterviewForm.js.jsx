@@ -45,22 +45,27 @@ var NewInterviewForm = React.createClass({
     var formData = {
       interview_info: this.state
     }
-    return new Promise (function(resolved, rejected){
-      $.ajax({
-        url: "/interviews",
-        dataType: 'json',
-        type: 'POST',
-        data: formData,
-        success: resolved,
-        error: rejected
-      });
-    }, formData) //pass the formData into the promise
+    var handleCreate = this.props.handleCreate;
+    $.ajax({
+      url: "/interviews",
+      dataType: 'json',
+      type: 'POST',
+      data: formData,
+      success: function() {
+        handleCreate();
+        $('.status-content').text('Interview Created');
+        $('#status-indicator')
+          .fadeIn(150)
+          .delay(1000)
+          .fadeOut(150)
+      }
+    });
   },
   handleSubmit: function(e){
+    e.preventDefault();
     var hospitalInvalid = !$('#hospital-autocomplete').val().match(/\S/)
     var dateInvalid = !$('#interview-time').val()
     if (hospitalInvalid) {
-      e.preventDefault();
       $('.hospital-input')
       .addClass('has-error')
       .addClass('shake')
@@ -70,7 +75,6 @@ var NewInterviewForm = React.createClass({
       })
     }
     else if (dateInvalid) {
-      e.preventDefault();
       $('.hospital-input')
         .removeClass('has-error')
         $('.date')

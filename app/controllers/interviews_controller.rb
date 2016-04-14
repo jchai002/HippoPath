@@ -43,7 +43,7 @@ class InterviewsController < ApplicationController
     hospital_name = params["interview_info"]["hospital"].titleize
     @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     if @interview.save
-      render :json => {message:"interview successfully created"} # send back any data if necessary
+      render :json => {message:"interview created"}, :status => 200 # send back any data if necessary
     else
       render :json => { }, :status => 500
     end
@@ -55,7 +55,7 @@ class InterviewsController < ApplicationController
     @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     @interview.assign_attributes(interview_params)
     if @interview.save
-      render :json => {message:"Interview Successfully Updated."} # send back any data if necessary
+      render :json => {message:"Interview Updated"}, :status => 200 # send back any data if necessary
     else
       render :json => { }, :status => 500
     end
@@ -78,7 +78,9 @@ class InterviewsController < ApplicationController
 
   def destroy
     if @interview.destroy
-      render :json => {message:"Interview Successfully Deleted."} # send back any data if necessary
+      respond_to do |format|
+        format.js
+      end
     else
       render :json => { }, :status => 500
     end

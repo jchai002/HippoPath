@@ -3,7 +3,7 @@ var SavedButtons = React.createClass({
 
     return (
       <div className="interview-buttons">
-        <button type="button" className="btn btn-danger mar-b-15 mar-l-20 mar-r-5" onClick={this.handleRemoveClick}>Remove</button>
+        <button type="button" className="btn btn-danger mar-b-15 mar-l-20 mar-r-15" onClick={this.handleRemoveClick}>Remove</button>
       </div>
     );
   },

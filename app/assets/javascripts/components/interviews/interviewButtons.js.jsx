@@ -28,19 +28,7 @@ var InterviewButtons = React.createClass({
     );
   },
   handleDeleteClick: function(){
-    if (window.confirm("Delete This Interview?")) {
-      var url=this.props.url+'/'+this.props.data.id
-      $.ajax({
-        url: url,
-        type: 'DELETE',
-        success: function(result) {
-          this.props.handleDelete(this.props.data.id)
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error( status, err.toString());
-        }.bind(this)
-      })
-    }
+    this.props.handleDelete(this.props.data.id);
   },
   displayMessage: function(data){
     $('.success-message-content').text(data['message']);

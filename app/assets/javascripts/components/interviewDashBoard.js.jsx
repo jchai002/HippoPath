@@ -38,7 +38,6 @@ var InterviewDashBoard = React.createClass({
       bodyContent['date'] = interviewInfo['date'] || 'unknown';
       bodyContent['time'] = interviewInfo['time'] || 'unknown';
       return <InfoPanel
-        url="/interviews"
         id={interviewInfo.id}
         key={interviewInfo.id}
         layoutType='interview'
@@ -59,14 +58,28 @@ var InterviewDashBoard = React.createClass({
     this.styleSortButtons();
     this.styleDisplayButtons();
   },
+  handleCreate: function() {
+    this.getData();
+  },
   handleUpdate: function(){
     this.getData();
   },
   handleDelete: function(deletedItemId){
-    var interviewsToKeep = this.state.currentDataStore.filter(function(interivew){
-      return interivew['id'] != deletedItemId
-    })
-    this.setState({currentDataStore:interviewsToKeep})
+    if (window.confirm("Delete This Interview?")) {
+      $.ajax({
+        url: '/interviews/'+deletedItemId,
+        type: 'DELETE',
+        success: function() {
+          var interviewsToKeep = this.state.currentDataStore.filter(function(interivew){
+            return interivew['id'] != deletedItemId
+          })
+          this.setState({currentDataStore:interviewsToKeep})
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error( status, err.toString());
+        }.bind(this)
+      })
+    }
   },
   toggleDateSort: function() {
     this.setState({currentlySortingBy:'date'})
@@ -225,7 +238,7 @@ var InterviewDashBoard = React.createClass({
       <div>
         <div className="row">
           <div className="col-sm-12">
-            <NewInterviewForm />
+            <NewInterviewForm handleCreate={this.handleCreate}/>
           </div>
         </div>
 
