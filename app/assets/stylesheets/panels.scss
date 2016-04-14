@@ -17,7 +17,7 @@
   display: -webkit-flex;
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   .panel-flex-item {
     width: 45%;
@@ -25,6 +25,8 @@
   }
   .panel-flex-item-large {
     width: 95%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

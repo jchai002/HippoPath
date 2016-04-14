@@ -102,8 +102,7 @@ var SavedDashBoard = React.createClass({
         'school':interviewInfo['school'] || 'unknown',
         'specialty': interviewInfo['specialty'] || 'unknown',
         'avatar':  interviewInfo['avatar'] || '',
-        'distance': interviewInfo['distance'],
-        'cssClass': 'panel-flex-item-large'
+        'distance': interviewInfo['distance']
       }
       return <InfoPanel
         key={interviewInfo.id}
