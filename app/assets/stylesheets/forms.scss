@@ -1,4 +1,8 @@
 .custom-form {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -66,6 +70,10 @@
     min-width: 700px;
   }
   .social-flex-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -82,14 +90,14 @@
 }
 
 @keyframes fade-in {
-    from {
-      opacity: 0.2;
-      transform: translateY(-400px);
-    }
-    to   {
-      opacity: 1;
-      transform : translateY(0);
-    }
+  from {
+    opacity: 0.2;
+    transform: translateY(-400px);
+  }
+  to   {
+    opacity: 1;
+    transform : translateY(0);
+  }
 }
 
 /* Firefox < 16 */
@@ -172,6 +180,10 @@
 // additional info form
 .info-edit {
   .form-group {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     flex-direction: row;
   }
@@ -223,6 +235,10 @@
 }
 
 .city-state-zip {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   @media (min-width: 480px) {
@@ -254,6 +270,6 @@
 }
 
 .fa-spin {
-    -webkit-transform-origin: 50% calc(50% - .5px);
-    transform-origin: 50% calc(50% - .5px);
+  -webkit-transform-origin: 50% calc(50% - .5px);
+  transform-origin: 50% calc(50% - .5px);
 }
