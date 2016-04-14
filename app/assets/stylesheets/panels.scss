@@ -12,10 +12,6 @@
 
 .panel-flex-container-2 {
   position: relative;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   flex-flow: row wrap;
   .panel-flex-item {
@@ -30,20 +26,12 @@
 
 .panel-flex-container {
   position: relative;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .empty-result {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,19 +48,11 @@
 
 .search-results-panel {
   .flex-wrapper {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .panel-heading {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     justify-content: space-between;
     .panel-avatar {
@@ -91,26 +71,26 @@
 .slide-in-enter {
   opacity: 0;
   -webkit-transform: translate(-250px, 0);
-  transform: translate(-250px, 0);
+          transform: translate(-250px, 0);
   -webkit-transform: translate3d(-250px, 0, 0);
-  transform: translate3d(-250px, 0, 0);
+          transform: translate3d(-250px, 0, 0);
 }
 .slide-in-enter-active {
   opacity: 1;
   -webkit-transform: translate(0, 0);
-  transform: translate(0, 0);
+          transform: translate(0, 0);
   -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
   -webkit-transition-property: opacity, -webkit-transform;
   transition-property: opacity, -webkit-transform;
   transition-property: transform, opacity;
   transition-property: transform, opacity, -webkit-transform;
   -webkit-transition-duration: 300ms;
-  transition-duration: 300ms;
+          transition-duration: 300ms;
   -webkit-animation-delay: 2s; /* Chrome, Safari, Opera */
   animation-delay: 2s;
   -webkit-transition-timing-function: cubic-bezier(0.175, 0.665, 0.32, 1), linear;
-  transition-timing-function: cubic-bezier(0.175, 0.665, 0.32, 1), linear;
+          transition-timing-function: cubic-bezier(0.175, 0.665, 0.32, 1), linear;
 }
 .slide-in-leave {
   opacity: 0;
