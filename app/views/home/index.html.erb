@@ -1,5 +1,18 @@
 <%@landing_page = true%>
 <div class="bg-container">
+  <div class="slide mobile-landing-page mar-x-30">
+    <div class="text-center">
+      <h1 class="mar-b-40">HippoPath<i class="fa fa-stethoscope"></i></h1>
+      <h2 class="mar-y-15"><span class="count">597</span> Students <i class="fa fa-user-md"></i></h2>
+      <!-- <%=@student_count%> -->
+      <h2 class="mar-y-15"><span class="count">109</span> Schools <i class="fa fa-book"></i></h2>
+      <!-- <%=@school_count%> -->
+      <h2 class="mar-y-15"><span class="count">347</span> Hospitals <i class="fa fa-hospital-o"></i></h2>
+      <!-- <%=@hospital_count%> -->
+      <h2 class="mar-y-15">Tons of carpools arranged <i class="fa fa-car"></i></h2>
+      <p class="mar-t-30">Click <a href="/users/sign_in">here</a> to login, or click <a href="/users/sign_up">here</a> to sign up.</p>
+    </div>
+  </div>
   <div id="impress">
   <div class="slide step" data-x="0" data-y="0">
     <div class="text-center">
@@ -43,28 +56,33 @@
 
 <script>
 $(document).ready(function(){
-  function preparePage(callback){
-    impress().init();
-    callback();
-  }
-  preparePage(function(){
-    $('#impress').fadeIn(800);
-    var countStarted;
-    if  (!countStarted) {
-      countStarted = true;
-      $('.count').each(function () {
-        $(this).prop('Counter',0).animate({
-          Counter: $(this).text()
-        }, {
-          duration: 1500,
-          easing: 'swing',
-          step: function (now) {
-            $(this).text(Math.ceil(now));
-          }
-        });
-      });
+  if ($(window).width()>768) {
+    function preparePage(callback){
+      impress().init();
+      callback();
     }
-  })
-})
-
+    preparePage(function(){
+      $('#impress').fadeIn(800);
+      var countStarted;
+      if  (!countStarted) {
+        countStarted = true;
+        $('.count').each(function () {
+          $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+          }, {
+            duration: 1500,
+            easing: 'swing',
+            step: function (now) {
+              $(this).text(Math.ceil(now));
+            }
+          });
+        });
+      }
+    });
+  } else {
+    $('.mobile-landing-page')
+      .css('opacity',1)
+      .show();
+  }
+});
 </script>
