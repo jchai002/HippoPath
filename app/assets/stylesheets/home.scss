@@ -9,7 +9,11 @@
   min-height: 95vh; /* These two lines are counted as one :-)       */
   height: 95%;
   width: 100%;
-  display: flex;
+  display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;;
   align-items: center;
   justify-content: center;
 }
@@ -17,7 +21,11 @@
 .slide {
   height: 420px;
   width: 540px;
-  display: flex;
+  display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;;
   opacity: 0;
   align-items: center;
   justify-content: center;
@@ -31,7 +39,11 @@
     width: 10%;
   }
   .slide-content {
-    display: flex;
+    display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -40,7 +52,11 @@
     .place-holder {
       height: 250px;
       width: 300px;
-      display: flex;
+      display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;;
       flex-direction: column;
       justify-content: center;
       align-items: center;

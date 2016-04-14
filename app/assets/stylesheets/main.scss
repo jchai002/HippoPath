@@ -6,6 +6,10 @@ html, body, .container {
   height: 200px;
   width: 200px;
   overflow: hidden;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,10 +21,18 @@ html, body, .container {
   }
 }
 .interview-buttons {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   justify-content: flex-end;
 }
 .search-buttons {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   justify-content: space-around;
 }
@@ -36,6 +48,10 @@ html, body, .container {
   padding: 2em;
   margin: 2em;
   border-radius: 5px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   @media (min-width: 768px) {
@@ -65,6 +81,10 @@ ul.navbar-right {
   font-size: 15px;
   padding: 0px;
   @media (min-width: 992px) {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     align-items: center;
   }
@@ -82,12 +102,20 @@ ul.navbar-right {
   height: 100%;
   min-height: 100%;
   min-height: 100vh;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .pagination-flex-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,12 +131,19 @@ ul.navbar-right {
       margin-top: 10px;
     }
   }
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   justify-content: space-between;
   @media (max-width: 480px) {
     flex-direction: column;
     .button-group {
-      display: flex;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       flex-direction: column;
     }
   }

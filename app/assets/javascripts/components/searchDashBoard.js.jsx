@@ -399,7 +399,7 @@ var SearchDashBoard = React.createClass({
                   <span className="label label-buttons mar-r-5 time-sort" onClick={this.toggleTimeSort}>Time<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
                 </span>
               </span>
-              <span>
+              <span className="button-group">
                 <span className="pad-r-5">Filters:</span>
                 <span>
                   <span className="label label-buttons school-filter mar-r-10" onClick={this.toggleFilterBySchool}>My School</span>

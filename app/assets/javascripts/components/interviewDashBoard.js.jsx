@@ -237,7 +237,7 @@ var InterviewDashBoard = React.createClass({
                 <span className="label label-buttons mar-r-5 hospital-sort"  onClick={this.toggleHospitalSort}>Hospital<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
               </span>
             </span>
-          <span>
+          <span className="button-group">
             <span className="pad-r-5">Display:</span>
               <span>
                 <span className="label label-buttons all-filter mar-r-10 active-filter" onClick={this.displayAll}>All</span>
