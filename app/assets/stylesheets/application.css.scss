@@ -4,13 +4,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
-@import "navbar";
 @import "helper_classes";
 @import "social-buttons";
 @import "main";
 @import "animations";
 
 //scoped
+@import "navbar";
 @import "forms";
 @import "chat";
 @import "home";

@@ -45,7 +45,7 @@ var InterviewDashBoard = React.createClass({
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
         wrapperClass="col-sm-12 col-md-6 col-lg-4 slideFromLeft"
-        flexBoxClass="panel-flex-container-2"
+        flexBoxClass="panel-flex-container"
         handleUpdate={handleUpdate}
         handleDelete={handleDelete}
         />
@@ -222,25 +222,25 @@ var InterviewDashBoard = React.createClass({
       panels = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-list fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Interviews To Show</h1></div></div>;
     }
     return (
-      <div className="container">
+      <div>
         <div className="row">
           <div className="col-sm-12">
             <NewInterviewForm />
           </div>
         </div>
 
-        <div className="pad-l-15 pad-b-20 sort-filter">
+        <div className="mar-l-20 pad-b-20 sort-filter">
           <span className="button-group">
             <span className="pad-r-5">Sort By:</span>
-              <span>
+              <span className="sort-group">
                 <span className="label label-buttons mar-r-5 date-sort asc active-sort" onClick={this.toggleDateSort}>Date<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
                 <span className="label label-buttons mar-r-5 hospital-sort"  onClick={this.toggleHospitalSort}>Hospital<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
               </span>
             </span>
-          <span className="button-group">
+          <span className="button-group mar-r-10">
             <span className="pad-r-5">Display:</span>
-              <span>
-                <span className="label label-buttons all-filter mar-r-10 active-filter" onClick={this.displayAll}>All</span>
+              <span className="filter-group mar-r-5">
+                <span className="label label-buttons all-filter mar-r-5 active-filter" onClick={this.displayAll}>All</span>
                 <span className="label label-buttons upcoming-filter mar-r-5" onClick={this.displayUpcoming}>Upcoming Interviews</span>
                 <span className="label label-buttons past-filter mar-r-5" onClick={this.displayPast}>Past Interviews</span>
               </span>

@@ -127,7 +127,7 @@ ul.navbar-right {
 
 .sort-filter {
   span {
-    @media (max-width: 480px) {
+    @media (max-width: 550px) {
       margin-top: 10px;
     }
   }
@@ -137,14 +137,24 @@ ul.navbar-right {
   display: -webkit-flex;
   display: flex;
   justify-content: space-between;
-  @media (max-width: 480px) {
-    flex-direction: column;
+  @media (max-width: 550px) {
     .button-group {
+      width: 50%;
       display: -webkit-box;
       display: -moz-box;
       display: -ms-flexbox;
       display: -webkit-flex;
+      display: flex;
       flex-direction: column;
+      .filter-group, .sort-group{
+        width: 100%;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
   .label-buttons {

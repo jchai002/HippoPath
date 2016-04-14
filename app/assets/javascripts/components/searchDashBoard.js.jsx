@@ -383,26 +383,26 @@ var SearchDashBoard = React.createClass({
       display = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Results Found</h1></div></div>;
     }
       return (
-        <div className="container">
+        <div>
           <div className="row">
             <div className="col-sm-12">
               <InterviewSearchForm handleSearch={this.handleSearch}/>
             </div>
           </div>
           <div className="row">
-            <div className="pad-l-30 pad-b-20 sort-filter">
+            <div className="mar-l-20 pad-b-20 sort-filter">
               <span className="button-group">
                 <span className="pad-r-5">Sort By:</span>
-                <span>
+                <span className="sort-group">
                   <span className="label label-buttons mar-r-5 distance-sort active-sort" onClick={this.activateDistanceSort}>Closest To Me</span>
                   <span className="label label-buttons mar-r-5 created-at-sort"  onClick={this.toggleCreatedAtSort}>Most Recent<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
                   <span className="label label-buttons mar-r-5 time-sort" onClick={this.toggleTimeSort}>Time<i className="fa fa-caret-down mar-l-5"></i><i className="fa fa-caret-up mar-l-5"></i></span>
                 </span>
               </span>
-              <span className="button-group">
+              <span className="button-group mar-r-10">
                 <span className="pad-r-5">Filters:</span>
-                <span>
-                  <span className="label label-buttons school-filter mar-r-10" onClick={this.toggleFilterBySchool}>My School</span>
+                <span className="filter-group">
+                  <span className="label label-buttons school-filter mar-r-5" onClick={this.toggleFilterBySchool}>My School</span>
                   <span className="label label-buttons specialty-filter mar-r-5" onClick={this.toggleFilterBySpecialty}>My Specialty</span>
                   <span className="label label-buttons hide-own-filter mar-r-5" onClick={this.toggleFilterOwnInterviews}>Hide My Own Interviews</span>
                 </span>

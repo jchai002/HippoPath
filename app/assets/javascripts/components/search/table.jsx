@@ -25,11 +25,11 @@ var Table = React.createClass({
               <th>Status</th>
               <th>Hospital</th>
               <th>Date</th>
-              <th>Time</th>
-              <th>School</th>
-              <th>Specialty</th>
-              <th>Gender</th>
-              <th>Distance</th>
+              <th className="hidden-sm-down">Time</th>
+              <th className="hidden-sm-down">School</th>
+              <th className="hidden-sm-down">Specialty</th>
+              <th className="hidden-sm-down">Gender</th>
+              <th className="hidden-sm-down">Distance</th>
               <th>Reach Out!</th>
             </tr>
           </thead>

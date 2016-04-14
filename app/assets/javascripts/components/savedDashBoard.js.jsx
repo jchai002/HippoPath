@@ -112,7 +112,7 @@ var SavedDashBoard = React.createClass({
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
         wrapperClass="col-sm-12 col-md-6 col-lg-4 slideFromLeft"
-        flexBoxClass="panel-flex-container-2"
+        flexBoxClass="panel-flex-container"
         token={token}
         currentUserId={currentUserId}
         />
@@ -121,11 +121,11 @@ var SavedDashBoard = React.createClass({
     if (panels && panels.length > 0) {
       display = panels;
     } else {
-      display = display = <div className="panel panel-default empty-result"><div className="slideDown"><i class="fa fa-save fa-3x"></i></div><div className="slideUp"><h1>You Have No Saved Interviews</h1></div></div>;
+      display = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-save fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Saved Interviews</h1></div></div>
     }
     console.log(panels)
     return (
-      <div className="container">
+      <div>
         <div className="row">
           <div className="col-sm-12 mar-t-30">
             {display}

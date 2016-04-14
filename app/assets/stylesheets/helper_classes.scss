@@ -411,3 +411,15 @@
   position: absolute;
   bottom: 0px;
 }
+
+.hidden-md {
+  @media (max-width: 992px) and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.hidden-sm-down {
+  @media (max-width: 750px) {
+    display: none;
+  }
+}
