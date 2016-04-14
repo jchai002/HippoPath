@@ -44,7 +44,7 @@ var InterviewDashBoard = React.createClass({
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
         wrapperClass="col-sm-12 col-md-6 col-lg-4 slideFromLeft"
-        flexBoxClass="panel-flex-container"
+        contentClass="panel-container"
         handleUpdate={handleUpdate}
         handleDelete={handleDelete}
         />

@@ -4,7 +4,7 @@ var SubPanel = React.createClass({
     var content = this.props.content
     if (typeof this.props.content === "string") {
       return (
-        <div className="panel panel-default panel-flex-item">
+        <div className="panel panel-default subpanel-small">
           <div className="panel-heading">{header}</div>
           <div className="panel-body">
             {content}
@@ -20,7 +20,7 @@ var SubPanel = React.createClass({
         }
       });
       return (
-        <div className={"interview-panel mar-b-0 panel panel-default panel-flex-item-large"}>
+        <div className={"interview-panel mar-b-0 panel panel-default subpanel-large"}>
           <div className="panel-heading">
             <div className="flex-wrapper">{content['gender'] +' interviewee'}</div>
             <div className="dark-gray flex-wrapper">

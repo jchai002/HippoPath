@@ -111,7 +111,7 @@ var SavedDashBoard = React.createClass({
         interviewInfo={interviewInfo}
         bodyContent={bodyContent}
         wrapperClass="col-sm-12 col-md-6 col-lg-4 slideFromLeft saved-interviews"
-        flexBoxClass="panel-flex-container"
+        contentClass="panel-container"
         token={token}
         currentUserId={currentUserId}
         />

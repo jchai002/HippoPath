@@ -46,7 +46,7 @@ var InfoPanel = React.createClass({
               {hospital}
               <span className={"label pull-right pad-5 " + labelStyle} >{rideStatus}</span>
             </div>
-            <div className={"panel-body pad-x-10 pad-b-0 " + this.props.flexBoxClass}>
+            <div className={"panel-body pad-x-10 pad-b-0 " + this.props.contentClass}>
               {bodyPanels}
             </div>
             <hr className="mar-y-15"></hr>
