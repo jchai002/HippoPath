@@ -19,8 +19,9 @@ var SubPanel = React.createClass({
           );
         }
       });
+      console.log(content.cssClass)
       return (
-        <div className={"interview-panel panel panel-default " + content.cssClass}>
+        <div className={"interview-panel mar-b-0 panel panel-default " + content.cssClass}>
           <div className="panel-heading">
             <div className="flex-wrapper">{content['gender'] +' interviewee'}</div>
             <div className="dark-gray flex-wrapper">

@@ -1,7 +1,6 @@
 .interview-panel {
   overflow: scroll !important;
-  max-height: 185px !important;
-  height: 185px !important;
+  max-height: 180px !important;
 }
 
 .panel {
@@ -17,18 +16,19 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: stretch;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   .panel-flex-item {
     width: 45%;
+    margin: 2.5%;
   }
   .panel-flex-item-large {
-    width: 100%;
+    width: 95%;
   }
 }
 
-.panel-flex-container {
+.panel-actions-flex-container {
   position: relative;
   display: -webkit-box;
   display: -moz-box;
