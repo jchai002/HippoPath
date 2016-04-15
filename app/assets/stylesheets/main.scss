@@ -254,3 +254,26 @@ ul.navbar-right {
     right: 10px;
   }
 }
+
+.error-page {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  .error-container {
+    margin-top: 10%;
+    height: 80%;
+    width: 90%;
+    @media (min-height: 480px) {
+      height: 420px;
+      width: 540px;
+    }
+  }
+}

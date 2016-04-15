@@ -1,6 +1,6 @@
 .bg-container{
   position: relative;
-  background-image: image-url('openroad.jpg')  ;
+  background-image: image-url('openroad.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -10,10 +10,10 @@
   height: 95%;
   width: 100%;
   display: -webkit-box;
-display: -moz-box;
-display: -ms-flexbox;
-display: -webkit-flex;
-display: flex;;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 }

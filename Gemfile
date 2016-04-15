@@ -39,6 +39,9 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 
+# error handling
+gem 'gaffe'
+
 gem 'private_pub'
 gem 'thin'
 gem 'lodash-rails'
