@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy, :finish_signup]
 
-  # GET /users/:id/edit
-  def edit
-    # authorize! :update, @user
+  def account_overview
     @address = @user.address || Address.new
   end
 
@@ -26,7 +24,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET/PATCH /users/:id/finish_signup
   def finish_signup
     if request.patch? && params[:user]
       @user.update(user_params)
@@ -49,9 +46,8 @@ class UsersController < ApplicationController
       end
     end
   end
-  # DELETE /users/:id.:format
+
   def destroy
-    # authorize! :delete, @user
     @user.destroy
     respond_to do |format|
       format.html { redirect_to root_url }
