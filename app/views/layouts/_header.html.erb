@@ -52,7 +52,7 @@
             <%=current_user.name ? current_user.name.split(' ')[0] : current_user.email.split('@')[0]%> <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><%=link_to "Account Info", edit_user_path(current_user) %></li>
+            <li><%=link_to "Account Info", account_overview_path(current_user) %></li>
             <li role="separator" class="divider"></li>
             <li><%=link_to("logout", destroy_user_session_path, :method => :delete) %></li>
           </ul>

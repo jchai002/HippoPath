@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :users,  :only =>[:edit, :update]
-  put 'users/id/update_password' => 'users#update_password', :as => :update_password
+  get 'users/:id/account_overview' => 'users#account_overview', :as => :account_overview
+  put 'user/update_password' => 'users#update_password', :as => :update_password
   get '/dash_board/interviews' => 'dash_board#interviews', :as => :interviews_dash_board
   get '/dash_board/search' => 'dash_board#search', :as => :search_dash_board
   get '/dash_board/saved' => 'dash_board#saved', :as => :saved_dash_board
 
-  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' } do
+    resources :users,  :only =>[:update]
+  end
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
   authenticated :user do
