@@ -1,12 +1,11 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy, :finish_signup]
+  before_action :set_user, only: [:update, :destroy, :finish_signup, :account_overview]
 
   def account_overview
     @address = @user.address || Address.new
   end
 
   def update
-
     if params[:user]
       @user.update(user_params)
       @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
@@ -56,6 +55,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def set_user
     @user = User.find(params[:id])
   end
