@@ -388,10 +388,6 @@
   box-shadow: none !important;
 }
 
-.dark-gray {
-  color: darken($theme-gray,40%) !important;
-}
-
 .absolute-right {
   position: absolute;
   right: 0px;
@@ -422,4 +418,25 @@
   @media (max-width: 750px) {
     display: none;
   }
+}
+
+//color helpers
+.dark-gray {
+  color: darken($theme-gray,40%) !important;
+}
+
+.dark-blue {
+  color: $theme-primary;
+}
+
+.cyan {
+  color: $theme-cyan;
+}
+
+.green {
+  color: $theme-green;
+}
+
+.yellow {
+  color: $theme-yellow;
 }
