@@ -1,6 +1,7 @@
 var Table = React.createClass({
   render: function() {
     var currentUserId = this.props.currentUserId;
+    var savedInterviewIds = this.props.savedInterviewIds;
     var tableRows = this.props.data.map(function(interviewInfo){
       var rowData = {
         status: interviewInfo['ride_status'] || 'unknown',
@@ -15,7 +16,7 @@ var Table = React.createClass({
         poster_id: interviewInfo['poster_id'],
         interview_id: interviewInfo['id']
       };
-      return <TableRow key={interviewInfo.id} data={rowData} currentUserId={currentUserId} />
+      return <TableRow key={interviewInfo.id} data={rowData} currentUserId={currentUserId} savedInterviewIds={savedInterviewIds}/>
     });
     return (
       <div className="panel panel-default table-container">

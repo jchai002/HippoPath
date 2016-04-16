@@ -378,7 +378,7 @@ var SearchDashBoard = React.createClass({
   render: function() {
     var display;
     if (this.state.resultsToDisplay && this.state.resultsToDisplay.length > 0) {
-      display = <Table data={this.state.resultsToDisplay} currentUserId={this.props.current_user_id}/>
+      display = <Table data={this.state.resultsToDisplay} currentUserId={this.props.current_user_id} savedInterviewIds = {this.props.saved_interview_ids}/>
     } else {
       display = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Results Found</h1></div></div>;
     }

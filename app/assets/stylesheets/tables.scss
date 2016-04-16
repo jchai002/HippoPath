@@ -21,6 +21,10 @@
       color: darken($theme-red,20%);
     }
   }
+
+  .fa-check {
+    color: $theme-green;
+  }
 }
 
 .table-container {

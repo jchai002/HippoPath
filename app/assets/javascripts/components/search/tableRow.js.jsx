@@ -25,7 +25,7 @@ var TableRow = React.createClass({
         <td className="hidden-sm-down">{data.specialty}</td>
         <td className="hidden-sm-down">{data.gender}</td>
         <td className="dark-gray hidden-sm-down">{data.distance < 99998 ? data.distance : 'Unknown'} Miles Away</td>
-        <td><SearchButtons interviewId={data.interview_id} currentUserId={this.props.currentUserId} PosterId={data.poster_id}/></td>
+        <td><SearchButtons interviewId={data.interview_id} currentUserId={this.props.currentUserId} savedInterviewIds={this.props.savedInterviewIds} PosterId={data.poster_id}/></td>
       </tr>
     );
   }

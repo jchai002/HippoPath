@@ -8,6 +8,7 @@ class DashBoardController < ApplicationController
   end
 
   def search
+    @saved_interview_ids = current_user.saved_interviews.collect(&:id)
     @hospital_names = []
     Hospital.all.each do |hospital|
       @hospital_names << hospital.attributes.slice('name')
