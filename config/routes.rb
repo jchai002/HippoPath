@@ -22,12 +22,12 @@ Rails.application.routes.draw do
     get '/search' => :search
     get '/saved' => :saved
   end
-  
+
   resources :interviews, only: [:new, :create, :update, :destroy]
   namespace :interviews do
     get '/' => :get_interviews
     get '/search' => :search_interviews
-    post '/saved/:id' => :save_interview
+    post '/save/:id' => :save_interview
     delete '/remove_from_saved/:id' => :remove_from_saved
   end
 
