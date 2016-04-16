@@ -9,8 +9,10 @@ class Address < ActiveRecord::Base
     self.full_address = "#{self.street} #{self.city} #{self.state} #{self.zip}"
     unless self.full_address.blank?
       coords = Geocoder.coordinates(self.full_address)
+      if coords
       self.latitude = coords[0]
       self.longitude = coords[1]
+      end
     end
   end
 

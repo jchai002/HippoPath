@@ -31,7 +31,7 @@ class UsersController < ApplicationController
         set_address(@user)
       end
       @user.save
-      redirect_to interviews_dash_board_path
+      redirect_to dash_board_interviews_path
     end
   end
 
