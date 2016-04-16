@@ -4,5 +4,4 @@ class Message < ActiveRecord::Base
   belongs_to :recipient, :foreign_key => :recipient_id, class_name: 'User'
   acts_as_readable :on => :created_at
   validates_presence_of :body, :conversation_id
-
 end

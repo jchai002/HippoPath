@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_attached_file :image, styles: { small: "50x50", med: "100x100", large: "200x200" }, default_url:'/images/portraitplaceholder.png'
   validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
   acts_as_reader
-
+  validates_presence_of :email
   delegate :street, :to => :address
   delegate :apt, :to => :address
   delegate :city, :to => :address
@@ -54,8 +54,7 @@ class User < ActiveRecord::Base
     if user.nil?
 
       # Get the existing user by email if the provider gives us a verified email.
-      # If no verified email was provided we assign a temporary email and ask the
-      # user to verify it on the next step via UsersController.finish_signup
+      # If no verified email was provided we assign a temporary email and ask the user to verify it on the next step via UsersController.finish_signup
       #email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
       email = auth.info.email #if email_is_verified
       user = User.where(:email => email).first if email

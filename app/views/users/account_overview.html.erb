@@ -1,7 +1,7 @@
 <div class="user-edit-wrapper">
   <div class="flex-form">
     <div id="user-info" data-userid="<%=@user.id%>"></div>
-    <h3 class="mar-b-20"><%= @user.name ? @user.name.titleize : 'Account Info' %></h3>
+    <h3 class="mar-b-20"><%= @user.name ? @user.name : 'Account Info' %></h3>
     <%= form_for(@user, url: update_user_path, html: { method: :put, id:'account-info', class:'info-edit pad-l-20'}) do |f| %>
     <%= f.label 'Avatar' %><i class="fa fa-pencil pad-l-10 edit-pencil" id="avatar-edit-handle"></i><span id="Avatar-status" class="status-text label label-success mar-l-10"></span>
     <div class="form-group">
@@ -18,7 +18,7 @@
     <!-- <i class="fa fa-pencil pad-l-10 edit-pencil" id="email-edit-handle"></i><span id="email-status" class="status-text label label-success mar-l-10"></span> -->
     <div class="form-group">
       <!-- <%= f.email_field :email, class: 'form-control editable-field', id: 'email-edit-field' %> -->
-      <div class="info-display" id="email-display"><%=@user.email%></div>
+      <div class="info-display no-text-mod" id="email-display"><%=@user.email%></div>
     </div>
     <% end %>
     <div class="pad-l-20">

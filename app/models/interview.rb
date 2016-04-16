@@ -2,7 +2,7 @@ class Interview < ActiveRecord::Base
   belongs_to :poster, :class_name => 'User'
   belongs_to :saver, :class_name => 'User'
   belongs_to :hospital
-  attr_accessor :hospital_name
+  validates_presence_of :name, :poster, :hospital
 
   #takes a search object with properties
   def self.search(search_parameters)

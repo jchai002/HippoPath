@@ -13,14 +13,14 @@ class InterviewsController < ApplicationController
   #find the interviews by search parameters
   def search_interviews
     if params[:interview_info] #ajax request
-      hospital = params[:interview_info][:hospital].titleize
+      hospital = params[:interview_info][:hospital].downcase
       search_parameters = {
         hospital: hospital,
         date: params[:interview_info][:date],
         ride_status: params[:interview_info][:ride_status]
       }
     else #html request, auto change ride status
-      hospital = params[:hospital].titleize
+      hospital = params[:hospital].downcase
       search_parameters = {
         hospital: hospital,
         date: params[:date],
@@ -40,7 +40,7 @@ class InterviewsController < ApplicationController
 
   def create
     @interview = current_user.posted_interviews.build(interview_params)
-    hospital_name = params["interview_info"]["hospital"].titleize
+    hospital_name = params["interview_info"]["hospital"].downcase
     @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     if @interview.save
       render :json => {message:"interview created"}, :status => 200 # send back any data if necessary
@@ -51,7 +51,7 @@ class InterviewsController < ApplicationController
 
   def update
     @interview = current_user.posted_interviews.find_by({id: params[:id]})
-    hospital_name = params["interview_info"]["hospital"].titleize
+    hospital_name = params["interview_info"]["hospital"].downcase
     @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
     @interview.assign_attributes(interview_params)
     if @interview.save

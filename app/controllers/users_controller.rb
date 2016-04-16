@@ -61,9 +61,9 @@ class UsersController < ApplicationController
   end
 
   def set_address(user)
-    street = params[:user][:address_street_and_house_number].titleize
+    street = params[:user][:address_street_and_house_number].downcase
     apt = params[:user][:address_apartment_number].gsub(/[^0-9A-Za-z]/, '')
-    city = params[:user][:address_city].titleize
+    city = params[:user][:address_city].downcase
     state = params[:user][:address_state].upcase
     zip = params[:user][:address_zip]
     on_campus = params[:user][:address_on_campus] ? true : false
