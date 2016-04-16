@@ -9,7 +9,7 @@ var SavedButtons = React.createClass({
   },
   handleRemoveClick: function(){
     if (window.confirm("Remove This Interview From Saved?")) {
-      var url='/remove_from_saved/'+this.props.data.id
+      var url='/interviews/remove_from_saved/'+this.props.data.id
       $.ajax({
         url: url,
         type: 'DELETE',

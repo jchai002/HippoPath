@@ -46,7 +46,7 @@ var InterviewSearchForm = React.createClass({
       interview_info: this.state
     }
     $.ajax({
-      url: "/interview_search",
+      url: "/interviews/search",
       dataType: 'json',
       type: 'GET',
       data: formData,

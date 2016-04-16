@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     if resource.sign_in_count == 1
       finish_signup_path(resource)
     else
-      interviews_dash_board_path
+      dash_board_interviews_path
     end
   end
 

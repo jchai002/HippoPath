@@ -11,7 +11,7 @@ $(document).ready(function(){
       var jsonData = {'user': {}};
       jsonData['user']['gender'] = $(this).val();
       $.ajax({
-        url: "/user_update/" + userId,
+        url: "/update_user/" + userId,
         dataType: 'json',
         type: 'PUT',
         data: jsonData,
@@ -43,7 +43,7 @@ $(document).ready(function(){
       var formData = new FormData();
       formData.append('image',file, file['name'])
       $.ajax({
-        url: "/user_update/" + userId,
+        url: "/update_user/" + userId,
         type: 'PUT',
         data: formData,
         contentType: false,
@@ -93,7 +93,7 @@ function updateUserInfo ($display,$editField,$handle, paramName) {
     var jsonData = {'user': {}};
     jsonData['user'][paramName] = $editField.val();
     $.ajax({
-      url: "/user_update/" + userId,
+      url: "/update_user/" + userId,
       dataType: 'json',
       type: 'PUT',
       data: jsonData,
