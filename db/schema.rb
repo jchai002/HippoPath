@@ -17,22 +17,22 @@ ActiveRecord::Schema.define(version: 20160404042620) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.boolean  "on_campus",    default: false
-    t.string   "street",       default: ""
-    t.string   "city",         default: ""
-    t.string   "state",        default: ""
-    t.string   "zip",          default: ""
-    t.string   "apt",          default: ""
-    t.string   "full_address", default: ""
+    t.boolean  "on_campus",                 default: false
+    t.string   "street",       limit: 1000, default: ""
+    t.string   "city",         limit: 100,  default: ""
+    t.string   "state",        limit: 20,   default: ""
+    t.string   "zip",          limit: 20,   default: ""
+    t.string   "apt",          limit: 20,   default: ""
+    t.string   "full_address", limit: 1000, default: ""
     t.float    "longitude"
     t.float    "latitude"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   create_table "conversations", force: :cascade do |t|
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
+    t.integer  "sender_id",    null: false
+    t.integer  "recipient_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,11 +41,10 @@ ActiveRecord::Schema.define(version: 20160404042620) do
   add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
 
   create_table "hospitals", force: :cascade do |t|
-    t.string   "name"
-    t.string   "city"
-    t.string   "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 100, null: false
+    t.integer  "address_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "identities", force: :cascade do |t|
@@ -59,24 +58,23 @@ ActiveRecord::Schema.define(version: 20160404042620) do
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "interviews", force: :cascade do |t|
-    t.string   "date"
-    t.string   "time"
-    t.string   "preinterview_dinner"
-    t.string   "ride_status"
+    t.string   "date",        limit: 20, null: false
+    t.string   "time",        limit: 20, null: false
+    t.string   "ride_status", limit: 20, null: false
     t.integer  "poster_id"
     t.integer  "saver_id"
     t.integer  "hospital_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "messages", force: :cascade do |t|
     t.integer  "conversation_id"
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
-    t.string   "body"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "sender_id",                     null: false
+    t.integer  "recipient_id",                  null: false
+    t.string   "body",            limit: 10000, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "read_marks", force: :cascade do |t|
@@ -89,20 +87,11 @@ ActiveRecord::Schema.define(version: 20160404042620) do
 
   add_index "read_marks", ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index", using: :btree
 
-  create_table "rides", force: :cascade do |t|
-    t.string   "type"
-    t.string   "starting_location"
-    t.string   "destination"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
   create_table "schools", force: :cascade do |t|
-    t.string   "name"
-    t.string   "city"
-    t.string   "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 100, default: "", null: false
+    t.integer  "address_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "users", force: :cascade do |t|
