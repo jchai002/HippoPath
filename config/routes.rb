@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   match '/assign_address_to_user/:user_id' => 'address#assign_address_to_user', via: [:post, :put, :patch], :as => :assign_address
+  post '/set_address_with_geolocation' => 'users#set_address_with_geolocation'
   get '/users/:id/account_overview' => 'users#account_overview', :as => :account_overview
   put '/user/update_password' => 'users#update_password', :as => :update_password
   put '/update_user/:id' => 'users#update', :as => :update_user

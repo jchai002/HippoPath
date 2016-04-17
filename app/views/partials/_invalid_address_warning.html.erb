@@ -7,14 +7,14 @@
     <%=link_to account_overview_path(current_user), class:'flex-item-3 label label-success' do %>
       Edit My Address
     <%end%>
-    <a id="gps-button" class="label label-info flex-item-3">Set Address Using My GPS Data</a>
+    <a id="geolocation-button" class="label label-info flex-item-3">Set Address Using My GPS Data</a>
     <a id="close-button" class="label label-danger flex-item-3">I Don't Care, Don't Show Me This Again</a>
   </div>
 </div>
 <input type="hidden" id="latitude" value=""/>
 <input type="hidden" id="longitude" value=""/>
 <script>
-  $.fn.getCoordsFromBrowser = function() {
+  function setAddressWithGeolocation() {
     navigator.geolocation.getCurrentPosition(
       onSuccess,
       onError, {
@@ -24,12 +24,8 @@
       }
     );
     function onSuccess(position) {
-      $('#latitude').val(position.coords.latitude); $('#longitude').val(position.coords.longitude)
-        .promise()
-        .done(function(){
-          console.log('lat', $('#latitude').val(), 'long',  $('#longitude').val())
-        })
-      }
+      $.post('/set_address_with_geolocation',position)
+    }
     function onError(err) {
       var message;
       switch (err.code) {
@@ -66,8 +62,8 @@
     $('.address-warning').hide();
     disableWarning();
   })
-  $(document).ready(function(){
-    $(window).getCoordsFromBrowser();
+  $('#geolocation-button').click(function(){
+    setAddressWithGeolocation();
   })
 </script>
 <%end%>

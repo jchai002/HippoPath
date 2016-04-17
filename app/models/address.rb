@@ -18,4 +18,17 @@ class Address < ActiveRecord::Base
     end
   end
 
+  def self.create_address_by_coords(latitude,longitude)
+    query = "#{latitude},#{longitude}"
+    begin
+      address = Geocoder.search(query).first.data["address_components"]
+      street = address[0]['long_name'].downcase + ' ' + address[1]['long_name'].downcase
+      city = address[2]['long_name'].downcase
+      state = address[4]['short_name'].upcase
+      zip = address[6]['long_name'].downcase
+      return find_or_create_by({street:street,city:city,state:state,zip:zip})
+    rescue
+      return {status: 'Address Not Found'}
+    end
+  end
 end

@@ -1,20 +1,20 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:update, :destroy, :finish_signup, :account_overview]
+  before_filter :authenticate_user!, only: [:update, :finish_signup, :account_overview, :set_address_with_geolocation]
 
   def account_overview
-    @address = @user.address || Address.new
+    @address = current_user.address || Address.new
   end
 
   def update
     if params[:user]
-      @user.update(user_params)
-      @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
-      @user.save
+      current_user.update(user_params)
+      current_user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
+      current_user.save
     end
     respond_to do |format|
       if params[:image]
-        @user.update_attributes(image: params[:image])
-        @image = @user.image
+        current_user.update_attributes(image: params[:image])
+        @image = current_user.image
         format.js
       else
         format.json { head :no_content }
@@ -24,12 +24,12 @@ class UsersController < ApplicationController
 
   def finish_signup
     if request.patch? && params[:user]
-      @user.update(user_params)
-      @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
+      current_user.update(user_params)
+      current_user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
       if address_params_complete
-        set_address(@user)
+        set_address(current_user)
       end
-      @user.save
+      current_user.save
       redirect_to dash_board_interviews_path
     end
   end
@@ -45,19 +45,17 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    @user.destroy
+  def set_address_with_geolocation
+    latitude = params[:coords][:latitude]
+    longitude = params[:coords][:longitude]
+    @address= Address.create_address_by_coords(latitude,longitude)
+    current_user.update_attributes({address:@address})
     respond_to do |format|
-      format.html { redirect_to root_url }
-      format.json { head :no_content }
+      format.js
     end
   end
 
   private
-
-  def set_user
-    @user = User.find(params[:id])
-  end
 
   def set_address(user)
     street = params[:user][:address_street_and_house_number].downcase
