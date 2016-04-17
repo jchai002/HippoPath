@@ -49,7 +49,8 @@ class UsersController < ApplicationController
     latitude = params[:coords][:latitude]
     longitude = params[:coords][:longitude]
     @address= Address.create_address_by_coords(latitude,longitude)
-    current_user.update_attributes({address:@address})
+    @user = current_user
+    @user.update_attributes({address:@address}) if @address
     respond_to do |format|
       format.js
     end

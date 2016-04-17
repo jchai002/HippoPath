@@ -1,2 +1,13 @@
-console.log('set with browser')
-console.log("<%=@address.full_address%>")
+<%if @address %>
+$('.address-warning')
+  .removeClass('alert-warning')
+  .addClass('alert-success')
+$('.warning-content')
+  .html("<h4 class='mar-y-10'>Yayyy! Your address is set to: <%=@address.full_address%> (if this is not correct, please just go change it yourself)</h4>")
+<%else%>
+$('.address-warning')
+  .removeClass('alert-warning')
+  .addClass('alert-danger')
+$('.warning-content')
+  .html('<h4 class="mar-y-10"><i class="fa fa-wrench mar-r-10" aria-hidden="true"></i>Sorry, we looked really hard but Google refused to give us your address! Darn it Google...</h4>')
+<%end%>

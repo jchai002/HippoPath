@@ -28,7 +28,7 @@ class Address < ActiveRecord::Base
       zip = address[6]['long_name'].downcase
       return find_or_create_by({street:street,city:city,state:state,zip:zip})
     rescue
-      return {status: 'Address Not Found'}
+      return false
     end
   end
 end
