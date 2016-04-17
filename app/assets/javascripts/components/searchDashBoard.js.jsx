@@ -4,7 +4,6 @@ var SearchDashBoard = React.createClass({
       searchResultPanels: undefined,
       originalData:this.props.data || null,
       currentDataStore:this.props.data || null,
-      userPosition: this.props.current_user_coords,
       resultsPerPage: 10,
       currentPage: null,
       hidingOwnInterviews: false,
@@ -17,43 +16,7 @@ var SearchDashBoard = React.createClass({
   arrayNotBlank: function(array) {
     return array[0] && array[1]
   },
-  setBrowserCoords: function() {
-    component = this;
-    navigator.geolocation.getCurrentPosition(
-      onSuccess,
-      onError, {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 120000
-      }
-    );
-    function onSuccess(position) {
-      component.setState({
-        userPosition: [position.coords.latitude,position.coords.longitude]
-      })
-    }
-    function onError(err) {
-      var message;
-      switch (err.code) {
-        case 0:
-        message = 'Unknown error: ' + err.message;
-        break;
-        case 1:
-        message = 'You denied permission to retrieve a position.';
-        break;
-        case 2:
-        message = 'The browser was unable to determine a position: ' + error.message;
-        break;
-        case 3:
-        message = 'The browser timed out before retrieving the position.';
-        break;
-      }
-    }
-  },
   componentDidMount: function(){
-    if (!this.state.userPosition || !this.arrayNotBlank(this.state.userPosition)){
-      this.setBrowserCoords();
-    }
     if (this.state.originalData) {
       var interviews = this.state.originalData.map((interviewObject) => {
         return this.setDistance(interviewObject,true)
@@ -63,7 +26,7 @@ var SearchDashBoard = React.createClass({
     this.setCurrentDataStore(processedData);
   },
   setDistance: function(interviewObject, isMiles){
-    var coords1 = this.state.userPosition;
+    var coords1 = this.props.current_user_coords;
     var coords2 = interviewObject['location'];
     if (coords1 && this.arrayNotBlank(coords1) && coords2 && this.arrayNotBlank(coords2)) {
       function toRad(x) {

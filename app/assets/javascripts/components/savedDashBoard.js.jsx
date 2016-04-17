@@ -1,49 +1,14 @@
 var SavedDashBoard = React.createClass({
   getInitialState: function(){
     return {
-      data:this.props.data || null,
-      userPosition: this.props.current_user_coords
+      data:this.props.data || null
     }
   },
   arrayNotBlank: function(array) {
     return array[0] && array[1]
   },
-  setBrowserCoords: function() {
-    component = this;
-    navigator.geolocation.getCurrentPosition(
-      onSuccess,
-      onError, {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 120000
-      }
-    );
-    function onSuccess(position) {
-      component.setState({
-        userPosition: [position.coords.latitude,position.coords.longitude]
-      })
-    }
-
-    function onError(err) {
-      var message;
-      switch (err.code) {
-        case 0:
-        message = 'Unknown error: ' + err.message;
-        break;
-        case 1:
-        message = 'You denied permission to retrieve a position.';
-        break;
-        case 2:
-        message = 'The browser was unable to determine a position: ' + error.message;
-        break;
-        case 3:
-        message = 'The browser timed out before retrieving the position.';
-        break;
-      }
-    }
-  },
   setDistance: function(interviewObject, isMiles){
-    var coords1 = this.state.userPosition;
+    var coords1 = this.props.current_user_coords;
     var coords2 = interviewObject['location'];
     if (coords1 && this.arrayNotBlank(coords1) && coords2 && this.arrayNotBlank(coords2)) {
       function toRad(x) {
@@ -74,11 +39,6 @@ var SavedDashBoard = React.createClass({
     this.props.data.forEach((interviewObject) => {
       interviewObject['distance'] = setDistance(interviewObject,true);
     });
-  },
-  componentDidMount: function(){
-    if (!this.state.userPosition || !this.arrayNotBlank(this.state.userPosition)){
-      this.setBrowserCoords();
-    }
   },
   handleRemove: function(deletedItemId) {
     var interviewsToKeep = this.state.data.filter(function(interivew){
@@ -122,7 +82,6 @@ var SavedDashBoard = React.createClass({
     } else {
       display = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-save fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Saved Interviews</h1></div></div>
     }
-    console.log(panels)
     return (
       <div>
         <div className="row">
