@@ -1,4 +1,4 @@
-<%unless current_user.no_warning || current_user.address.valid_address%>
+<%if !current_user.no_warning || !current_user.address || !current_user.address.valid_address%>
 <div class="address-warning alert alert-warning mar-t-30 mar-b-0">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   <div class="warning-content">
