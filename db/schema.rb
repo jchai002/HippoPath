@@ -17,17 +17,19 @@ ActiveRecord::Schema.define(version: 20160404042620) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.boolean  "on_campus",                 default: false
-    t.string   "street",       limit: 1000, default: ""
-    t.string   "city",         limit: 100,  default: ""
-    t.string   "state",        limit: 20,   default: ""
-    t.string   "zip",          limit: 20,   default: ""
-    t.string   "apt",          limit: 20,   default: ""
-    t.string   "full_address", limit: 1000, default: ""
+    t.boolean  "on_campus",                      default: false
+    t.string   "street",            limit: 1000, default: ""
+    t.string   "city",              limit: 100,  default: ""
+    t.string   "state",             limit: 20,   default: ""
+    t.string   "zip",               limit: 20,   default: ""
+    t.string   "apt",               limit: 20,   default: ""
+    t.string   "full_address",      limit: 1000, default: ""
     t.float    "longitude"
     t.float    "latitude"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.boolean  "valid_address",                  default: false
+    t.boolean  "browser_generated",              default: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -108,6 +110,7 @@ ActiveRecord::Schema.define(version: 20160404042620) do
     t.string   "gender"
     t.string   "phone"
     t.string   "specialty"
+    t.boolean  "no_warning"
     t.integer  "address_id"
     t.integer  "school_id"
     t.datetime "created_at",                          null: false

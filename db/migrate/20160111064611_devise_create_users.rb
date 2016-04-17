@@ -35,6 +35,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :phone
       t.string :specialty
+      t.boolean :no_warning
       t.references :address
       t.references :school
       t.timestamps null: false

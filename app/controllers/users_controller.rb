@@ -11,7 +11,6 @@ class UsersController < ApplicationController
       @user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
       @user.save
     end
-
     respond_to do |format|
       if params[:image]
         @user.update_attributes(image: params[:image])
@@ -71,7 +70,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    accessible = [ :name, :email, :gender, :phone, :specialty]
+    accessible = [ :name, :email, :gender, :phone, :specialty, :no_warning]
     accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
     params.require(:user).permit(accessible)
   end

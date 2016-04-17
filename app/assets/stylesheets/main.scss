@@ -277,3 +277,55 @@ ul.navbar-right {
     }
   }
 }
+
+.address-warning {
+  .flex-centered {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    @media(min-width: 768px) {
+      flex-direction: row;
+    }
+    .label {
+      cursor: pointer;
+      cursor: hand;
+    }
+    .label-danger {
+      background-color: lighten($theme-red,5%);
+      border: 1px solid darken($theme-red,5%);
+      &:hover{
+        background-color: lighten($theme-red,10%);
+        border: 1px solid darken($theme-red,10%);
+      }
+    }
+    .label-success {
+      background-color: lighten($theme-green,5%);
+      border: 1px solid darken($theme-green,5%);
+      &:hover{
+        background-color: lighten($theme-green,10%);
+        border: 1px solid darken($theme-green,10%);
+      }
+    }
+    .label-info {
+      background-color: lighten($theme-cyan,5%);
+      border: 1px solid darken($theme-cyan,5%);
+      &:hover{
+        background-color: lighten($theme-cyan,10%);
+        border: 1px solid darken($theme-cyan,10%);
+      }
+    }
+    .flex-item-3 {
+      width: 100%;
+      margin-top: 10px;
+      @media(min-width: 768px) {
+        width: 32%;
+        margin-top: 0px;
+      }
+    }
+  }
+}

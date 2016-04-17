@@ -1,12 +1,12 @@
 .table {
-  border-color: $theme-cyan !important;
+  border-color: $theme-light !important;
   thead {
-    border: 1px solid $theme-cyan;
-    background-color: $theme-cyan;
+    border: 1px solid $theme-light;
+    background-color: $theme-light;
     color: $theme-primary;
   }
   td {
-    border: 1px solid $theme-cyan;
+    border: 1px solid $theme-light;
     max-width: 150px;
     border-left: none;
     border-right: none;
@@ -28,5 +28,5 @@
 }
 
 .table-container {
-  border: 1px solid $theme-cyan;
+  border: 1px solid $theme-light;
 }

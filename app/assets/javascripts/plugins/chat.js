@@ -302,15 +302,25 @@ var ready = function () {
         }
     };
 
-    var openConversations = $('#open-conversations').val().replace(/[^,A-Za-z0-9]+/g, '').split(',')
+    if ($('#open-conversations')[0]) {
+      var openConversations = $('#open-conversations').val().replace(/[^,A-Za-z0-9]+/g, '').split(',')
 
-    openConversations.forEach(function(numString){
-        var conversationId = Number(numString);
-        if (conversationId != 0) {
-          chatBox.createChatBox(conversationId);
-        }
-    })
+      openConversations.forEach(function(numString){
+          var conversationId = Number(numString);
+          if (conversationId != 0) {
+            chatBox.createChatBox(conversationId);
+          }
+      })
+    }
 }
 
-$(document).ready(ready);
-$(document).on("page:load", ready);
+$(document).ready(function(){
+  if (!$('#public-page')[0]){
+    ready();
+  }
+});
+$(document).on("page:load", function(){
+  if (!$('#public-page')[0]){
+    ready();
+  }
+});
