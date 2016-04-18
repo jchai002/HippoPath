@@ -5,7 +5,7 @@ end
 
 specialties = ['oncology','emergency','cardiology','radiology','internal medicine','gyno','OGBYN','pediatrics']
 
-school_names = ['University of South Alabama College of Medicine', 'Midwestern University Arizona College of Osteopathic Medicine', 'Stanford University School of Medicine', 'David Geffen School of Medicine at UCLA', 'Howard University College of Medicine', 'Yale School of Medicine','University of South Florida College of Medicine','Northwestern University Feinberg School of Medicine','University of Minnesota Medical School','University of Nevada School of Medicine']
+school_names = ['Yale School of Medicine','Northwestern University Feinberg School of Medicine','University of Minnesota Medical School']
 
 schools = []
 
@@ -13,16 +13,16 @@ school_names.each do |name|
   schools << School.create({name:name})
 end
 
-u1= User.create({name:Faker::Name.name,gender:'Male', email:'test1@gmail.com', password:'12345678', school:schools.sample,specialty:specialties.sample})
-u2= User.create({name:Faker::Name.name,gender:'Male', email:'test2@gmail.com', password:'12345678', school:schools.sample, specialty:specialties.sample})
-u3= User.create({name:Faker::Name.name,gender:'Male', email:'test3@gmail.com', password:'12345678', school:schools.sample, specialty:specialties.sample})
-u4= User.create({name:Faker::Name.name,gender:'Male', email:'test4@gmail.com', password:'12345678', school:schools.sample, specialty:specialties.sample})
-u5= User.create({name:Faker::Name.name,gender:'Male', email:'test5@gmail.com', password:'12345678', school:schools.sample, specialty:specialties.sample})
-u6= User.create({name:Faker::Name.name,gender:'Female', email:'test6@gmail.com', password:'12345678', school:schools.sample, specialty:specialties.sample})
-u7= User.create({name:Faker::Name.name,gender:'Female', email:'test7@gmail.com', password:'12345678', school:schools.sample, specialty:specialties.sample})
-u8= User.create({name:Faker::Name.name,gender:'Female', email:'test8@gmail.com', password:'12345678', school:schools.sample, specialty:specialties.sample})
-u9= User.create({name:Faker::Name.name,gender:'Female', email:'test9@gmail.com', password:'12345678', school:schools.sample, specialty:specialties.sample})
-u10= User.create({name:Faker::Name.name,gender:'Female', email:'test10@gmail.com', password:'12345678', school:schools.sample, specialty:specialties.sample})
+u1= User.create({name:Faker::Name.name,gender:'Male', email:'test1@gmail.com', password:'12345678', school:schools.sample,specialty:'oncology'})
+u2= User.create({name:Faker::Name.name,gender:'Male', email:'test2@gmail.com', password:'12345678', school:schools.sample, specialty:'oncology'})
+u3= User.create({name:Faker::Name.name,gender:'Male', email:'test3@gmail.com', password:'12345678', school:schools.sample, specialty:'oncology'})
+u4= User.create({name:Faker::Name.name,gender:'Male', email:'test4@gmail.com', password:'12345678', school:schools.sample, specialty:'emergency'})
+u5= User.create({name:Faker::Name.name,gender:'Male', email:'test5@gmail.com', password:'12345678', school:schools.sample, specialty:'cardiology'})
+u6= User.create({name:Faker::Name.name,gender:'Female', email:'test6@gmail.com', password:'12345678', school:schools.sample, specialty:'cardiology'})
+u7= User.create({name:Faker::Name.name,gender:'Female', email:'test7@gmail.com', password:'12345678', school:schools.sample, specialty:'radiology'})
+u8= User.create({name:Faker::Name.name,gender:'Female', email:'test8@gmail.com', password:'12345678', school:schools.sample, specialty:'radiology'})
+u9= User.create({name:Faker::Name.name,gender:'Female', email:'test9@gmail.com', password:'12345678', school:schools.sample, specialty:'pediatrics'})
+u10= User.create({name:Faker::Name.name,gender:'Female', email:'test10@gmail.com', password:'12345678', school:schools.sample, specialty:'pediatrics'})
 users = [u1,u2,u3,u4,u5,u6,u7,u8,u9,u10]
 
 a1 = Address.create({street:'212 Union Ave Se', city:'Olympia', state:'WA', zip:'98501'})
@@ -44,7 +44,7 @@ u7.address=a7
 u8.address=a8
 
 users.each do |user|
-  5.times do
+  30.times do
     user.posted_interviews.create({date: "04/01/2016",time:"8:00AM", ride_status:"Need Ride", hospital:hospitals.first})
   end
   user.save!
