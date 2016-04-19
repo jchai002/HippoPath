@@ -6,9 +6,9 @@ set :repo_url, 'git@github.com:jchai002/HippoPath.git'
 set :branch, :master
 set :deploy_to, '/home/deploy/HippoPath'
 set :pty, true
-set :linked_files, %w{config/database.yml config/application.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
-set :keep_releases, 5
+set :linked_files, fetch(:linked_files, []).push('config/application.yml', 'config/database.yml')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+set :keep_releases, 3
 set :rvm_type, :user
 set :rvm_ruby_version, 'ruby-2.3.0' # Edit this if you are using MRI Ruby
 set :assets_roles, [:web, :app]
@@ -57,15 +57,15 @@ set :puma_preload_app, false
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-# set the locations that we will look for changed assets to determine whether to precompile
-set :assets_dependencies, %w(app/assets lib/assets vendor/assets Gemfile.lock config/routes.rb)
-
-# clear the previous precompile task
-Rake::Task["deploy:assets:precompile"].clear_actions
-class PrecompileRequired < StandardError; end
+# # set the locations that we will look for changed assets to determine whether to precompile
+# set :assets_dependencies, %w(app/assets lib/assets vendor/assets Gemfile.lock config/routes.rb)
+#
+# # clear the previous precompile task
+# Rake::Task["deploy:assets:precompile"].clear_actions
+# class PrecompileRequired < StandardError; end
 
 namespace :deploy do
-  
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -75,39 +75,40 @@ namespace :deploy do
     end
   end
 
-  namespace :assets do
-    desc "Precompile assets"
-    task :precompile do
-      on roles(fetch(:assets_roles)) do
-        within release_path do
-          with rails_env: fetch(:rails_env) do
-            begin
-              # find the most recent release
-              latest_release = capture(:ls, '-xr', releases_path).split[1]
+  # namespace :assets do
+  #   desc "Precompile assets"
+  #   task :precompile do
+  #     on roles(fetch(:assets_roles)) do
+  #       within release_path do
+  #         with rails_env: fetch(:rails_env) do
+  #           begin
+  #             # find the most recent release
+  #             latest_release = capture(:ls, '-xr', releases_path).split[1]
+  #
+  #             # precompile if this is the first deploy
+  #             raise PrecompileRequired unless latest_release
+  #
+  #             latest_release_path = releases_path.join(latest_release)
+  #
+  #             # precompile if the previous deploy failed to finish precompiling
+  #             execute(:ls, latest_release_path.join('assets_manifest_backup')) rescue raise(PrecompileRequired)
+  #
+  #             fetch(:assets_dependencies).each do |dep|
+  #               # execute raises if there is a diff
+  #               execute(:diff, '-Naur', release_path.join(dep), latest_release_path.join(dep)) rescue raise(PrecompileRequired)
+  #             end
+  #
+  #             info("Skipping asset precompile, no asset diff found")
+  #
+  #             # copy over all of the assets from the last release
+  #             execute(:cp, '-r', latest_release_path.join('public', fetch(:assets_prefix)), release_path.join('public', fetch(:assets_prefix)))
+  #           rescue PrecompileRequired
+  #             execute(:rake, "assets:precompile")
+  #           end
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 
-              # precompile if this is the first deploy
-              raise PrecompileRequired unless latest_release
-
-              latest_release_path = releases_path.join(latest_release)
-
-              # precompile if the previous deploy failed to finish precompiling
-              execute(:ls, latest_release_path.join('assets_manifest_backup')) rescue raise(PrecompileRequired)
-
-              fetch(:assets_dependencies).each do |dep|
-                # execute raises if there is a diff
-                execute(:diff, '-Naur', release_path.join(dep), latest_release_path.join(dep)) rescue raise(PrecompileRequired)
-              end
-
-              info("Skipping asset precompile, no asset diff found")
-
-              # copy over all of the assets from the last release
-              execute(:cp, '-r', latest_release_path.join('public', fetch(:assets_prefix)), release_path.join('public', fetch(:assets_prefix)))
-            rescue PrecompileRequired
-              execute(:rake, "assets:precompile")
-            end
-          end
-        end
-      end
-    end
-  end
 end
