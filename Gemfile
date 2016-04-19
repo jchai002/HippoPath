@@ -47,6 +47,8 @@ gem 'thin'
 gem 'lodash-rails'
 gem 'geocoder'
 
+#production web server
+gem 'puma'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
@@ -77,6 +79,11 @@ group :development, :test do
 end
 
 group :development do
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 

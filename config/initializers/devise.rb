@@ -9,7 +9,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` on Rails 4+ applications as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'fe8b1086555aa9534a8ebd686f971c65a5daa677b8cbfe5261858b606ef6302b4274e3fa180f373325a40e95ce06bc6ca79cc87e91dcc898106ea0d01c5bff75'
-
+  config.secret_key = '651a618629c91a0d579fbd4b26bf72a92920af97b72b9fbbe13db743209a96696427dd3e6bc7d6d8969d2693ea6363967f0c63c1fdbc61f8660cfa1e25f083b4'
   #==> OAuth Configuration
   config.omniauth :facebook, ENV["facebook_key"], ENV["facebook_secret"], :secure_image_url => true
   config.omniauth :google_oauth2, ENV["google_key"], ENV["google_secret"], skip_jwt: true
