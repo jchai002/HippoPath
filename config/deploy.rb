@@ -56,6 +56,9 @@ set :puma_preload_app, false
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+after "bundle:install" do
+ run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
+end
 
 namespace :deploy do
 
@@ -67,5 +70,4 @@ namespace :deploy do
       # end
     end
   end
-
 end
