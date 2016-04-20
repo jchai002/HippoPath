@@ -15,6 +15,7 @@ var ready = function () {
         });
     });
 
+
     /**
      * Used to minimize the chatbox
      */
@@ -74,13 +75,6 @@ var ready = function () {
     });
 }
 
-$(document).ready(function(){
-  if (!$('#public-page')[0]){
-    ready();
-  }
-});
-$(document).on("page:load", function(){
-  if (!$('#public-page')[0]){
-    ready();
-  }
-});
+
+$(document).ready(ready);
+$(document).on("page:load",ready);
