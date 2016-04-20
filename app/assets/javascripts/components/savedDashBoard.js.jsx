@@ -41,10 +41,36 @@ var SavedDashBoard = React.createClass({
     });
   },
   handleRemove: function(deletedItemId) {
-    var interviewsToKeep = this.state.data.filter(function(interivew){
-      return interivew['id'] != deletedItemId
-    })
-    this.setState({data:interviewsToKeep})
+    var component = this;
+    swal({
+      title: "Remove This Interview From Saved?",
+      text: "You will have to go find it again!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'Yes, I am sure!',
+      cancelButtonText: "No, cancel it!",
+      closeOnConfirm: true,
+      closeOnCancel: false
+    }, function(isConfirm) {
+      if (isConfirm) {
+        $.ajax({
+          url: '/interviews/remove_from_saved/'+deletedItemId,
+          type: 'DELETE',
+          success: function() {
+            var interviewsToKeep = component.state.data.filter(function(interivew){
+              return interivew['id'] != deletedItemId
+            })
+            component.setState({data:interviewsToKeep})
+          },
+          error: function(xhr, status, err) {
+            console.error( status, err.toString());
+          }
+        });
+      } else {
+        swal("Cancelled", "Your interivew is safe :)", "error");
+      }
+    });
   },
   render: function(){
     var handleRemove = this.handleRemove;

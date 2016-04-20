@@ -65,21 +65,36 @@ var InterviewDashBoard = React.createClass({
     this.getData();
   },
   handleDelete: function(deletedItemId){
-    if (window.confirm("Delete This Interview?")) {
-      $.ajax({
-        url: '/interviews/'+deletedItemId,
-        type: 'DELETE',
-        success: function() {
-          var interviewsToKeep = this.state.currentDataStore.filter(function(interivew){
-            return interivew['id'] != deletedItemId
-          })
-          this.setState({currentDataStore:interviewsToKeep})
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error( status, err.toString());
-        }.bind(this)
-      })
-    }
+    var component = this;
+    swal({
+      title: "Delete This Interview?",
+      text: "It will be gone...with the wind!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'Yes, I am sure!',
+      cancelButtonText: "No, cancel it!",
+      closeOnConfirm: true,
+      closeOnCancel: false
+    }, function(isConfirm) {
+      if (isConfirm) {
+          $.ajax({
+            url: '/interviews/'+deletedItemId,
+            type: 'DELETE',
+            success: function() {
+              var interviewsToKeep = component.state.currentDataStore.filter(function(interivew){
+                return interivew['id'] != deletedItemId
+              })
+              component.setState({currentDataStore:interviewsToKeep})
+            },
+            error: function(xhr, status, err) {
+              console.error( status, err.toString());
+            }
+        });
+      } else {
+        swal("Cancelled", "Your interivew is safe :)", "error");
+      }
+    });
   },
   toggleDateSort: function() {
     this.setState({currentlySortingBy:'date'})

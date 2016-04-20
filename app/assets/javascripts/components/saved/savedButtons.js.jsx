@@ -8,18 +8,6 @@ var SavedButtons = React.createClass({
     );
   },
   handleRemoveClick: function(){
-    if (window.confirm("Remove This Interview From Saved?")) {
-      var url='/interviews/remove_from_saved/'+this.props.data.id
-      $.ajax({
-        url: url,
-        type: 'DELETE',
-        success: function(result) {
-          this.props.handleRemove(this.props.data.id)
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error( status, err.toString());
-        }.bind(this)
-      })
-    }
+    this.props.handleRemove(this.props.data.id);
   }
 });
