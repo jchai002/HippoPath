@@ -6,7 +6,7 @@ set :repo_url, 'git@github.com:jchai002/HippoPath.git'
 set :branch, :master
 set :deploy_to, '/home/deploy/HippoPath'
 set :pty, true
-set :linked_files, fetch(:linked_files, []).push('config/application.yml', 'config/database.yml')
+set :linked_files, fetch(:linked_files, []).push('config/application.yml', 'config/database.yml', 'config/secrets.yml')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
 set :keep_releases, 3
 set :rvm_type, :user
