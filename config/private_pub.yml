@@ -1,11 +1,10 @@
 development:
   server: "http://54.191.133.42:8080/faye"
   secret_token: "secret"
-  signature_expiration: 3600 # one hour
 test:
   server: "http://54.191.133.42:8080/faye"
   secret_token: "secret"
 production:
   server: "http://54.191.133.42:8080/faye"
-  secret_token: "secret"
+  secret_token: "3ae294f86083b2269e9336aea9a853cdc80c39e915191a8d368540f61699686e"
   signature_expiration: 3600 # one hour
