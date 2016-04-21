@@ -20,7 +20,7 @@
   </div>
   <%end%>
 </body>
-<%if current_user %>
+<%if current_user%>
 <div class="script-container"></div>
 <input type="hidden" id="open-conversations" value="<%=@open_conversations%>"/>
 <%= render 'partials/attach_chat' %>
