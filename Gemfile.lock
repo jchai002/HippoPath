@@ -331,7 +331,6 @@ DEPENDENCIES
   jquery-ui-rails
   lodash-rails
   momentjs-rails (>= 2.9.0)
-  net-ssh
   omniauth
   omniauth-facebook
   omniauth-google-oauth2
