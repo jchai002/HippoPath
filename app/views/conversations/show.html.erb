@@ -1,6 +1,8 @@
 <div class="chatboxhead">
   <div class="chatboxtitle">
     <i class="fa fa-comments"></i>
+    <i class="mute-toggle fa fa-bell mar-l-5" title="mute" data-toggle="tooltip" aria-hidden="true"></i>
+    </span>
   </div>
   <div class="chatboxoptions">
     <%= link_to "<i class='fa  fa-times'></i> ".html_safe, "#", class: "closeChat", "data-cid" => @conversation.id %>
@@ -39,4 +41,21 @@ if (!$('#convo-script-'+id)[0]) {
   $('.script-container').append(newDiv)
 }
 <% end %>
+
+// toggle mute buttons
+$('.mute-toggle').click(function(){
+  if ($(this).hasClass("fa-bell")) {
+    $.ajax({
+      url: '/toggle_mute',
+      type: 'PUT',
+      data: {toggle_state:'mute'}
+    });
+  } else {
+    $.ajax({
+      url: '/toggle_mute',
+      type: 'PUT',
+      data: {toggle_state:'unmute'}
+    });
+  }
+})
 </script>
