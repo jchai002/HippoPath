@@ -63,7 +63,6 @@ class UsersController < ApplicationController
     if params[:toggle_state] == 'unmute'
       current_user.update_attributes({chat_muted:false})
     end
-    binding.pry
     respond_to do |format|
       format.js
     end
