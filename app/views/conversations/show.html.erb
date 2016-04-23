@@ -1,7 +1,8 @@
+<% fa_class =current_user.chat_muted ? "fa-bell-slash" : "fa-bell"%>
 <div class="chatboxhead">
   <div class="chatboxtitle">
     <i class="fa fa-comments"></i>
-    <i class="mute-toggle fa fa-bell mar-l-5" title="mute" data-toggle="tooltip" aria-hidden="true"></i>
+    <i class="mute-toggle fa mar-l-5 <%=fa_class%>" title="mute" data-toggle="tooltip" aria-hidden="true"></i>
     </span>
   </div>
   <div class="chatboxoptions">
