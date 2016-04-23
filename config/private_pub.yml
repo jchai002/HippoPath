@@ -6,6 +6,6 @@ test:
   server: "http://54.191.23.117:9292/faye"
   secret_token: "secret"
 production:
-  server: "http://54.191.23.117:9292/faye"
+  server: "http://54.191.23.117:80/faye/faye"
   secret_token: "04e13fcc7f1c88f81608101e49220698241472f1a5578a485b818cb328d237c2"
   signature_expiration: 3600 # one hour
