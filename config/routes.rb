@@ -39,5 +39,5 @@ Rails.application.routes.draw do
   post '/mark_message_read/:id' => 'messages#mark_message_read'
   get '/unread_message_count' => 'messages#unread_message_count'
   get '/close_chat_box' => 'conversations#close_chat_box'
-
+  put '/toggle_mute' => 'users#toggle_mute'
 end

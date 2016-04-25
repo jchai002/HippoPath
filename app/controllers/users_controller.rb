@@ -56,6 +56,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def toggle_mute
+    if params[:toggle_state] == 'mute'
+      current_user.update_attributes({chat_muted:true})
+    end
+    if params[:toggle_state] == 'unmute'
+      current_user.update_attributes({chat_muted:false})
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
   private
 
   def set_address(user)

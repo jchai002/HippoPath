@@ -15,7 +15,6 @@ $(document).ready(function(){
         validated = false
       }
       if ($confirm.val() != $password.val()) {
-        console.log('confrimation fail')
         $confirm_container.addClass('has-error')
         $confirm_error.text('password and confrimation did not match')
         validated = false

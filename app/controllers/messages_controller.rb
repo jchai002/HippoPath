@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
     @message.sender_id = current_user.id
     @message.recipient_id = current_user == @conversation.sender ? @conversation.recipient_id : @conversation.sender_id
     @message.save!
+    @recipient = current_user == @conversation.sender ? @conversation.recipient : @conversation.sender
     @path = conversation_path(@conversation)
   end
 
