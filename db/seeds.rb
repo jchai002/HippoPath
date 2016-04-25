@@ -59,4 +59,5 @@ CSV.readlines(file)[1 .. -1].each do |row|
   zip = row[4]
   a = Address.create({street:street,city:city,state:state,zip:zip})
   School.create({name:name,address:a})
+  sleep 0.2
 end
