@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20160404042620) do
     t.string   "full_address",      limit: 1000, default: ""
     t.float    "longitude"
     t.float    "latitude"
+    t.integer  "hospital_id"
+    t.integer  "school_id"
     t.boolean  "valid_address",                  default: false
     t.boolean  "browser_generated",              default: false
     t.datetime "created_at",                                     null: false
@@ -44,7 +46,6 @@ ActiveRecord::Schema.define(version: 20160404042620) do
 
   create_table "hospitals", force: :cascade do |t|
     t.string   "name",       limit: 100, null: false
-    t.integer  "address_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

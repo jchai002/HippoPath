@@ -1,5 +1,7 @@
 class Address < ActiveRecord::Base
   has_many :users
+  belongs_to :hospital
+  belongs_to :school
   before_save :prepare_address
 
   def prepare_address

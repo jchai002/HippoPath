@@ -10,6 +10,8 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :full_address, default: '', :limit => 1000
       t.float :longitude
       t.float :latitude
+      t.references :hospital
+      t.references :school
       t.boolean :valid_address, default: false
       t.boolean :browser_generated,  default: false
 
