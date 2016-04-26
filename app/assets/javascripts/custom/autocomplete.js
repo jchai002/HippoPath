@@ -72,9 +72,7 @@ function activateSpecialtyAutocomplete() {
 $(document).on('keydown','.autocomplete-wrapper',function(){
   $autocomplete = $('.ui-autocomplete');
   maxWidth = $(this).width();
-  if ($autocomplete.width()>maxWidth) {
-    $autocomplete.css('max-width',maxWidth)
-  }
+  $autocomplete.css('max-width',maxWidth)
 })
 
 function activateHospitalEditAutocomplete(modalID) {
