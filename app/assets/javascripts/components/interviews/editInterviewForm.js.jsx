@@ -11,8 +11,8 @@ var EditInterviewForm = React.createClass({
   render: function() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <input type="text" name="hospital" className="form-control autocomplete-wrapper" id={"autocomplete-hospital-edit-"+this.state.id} value={this.state.hospital} onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
+        <div className="form-group autocomplete-wrapper">
+          <input type="text" name="hospital" className="form-control" id={"autocomplete-hospital-edit-"+this.state.id} value={this.state.hospital} onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange}/>
         </div>
 
         <div className="form-group">
