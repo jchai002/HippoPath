@@ -16,12 +16,64 @@ function activateSchoolAutocomplete() {
   });
 }
 
-$(document).keyup(function(){
+function activateSpecialtyAutocomplete() {
+  var specialtyNames = ['Anesthesiology',
+  'Child Neurology (Neurology)',
+  'Dermatology',
+  'Diagnostic Radiology/Nuclear Medicine',
+  'Emergency Medicine',
+  'Emergency Medicine/Family Medicine',
+  'Family Medicine',
+  'Family Medicine/Preventive Medicine',
+  'Internal Medicine',
+  'Internal Medicine/Anesthesiology',
+  'Internal Medicine/Dermatology',
+  'Internal Medicine/Emergency Medicine',
+  'Internal Medicine/Family Practice',
+  'Internal Medicine/Medical Genetics',
+  'Internal Medicine/Neurology',
+  'Internal Medicine/Pediatrics',
+  'Internal Medicine/Preventive Medicine',
+  'Internal Medicine/Psychiatry',
+  'Interventional Radiology',
+  'Neurodevelopmental Disabilities (Neurology)',
+  'Neurological Surgery',
+  'Neurology',
+  'Nuclear Medicine',
+  'Obstetrics and Gynecology',
+  'Orthopaedic Surgery',
+  'Otolaryngology',
+  'Pathology-Anatomic and Clinical',
+  'Pediatrics',
+  'Pediatrics/Anesthesiology',
+  'Pediatrics/Dermatology',
+  'Pediatrics/Emergency Medicine',
+  'Pediatrics/Medical Genetics',
+  'Pediatrics/Physical Medicine and Rehabilitation',
+  'Pediatrics/Psychiatry/Child and Adolescent Psychiatry',
+  'Physical Medicine and Rehabilitation',
+  'Plastic Surgery',
+  'Plastic Surgery-Integrated',
+  'Preventive Medicine',
+  'Psychiatry',
+  'Psychiatry/Family Practice',
+  'Psychiatry/Neurology',
+  'Radiation Oncology',
+  'Radiology-Diagnostic',
+  'Surgery-General',
+  'Thoracic Surgery-Integrated',
+  'Urology',
+  'Vascular Surgery-Integrated'];
+  $('.specialty-autocomplete').autocomplete({
+    source: specialtyNames
+  });
+}
+
+$(document).on('keyup','.autocomplete-wrapper',function(){
   $autocomplete = $('.ui-autocomplete');
-  maxWidth = $('.autocomplete-wrapper').width();
+  maxWidth = $(this).width();
   if ($autocomplete.width()>maxWidth) {
     $autocomplete.css('max-width',maxWidth)
-    console.log($maxWidth)
   }
 })
 
@@ -42,6 +94,9 @@ $(window).load(function(){
   }
   if ($('.school-autocomplete')[0]) {
     activateSchoolAutocomplete();
+  }
+  if ($('.specialty-autocomplete')[0]) {
+    activateSpecialtyAutocomplete();
   }
 });
 

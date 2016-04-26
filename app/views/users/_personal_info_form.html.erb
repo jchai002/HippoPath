@@ -6,8 +6,8 @@
   </div>
 </div>
 <%= f.label 'Specialty' %><i class="fa fa-pencil pad-l-10 edit-pencil" id="specialty-edit-handle"></i><span id="specialty-status" class="status-text label label-success mar-l-10"></span>
-<div class="form-group">
-  <%= f.text_field :specialty, class: 'form-control editable-field', id: 'specialty-edit-field' %>
+<div class="form-group autocomplete-wrapper">
+  <%= f.text_field :specialty, class: 'form-control editable-field specialty-autocomplete', id: 'specialty-edit-field' %>
   <div class="info-display capitalize" id="specialty-display"><%= current_user.specialty.present? ? current_user.specialty : 'unknown' %>
   </div>
 </div>

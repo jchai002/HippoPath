@@ -5,8 +5,8 @@
     <div class="form-group autocomplete-wrapper">
       <%= f.text_field :school, :value => '', class: 'form-control school-autocomplete', placeholder: 'School', required: true, data: {'error-value-missing' => "Please Enter Your School"}  %>
     </div>
-    <div class="form-group">
-      <%= f.text_field :specialty, :value => '', class: 'form-control', placeholder: 'Specialty', required: true, data: {'error-value-missing' => "Please Enter Your Specialty"} %>
+    <div class="form-group autocomplete-wrapper">
+      <%= f.text_field :specialty, :value => '', class: 'form-control specialty-autocomplete', placeholder: 'Specialty', required: true, data: {'error-value-missing' => "Please Enter Your Specialty"} %>
     </div>
     <div class="form-group">
       <%= f.select :gender, ['Male','Female'] , { :include_blank => "Select Your Gender", :selected => "Select Your Gender"}, class: 'form-control', required: true, data: {'error-value-missing' => "Please Select Your Gender"} %>
