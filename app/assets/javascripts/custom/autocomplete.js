@@ -8,6 +8,16 @@ function activateHospitalAutocomplete() {
   });
 }
 
+function activateSchoolAutocomplete() {
+  var schoolNames = [];
+  $('.school_names').data('schoolNames').forEach(function(school){
+    schoolNames.push({'value': school['name']})
+  });
+  $('#school-autocomplete').autocomplete({
+    source: schoolNames
+  });
+}
+
 function activateHospitalEditAutocomplete(modalID) {
   var hospitalNames = [];
   $('.hospital_names').data('hospitalNames').forEach(function(hospital){
@@ -22,6 +32,9 @@ function activateHospitalEditAutocomplete(modalID) {
 $(window).load(function(){
   if ($('#hospital-autocomplete')[0]) {
     activateHospitalAutocomplete();
+  }
+  if ($('#school-autocomplete')[0]) {
+    activateSchoolAutocomplete();
   }
 });
 

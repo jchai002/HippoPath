@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def update
     if params[:user]
       current_user.update(user_params)
-      current_user.school = School.find_by({name: params[:user][:school]}) unless params[:user][:school].blank?
+      current_user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
       current_user.save
     end
     respond_to do |format|
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   def finish_signup
     if request.patch? && params[:user]
       current_user.update(user_params)
-      current_user.school = School.find_by({name: params[:user][:school]}) unless params[:user][:school].blank?
+      current_user.school = School.find_or_create_by({name: params[:user][:school]}) unless params[:user][:school].blank?
       if address_params_complete
         set_address(current_user)
       end
