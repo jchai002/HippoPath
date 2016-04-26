@@ -69,7 +69,7 @@ function activateSpecialtyAutocomplete() {
   });
 }
 
-$(document).on('keyup','.autocomplete-wrapper',function(){
+$(document).on('keydown','.autocomplete-wrapper',function(){
   $autocomplete = $('.ui-autocomplete');
   maxWidth = $(this).width();
   if ($autocomplete.width()>maxWidth) {

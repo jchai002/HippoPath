@@ -181,7 +181,9 @@ form {
 .ui-helper-hidden-accessible {
   display: none;
 }
-
+.autocomplete-wrapper {
+  position: relative;
+}
 // additional info form
 .info-edit {
   .form-group {
