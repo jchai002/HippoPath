@@ -169,7 +169,8 @@ form {
   -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   max-height: 200px;
-  overflow-y: scroll;
+  width: 100%;
+  overflow: scroll;
 }
 .ui-autocomplete > li {
   padding: 3px 15px;

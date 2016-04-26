@@ -2,8 +2,8 @@
   <div class="col-sm-12 col-md-8 col-md-offset-2">
     <h1>Please Enter Additional Info About You</h1>
     <%= form_for(current_user, as: 'user', url: finish_signup_path(current_user), html: { role: 'form', class: "pad-20", autocomplete: "off",  id: 'user-info'}) do |f| %>
-    <div class="form-group">
-      <%= f.text_field :school, :value => '', class: 'form-control', placeholder: 'School', required: true, data: {'error-value-missing' => "Please Enter Your School"}  %>
+    <div class="form-group autocomplete-wrapper">
+      <%= f.text_field :school, :value => '', class: 'form-control school-autocomplete', placeholder: 'School', required: true, data: {'error-value-missing' => "Please Enter Your School"}  %>
     </div>
     <div class="form-group">
       <%= f.text_field :specialty, :value => '', class: 'form-control', placeholder: 'Specialty', required: true, data: {'error-value-missing' => "Please Enter Your Specialty"} %>

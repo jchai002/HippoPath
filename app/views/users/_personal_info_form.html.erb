@@ -1,7 +1,7 @@
 <%= form_for(update_user_path(current_user), html: { role: 'form', class: "pad-l-20 info-edit", autocomplete: "off",  id: 'user-info'}) do |f| %>
 <%= f.label 'School' %><i class="fa fa-pencil pad-l-10 edit-pencil" id="school-edit-handle"></i><span id="school-status" class="status-text label label-success mar-l-10"></span>
-<div class="form-group">
-  <%= f.text_field :school, class: 'form-control editable-field', id: 'school-edit-field', value: current_user.school ? current_user.school.name : ''%>
+<div class="form-group autocomplete-wrapper">
+  <%= f.text_field :school, class: 'form-control editable-field school-autocomplete', id: 'school-edit-field', value: current_user.school ? current_user.school.name : ''%>
   <div class="info-display" id="school-display"><%= current_user.school.present? ? current_user.school.name : 'unknown'%>
   </div>
 </div>
