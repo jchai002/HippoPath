@@ -50,14 +50,26 @@
 #   user.save!
 # end
 require 'csv'
-file = File.expand_path('../med-school.csv', __FILE__)
-CSV.readlines(file)[1 .. -1].each do |row|
+schools_file = File.expand_path('../med-school.csv', __FILE__)
+hospital_file = File.expand_path('../hospital.csv', __FILE__)
+CSV.readlines(schools_file)[1 .. -1].each do |row|
   name = row[0]
   street = row[1]
   city = row[2]
   state = row[3]
   zip = row[4]
-  a = Address.create({street:street,city:city,state:state,zip:zip})
-  School.create({name:name,address:a})
-  sleep 0.2
+  # a = Address.create({street:street,city:city,state:state,zip:zip})
+  School.create({name:name})
+  # sleep 0.2
+end
+
+CSV.readlines(hospital_file).each do |row|
+  name = row[0].gsub(/\s+/, ' ')
+  street = row[1].gsub(/\s+/, ' ')
+  city = row[2]
+  state = row[3]
+  zip = row[4]
+  # a = Address.create({street:street,city:city,state:state,zip:zip})
+  Hospital.create({name:name})
+  # sleep 0.2
 end

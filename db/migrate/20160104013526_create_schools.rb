@@ -2,7 +2,6 @@ class CreateSchools < ActiveRecord::Migration
   def change
     create_table :schools do |t|
       t.string :name, null: false, default: '', :limit => 100
-      t.references :address
       t.timestamps null: false
     end
   end
