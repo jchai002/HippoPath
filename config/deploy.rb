@@ -113,19 +113,30 @@ namespace :deploy do
 
 end
 
-set :foreman_application, "#{application}-#{rails_env}"
- desc "Export the Procfile to Ubuntu's upstart scripts"
- task :export, roles: :app do
-   run "echo PATH=\"$PATH\"\n > #{current_path}/.env"
-   run "echo RAILS_ENV=#{rails_env}\n >> #{current_path}/.env"
-   run "echo RACK_ENV=#{rails_env}\n >> #{current_path}/.env"
-   run "cd #{current_path} && #{sudo} bundle exec foreman export upstart /etc/init -a #{foreman_application} -u #{user} -l #{shared_path}/log -d #{current_path}"
- end
+namespace :foreman do
+  desc "Start the application services"
+  task :start, :roles => :app do
+    sudo "start #{application}"
+  end
 
- [:start, :stop, :restart].each do |action|
-   desc "#{action} the foreman processes"
-   task action, :roles => :app do
-     run "#{sudo} service #{foreman_application} #{action}"
-   end
-   after "deploy:#{action}", "foreman:#{action}"
- end
+  desc "Stop the application services"
+  task :stop, :roles => :app do
+    sudo "stop #{application}"
+  end
+
+  desc "Restart the application services"
+  task :restart, :roles => :app do
+    run "sudo start #{application} || sudo restart #{application}"
+  end
+
+  desc "Display logs for a certain process - arg example: PROCESS=web-1"
+  task :logs, :roles => :app do
+    run "cd #{current_path}/log && cat #{ENV["PROCESS"]}.log"
+  end
+
+  desc "Export the Procfile to upstart scripts"
+  task :export, :roles => :app do
+    # 5 resque workers, 1 resque scheduler
+    run "cd #{release_path} && rvmsudo bundle exec foreman export upstart /etc/init -a #{application} -u #{user} -l #{shared_path}/log  -f #{release_path}/Procfile.production -c worker=5,scheduler=1"
+  end
+end
