@@ -112,31 +112,3 @@ namespace :deploy do
   # end
 
 end
-
-namespace :foreman do
-  desc "Start the application services"
-  task :start, :roles => :app do
-    sudo "start #{application}"
-  end
-
-  desc "Stop the application services"
-  task :stop, :roles => :app do
-    sudo "stop #{application}"
-  end
-
-  desc "Restart the application services"
-  task :restart, :roles => :app do
-    run "sudo start #{application} || sudo restart #{application}"
-  end
-
-  desc "Display logs for a certain process - arg example: PROCESS=web-1"
-  task :logs, :roles => :app do
-    run "cd #{current_path}/log && cat #{ENV["PROCESS"]}.log"
-  end
-
-  desc "Export the Procfile to upstart scripts"
-  task :export, :roles => :app do
-    # 5 resque workers, 1 resque scheduler
-    run "cd #{release_path} && rvmsudo bundle exec foreman export upstart /etc/init -a #{application} -u #{user} -l #{shared_path}/log  -f #{release_path}/Procfile.production -c worker=5,scheduler=1"
-  end
-end
