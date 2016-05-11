@@ -112,3 +112,28 @@ namespace :deploy do
   # end
 
 end
+
+namespace :foreman do
+  desc "Export the Procfile to Ubuntu's upstart scripts"
+  task :export, :roles => :app do
+    run "cd /Home/Deploy/HippoPath && rvmsudo bundle exec foreman export upstart /etc/init -a HippoPath -u ossum-user -l /Home/Deploy/HippoPath/log"
+  end
+
+  desc "Start the application services"
+  task :start, :roles => :app do
+    rvmsudo "start HippoPath"
+  end
+
+  desc "Stop the application services"
+  task :stop, :roles => :app do
+    rvmsudo "stop HippoPath"
+  end
+
+  desc "Restart the application services"
+  task :restart, :roles => :app do
+    run "rvmsudo start HippoPath || rvmsudo restart HippoPath"
+  end
+end
+
+after "deploy:update", "foreman:export"
+after "deploy:update", "foreman:restart"
