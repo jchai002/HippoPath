@@ -41,9 +41,9 @@ var InfoPanel = React.createClass({
       return (
         <div className={this.props.wrapperClass}>
           <div className="panel panel-info">
-            <div className="panel-heading flex">
+            <div className="panel-heading">
               {hospital}
-              <span className={"label pad-5 ride-status " + labelStyle} >{rideStatus}</span>
+              <span className={"label pull-right pad-5 " + labelStyle} >{rideStatus}</span>
             </div>
             <div className={"panel-body pad-x-10 pad-b-0 " + this.props.contentClass}>
               {bodyPanels}
