@@ -424,6 +424,11 @@
   }
 }
 
+//flexbox
+.flex {
+  display: flex;
+}
+
 //color helpers
 .dark-gray {
   color: darken($theme-gray,40%) !important;
