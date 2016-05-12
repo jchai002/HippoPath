@@ -66,25 +66,6 @@ class PrecompileRequired < StandardError; end
 #
 namespace :deploy do
 
-  namespace :foreman do
-    set :foreman_application, "#{application}-#{rails_env}"
-    desc "Export the Procfile to Ubuntu's upstart scripts"
-    task :export, roles: :app do
-      run "echo PATH=\"$PATH\"\n > #{current_path}/.env"
-      run "echo RAILS_ENV=#{rails_env}\n >> #{current_path}/.env"
-      run "echo RACK_ENV=#{rails_env}\n >> #{current_path}/.env"
-      run "cd #{current_path} && #{sudo} bundle exec foreman export upstart /etc/init -a #{foreman_application} -u #{user} -l #{shared_path}/log -d #{current_path}"
-    end
-
-    [:start, :stop, :restart].each do |action|
-      desc "#{action} the foreman processes"
-      task action, :roles => :app do
-        run "#{sudo} service #{foreman_application} #{action}"
-      end
-      after "deploy:#{action}", "foreman:#{action}"
-    end
-  end
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -128,6 +109,26 @@ namespace :deploy do
         end
       end
     end
+  end
+
+  namespace :foreman do
+    set :foreman_application, "#{fetch(:application)}-#{fetch(:rails_env, 'production')}"
+    desc "Export the Procfile to Ubuntu's upstart scripts"
+    task :export do
+      on roles(fetch(:app)) do
+        run "echo PATH=\"$PATH\"\n > #{current_path}/.env"
+        run "echo RAILS_ENV=#{fetch(:rails_env, 'production')}\n >> #{current_path}/.env"
+        run "echo RACK_ENV=#{fetch(:rails_env, 'production')}\n >> #{current_path}/.env"
+        run "cd #{current_path} && #{sudo} bundle exec foreman export upstart /etc/init -a #{foreman_application} -u #{user} -l #{shared_path}/log -d #{current_path}"
+      end
+    end
+    [:start, :stop, :restart].each do |action|
+      desc "#{action} the foreman processes"
+      task action, roles(fetch(:app))do
+      run "#{sudo} service #{foreman_application} #{action}"
+    end
+    after "#{action}", "foreman:#{action}"
+  end
   end
 
 end
