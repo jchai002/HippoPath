@@ -24,7 +24,16 @@ function setAddressWithGeolocation() {
     }
   );
   function onSuccess(position) {
-    $.post('/set_address_with_geolocation',position)
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    var apiDestination = "https://maps.googleapis.com/maps/api/geocode/json?latlng="
+    apiDestination += (latitude+','+longitude)
+    $.post({
+      url:apiDestination,
+      success: function(data) {
+        console.log(data)
+      }
+    });
   }
   function onError(err) {
     var message;

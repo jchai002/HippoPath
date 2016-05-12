@@ -3,21 +3,28 @@ class Address < ActiveRecord::Base
   belongs_to :hospital
   belongs_to :school
   before_save :prepare_address
+  after_create :set_coords
 
   def prepare_address
-      street.downcase! unless street.blank?
-      city.downcase! unless city.blank?
-      state.upcase! unless state.blank?
-      apt.downcase! unless apt.blank?
-      self.full_address = "#{self.street} #{self.city} #{self.state} #{self.zip}"
+    street.downcase! unless street.blank?
+    city.downcase! unless city.blank?
+    state.upcase! unless state.blank?
+    apt.downcase! unless apt.blank?
+    self.full_address = "#{self.street} #{self.city} #{self.state} #{self.zip}"
+  end
+
+  def set_coords
+    binding.pry
     unless self.full_address.blank?
       coords = Geocoder.coordinates(self.full_address)
       if coords
         self.latitude = coords[0]
         self.longitude = coords[1]
         self.valid_address = true
+        self.save
       end
     end
+    binding.pry
   end
 
   def self.create_address_by_coords(latitude,longitude)
