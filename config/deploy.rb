@@ -111,24 +111,24 @@ namespace :deploy do
     end
   end
 
-  namespace :foreman do
-    set :foreman_application, "#{fetch(:application)}-#{fetch(:rails_env, 'production')}"
-    desc "Export the Procfile to Ubuntu's upstart scripts"
-    task :export do
-      on roles(fetch(:app)) do
-        run "echo PATH=\"$PATH\"\n > #{current_path}/.env"
-        run "echo RAILS_ENV=#{fetch(:rails_env, 'production')}\n >> #{current_path}/.env"
-        run "echo RACK_ENV=#{fetch(:rails_env, 'production')}\n >> #{current_path}/.env"
-        run "cd #{current_path} && #{sudo} bundle exec foreman export upstart /etc/init -a #{foreman_application} -u #{user} -l #{shared_path}/log -d #{current_path}"
-      end
-    end
-    [:start, :stop, :restart].each do |action|
-      desc "#{action} the foreman processes"
-      task action, roles(fetch(:app))do
-      run "#{sudo} service #{foreman_application} #{action}"
-    end
-    after "#{action}", "foreman:#{action}"
-  end
-  end
+  # namespace :foreman do
+  #   set :foreman_application, "#{fetch(:application)}-#{fetch(:rails_env, 'production')}"
+  #   desc "Export the Procfile to Ubuntu's upstart scripts"
+  #   task :export do
+  #     on roles(fetch(:app)) do
+  #       run "echo PATH=\"$PATH\"\n > #{current_path}/.env"
+  #       run "echo RAILS_ENV=#{fetch(:rails_env, 'production')}\n >> #{current_path}/.env"
+  #       run "echo RACK_ENV=#{fetch(:rails_env, 'production')}\n >> #{current_path}/.env"
+  #       run "cd #{current_path} && #{sudo} bundle exec foreman export upstart /etc/init -a #{foreman_application} -u #{user} -l #{shared_path}/log -d #{current_path}"
+  #     end
+  #   end
+  #   [:start, :stop, :restart].each do |action|
+  #     desc "#{action} the foreman processes"
+  #     task action, roles(fetch(:app))do
+  #     run "#{sudo} service #{foreman_application} #{action}"
+  #   end
+  #   after "#{action}", "foreman:#{action}"
+  # end
+  # end
 
 end
