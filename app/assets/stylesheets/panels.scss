@@ -3,6 +3,13 @@
   max-height: 180px !important;
 }
 
+.panel-title {
+  white-space: nowrap;
+  max-width: 75%;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
 .panel {
   padding: 0px !important;
   min-height: 100px;

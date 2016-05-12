@@ -41,8 +41,8 @@ var InfoPanel = React.createClass({
       return (
         <div className={this.props.wrapperClass}>
           <div className="panel panel-info">
-            <div className="panel-heading flex">
-              {hospital}
+            <div className="panel-heading flex-space-between">
+              <span className="panel-title" data-toggle="tooltip" title={hospital} >{hospital}</span>
               <span className={"label pad-5 ride-status " + labelStyle} >{rideStatus}</span>
             </div>
             <div className={"panel-body pad-x-10 pad-b-0 " + this.props.contentClass}>
@@ -56,5 +56,8 @@ var InfoPanel = React.createClass({
   },
   handleUpdate: function(event){
     this.props.handleUpdate();
+  },
+  componentDidMount: function() {
+    $('[data-toggle="tooltip"]').tooltip();
   }
 });
