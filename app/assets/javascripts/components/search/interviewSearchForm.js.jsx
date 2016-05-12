@@ -12,7 +12,7 @@ var InterviewSearchForm = React.createClass({
 
         <div className="flex-wrapper">
           <div className="form-group mar-y-10">
-            <input type="text" name="hospital" className="form-control autocomplete-wrapper" id="autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange} placeholder="Enter Hospital"/>
+            <input type="text" name="hospital" className="form-control autocomplete-wrapper" id="hospital-autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange} placeholder="Enter Hospital"/>
           </div>
 
           <div className="form-group mar-y-0">
@@ -41,7 +41,7 @@ var InterviewSearchForm = React.createClass({
     );
   },
   handleSubmit: function(event){
-    event.preventDefault()
+    event.preventDefault();
     var formData = {
       interview_info: this.state
     }
