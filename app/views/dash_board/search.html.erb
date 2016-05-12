@@ -3,8 +3,12 @@
 <%= content_tag :div, class: "hospital_names", data: {hospital_names: @hospital_names} do %>
 <% end %>
 <script>
-  $(document).on('click', '.save-interview', function(){
-    var url = $(this).data('url')
-    $.post(url);
-  });
+$(document).on('click', '.save-interview', function(){
+  var url = $(this).data('url')
+  $.post(url);
+});
+
+$(document).on('blur', '.has-error', function() {
+  $('.has-error').removeClass('has-error');
+})
 </script>

@@ -56,8 +56,5 @@ var InfoPanel = React.createClass({
   },
   handleUpdate: function(event){
     this.props.handleUpdate();
-  },
-  componentDidMount: function() {
-    $('[data-toggle="tooltip"]').tooltip();
   }
 });

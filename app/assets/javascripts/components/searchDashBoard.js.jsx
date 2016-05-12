@@ -65,6 +65,10 @@ var SearchDashBoard = React.createClass({
       var interviews = this.state.originalData.map((interviewObject) => {
         return this.setDistance(interviewObject,true)
       });
+      if (!interviews[0]) {
+        $('.slideDown').fadeOut().fadeIn();
+        $('.slideUp').fadeOut().fadeIn();
+      }
       var processedData = this.processData();
       this.setCurrentDataStore(processedData)
     })

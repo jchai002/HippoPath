@@ -11,7 +11,7 @@ var InterviewSearchForm = React.createClass({
       <form className="custom-form" onSubmit={this.handleSubmit}>
 
         <div className="flex-wrapper">
-          <div className="form-group mar-y-10">
+          <div className="form-group mar-y-10 hospital-input">
             <input type="text" name="hospital" className="form-control autocomplete-wrapper" id="hospital-autocomplete" onBlur={this.handleHospitalChange} onChange={this.handleHospitalChange} placeholder="Enter Hospital"/>
           </div>
 
@@ -42,6 +42,33 @@ var InterviewSearchForm = React.createClass({
   },
   handleSubmit: function(event){
     event.preventDefault();
+    var hospitalInvalid = !$('#hospital-autocomplete').val().match(/\S/)
+    var dateInvalid = !$('#interview-time').val()
+    if (hospitalInvalid) {
+      $('.hospital-input')
+      .addClass('has-error')
+      .addClass('shake')
+      .promise()
+      .done(function() {
+        setTimeout(function(){ $('.hospital-input').removeClass('shake'); }, 1000);
+      })
+    }
+    else if (dateInvalid) {
+      $('.hospital-input')
+        .removeClass('has-error')
+        $('.date')
+        .addClass('has-error')
+        .addClass('shake')
+        .promise()
+        .done(function() {
+          setTimeout(function(){ $('.date').removeClass('shake'); }, 1000);
+        })
+    }
+    else {
+      this.postFormData();
+    }
+  },
+  postFormData: function(){
     var formData = {
       interview_info: this.state
     }
