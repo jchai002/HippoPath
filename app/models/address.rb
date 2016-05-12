@@ -14,8 +14,7 @@ class Address < ActiveRecord::Base
   end
 
   def set_coords
-    binding.pry
-    unless self.full_address.blank?
+    unless self.full_address.blank? || self.browser_generated
       coords = Geocoder.coordinates(self.full_address)
       if coords
         self.latitude = coords[0]
@@ -24,20 +23,6 @@ class Address < ActiveRecord::Base
         self.save
       end
     end
-    binding.pry
   end
 
-  def self.create_address_by_coords(latitude,longitude)
-    query = "#{latitude},#{longitude}"
-    begin
-      address = Geocoder.search(query).first.data["address_components"]
-      street = address[0]['long_name'].downcase + ' ' + address[1]['long_name'].downcase
-      city = address[2]['long_name'].downcase
-      state = address[4]['short_name'].upcase
-      zip = address[6]['long_name'].downcase
-      return find_or_create_by({street:street,city:city,state:state,zip:zip})
-    rescue
-      return false
-    end
-  end
 end

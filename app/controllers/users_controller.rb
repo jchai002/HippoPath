@@ -46,9 +46,8 @@ class UsersController < ApplicationController
   end
 
   def set_address_with_geolocation
-    latitude = params[:coords][:latitude]
-    longitude = params[:coords][:longitude]
-    @address= Address.create_address_by_coords(latitude,longitude)
+    @address= Address.find_or_create_by({street: params[:street], city: params[:city], state: params[:state], zip: params[:zip], full_address: params[:full_address], browser_generated: true, valid_address: true})
+    @address.update_attributes({latitude: params[:latitude], longitude: params[:longitude]}) if @address.browser_generated?
     @user = current_user
     @user.update_attributes({address:@address}) if @address
     respond_to do |format|

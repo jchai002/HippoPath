@@ -31,7 +31,20 @@ function setAddressWithGeolocation() {
     $.post({
       url:apiDestination,
       success: function(data) {
-        console.log(data)
+        var address = {};
+        var full_address = data.results[0].formatted_address;
+        address['full_address'] = full_address;
+        address['street'] = full_address.split(',')[0];
+        address['city'] = full_address.split(',')[1].replace(/\s/g, '');
+        var stateZip = $.trim(full_address.split(',')[2]);
+        address['state'] = stateZip.split(' ')[0];
+        address['zip'] = stateZip.split(' ')[1];
+        address['latitude'] = data.results[0].geometry.location.lat;
+        address['longitude'] = data.results[0].geometry.location.lng;
+        $.post({
+          url:'/set_address_with_geolocation',
+          data: address
+        })
       }
     });
   }
