@@ -259,6 +259,8 @@ GEM
       json (~> 1.4)
     responders (2.1.2)
       railties (>= 4.2.0, < 5.1)
+    rollbar (2.11.3)
+      multi_json
     sass (3.4.22)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -346,6 +348,7 @@ DEPENDENCIES
   rails (= 4.2.4)
   rails-assets-tether (>= 1.1.0)!
   react-rails!
+  rollbar
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
@@ -353,6 +356,9 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unread
   web-console (~> 2.0)
+
+RUBY VERSION
+   ruby 2.3.0p0
 
 BUNDLED WITH
    1.12.3

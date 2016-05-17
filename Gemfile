@@ -33,6 +33,8 @@ gem 'unread'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails'
 
+
+# User account management
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
@@ -42,9 +44,17 @@ gem 'omniauth-linkedin'
 # error handling
 gem 'gaffe'
 
+# error monitoring
+gem 'rollbar'
+
+# real time chat features
 gem 'private_pub'
 gem 'thin'
+
+# JavaScript utility library
 gem 'lodash-rails'
+
+# Google map based geolocation support
 gem 'geocoder'
 
 #production web server
@@ -69,11 +79,7 @@ gem 'figaro'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'faker'
-# Use Unicorn as the app server
-# gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
