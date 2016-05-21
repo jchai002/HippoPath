@@ -59,9 +59,9 @@ CSV.readlines(schools_file)[1 .. -1].each do |row|
   city = row[2]
   state = row[3]
   zip = row[4]
-  a = Address.create({street:street,city:city,state:state,zip:zip})
-  School.create({name:name})
-  sleep 0.2
+  a = Address.find_or_create_by({street:street,city:city,state:state,zip:zip})
+  School.find_or_create_by({name:name})
+  sleep 0.5
 end
 
 CSV.readlines(hospital_file).each do |row|
@@ -70,7 +70,7 @@ CSV.readlines(hospital_file).each do |row|
   city = row[2]
   state = row[3]
   zip = row[4]
-  a = Address.create({street:street,city:city,state:state,zip:zip})
-  Hospital.create({name:name})
-  sleep 0.2
+  a = Address.find_or_create_by({street:street,city:city,state:state,zip:zip})
+  Hospital.find_or_create_by({name:name})
+  sleep 0.5
 end
