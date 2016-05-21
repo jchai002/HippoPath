@@ -30,7 +30,9 @@ gem 'bootstrap_form'
 
 gem 'unread'
 
+# time and locale support
 gem 'momentjs-rails', '>= 2.9.0'
+gem 'local_time'
 gem 'bootstrap3-datetimepicker-rails'
 
 

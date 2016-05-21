@@ -14,8 +14,6 @@
       </div>
       <p><%= message.body %></p>
     </div>
-    <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
-      <%= message_interlocutor(message).name %> • <%= message.created_at.strftime("%H:%M %p") %>
-    </time>
+    <%= local_time(message.created_at) %>
   </div>
 </li>

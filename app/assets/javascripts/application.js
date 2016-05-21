@@ -11,3 +11,4 @@
 //= require_tree ./plugins
 //= require_tree ./custom
 //= require components
+//= require local_time
