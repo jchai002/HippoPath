@@ -14,18 +14,8 @@
       </div>
       <p><%= message.body %></p>
     </div>
-    <time>
-      <span class="time-<%=message.id%>"></span>
+    <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
+      <%= message_interlocutor(message).name %> • <%= message.created_at.strftime("%H:%M %p") %>
     </time>
   </div>
 </li>
-
-<script>
-  function displayTime() {
-    var timeDisplay = $('.time-<%=message.id%>');
-    var time = moment().format('LLL');
-    timeDisplay.text(time);
-    console.log(timeDisplay)
-  }
-  $(document).change(displayTime());
-</script>
