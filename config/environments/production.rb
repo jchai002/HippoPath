@@ -2,7 +2,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # General Settings
-  config.app_domain = 'http://hippopath.org/'
+  config.app_domain = 'https://hippopath.org/'
   Rails.application.routes.default_url_options[:host] = config.app_domain
   config.action_mailer.default_url_options = { host: config.app_domain }
 
@@ -112,6 +112,7 @@ Rails.application.configure do
       :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     },
+    :s3_protocol => :https,
     :url =>':s3_domain_url',
     :path => '/:class/:attachment/:id_partition/:style/:filename'
   }
