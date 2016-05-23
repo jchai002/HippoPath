@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require lodash
-//= require private_pub
+//= require private_pub_override
 //= require bootstrap
 //= require react
 //= require react_ujs
