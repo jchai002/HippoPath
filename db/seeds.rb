@@ -1,55 +1,16 @@
+hospital_names = ["University of Alabama Medical Center (Montgomery)","Maricopa Medical Center","St Joseph's Hospital and Medical Center","University of Arizona College of Medicine at South Campus","University of Arizona College of Medicine-Phoenix","Mayo Clinic College of Medicine (Arizona)","University of Arkansas College of Medicine","University of Arkansas for Medical Sciences","Eisenhower Medical Center","Kaiser Permanente Southern California","University of California Riverside School of Medicine","Arrowhead Regional Medical Center","Cedars-Sinai Medical Center","White Memorial Medical Center","Huntington Memorial Hospital","Los Angeles County-Harbor- UCLA Medical Center","Kaiser Permanente Southern California (Los Angeles)","Kaiser Permanente Medical Group (Northern California/Oakland","Kaiser Permanente Medical Group (Northern California)/San Francisco","California Pacific Medical Center","San Joaquin General Hospital","University of California (Davis) Health System","University of California (Irvine)","Loma Linda University Health Education Consortium"]
+
 hospitals = []
-(1..10).each do |number|
-  hospitals << Hospital.create({name:"Hospital #{number}"})
+
+hospital_names.each do |h|
+  Hospital.create({name:h})
 end
 
 specialties = ['Anesthesiology',
-'Child Neurology (Neurology)',
 'Dermatology',
 'Diagnostic Radiology/Nuclear Medicine',
 'Emergency Medicine',
-'Emergency Medicine/Family Medicine',
-'Family Medicine',
-'Family Medicine/Preventive Medicine',
-'Internal Medicine',
-'Internal Medicine/Anesthesiology',
-'Internal Medicine/Dermatology',
-'Internal Medicine/Emergency Medicine',
-'Internal Medicine/Family Practice',
-'Internal Medicine/Medical Genetics',
-'Internal Medicine/Neurology',
-'Internal Medicine/Pediatrics',
-'Internal Medicine/Preventive Medicine',
-'Internal Medicine/Psychiatry',
-'Interventional Radiology',
-'Neurodevelopmental Disabilities (Neurology)',
-'Neurological Surgery',
-'Neurology',
-'Nuclear Medicine',
-'Obstetrics and Gynecology',
-'Orthopaedic Surgery',
-'Otolaryngology',
-'Pathology-Anatomic and Clinical',
-'Pediatrics',
-'Pediatrics/Anesthesiology',
-'Pediatrics/Dermatology',
-'Pediatrics/Emergency Medicine',
-'Pediatrics/Medical Genetics',
-'Pediatrics/Physical Medicine and Rehabilitation',
-'Pediatrics/Psychiatry/Child and Adolescent Psychiatry',
-'Physical Medicine and Rehabilitation',
-'Plastic Surgery',
-'Plastic Surgery-Integrated',
-'Preventive Medicine',
-'Psychiatry',
-'Psychiatry/Family Practice',
-'Psychiatry/Neurology',
-'Radiation Oncology',
-'Radiology-Diagnostic',
-'Surgery-General',
-'Thoracic Surgery-Integrated',
-'Urology',
-'Vascular Surgery-Integrated']
+'Family Medicine']
 
 school_names = ['Yale School of Medicine','Northwestern University Feinberg School of Medicine','University of Minnesota Medical School']
 
@@ -91,32 +52,36 @@ u8.address=a8
 
 # users.each do |user|
 #   5.times do
-#     user.posted_interviews.create({date: "04/01/2016",time:"8:00AM", ride_status:"Need Ride", hospital:hospitals.first})
+#     user.posted_interviews.create({date: "#{['04','05','10','12'].sample}/01/2016",time:"#{(1..12).to_a.sample}:00#{['A.M','P.M'].sample}", ride_status:"Need Ride", hospital:hospitals.sample})
 #   end
 #   user.save!
 # end
 
-require 'csv'
-schools_file = File.expand_path('../med-school.csv', __FILE__)
-hospital_file = File.expand_path('../hospital.csv', __FILE__)
-CSV.readlines(schools_file)[1 .. -1].each do |row|
-  name = row[0]
-  street = row[1]
-  city = row[2]
-  state = row[3]
-  zip = row[4]
-  a = Address.find_or_create_by({street:street,city:city,state:state,zip:zip})
-  School.find_or_create_by({name:name})
-  sleep 0.5
-end
-
-CSV.readlines(hospital_file).each do |row|
-  name = row[0].gsub(/\s+/, ' ')
-  street = row[1].gsub(/\s+/, ' ')
-  city = row[2]
-  state = row[3]
-  zip = row[4]
-  a = Address.find_or_create_by({street:street,city:city,state:state,zip:zip})
-  Hospital.find_or_create_by({name:name})
-  sleep 0.5
-end
+# require 'csv'
+# schools_file = File.expand_path('../med-school.csv', __FILE__)
+# hospital_file = File.expand_path('../hospital.csv', __FILE__)
+# CSV.readlines(schools_file)[1 .. -1].each do |row|
+#   name = row[0]
+#   street = row[1]
+#   city = row[2]
+#   state = row[3]
+#   zip = row[4]
+#   a = Address.find_or_create_by({street:street,city:city,state:state,zip:zip})
+#   s = School.find_or_create_by({name:name})
+#   s.address = a
+#   s.save!
+#   sleep 0.5
+# end
+#
+# CSV.readlines(hospital_file).each do |row|
+#   name = row[0].gsub(/\s+/, ' ')
+#   street = row[1].gsub(/\s+/, ' ')
+#   city = row[2]
+#   state = row[3]
+#   zip = row[4]
+#   a = Address.find_or_create_by({street:street,city:city,state:state,zip:zip})
+#   h = Hospital.find_or_create_by({name:name})
+#   h.address = a
+#   h.save!
+#   sleep 0.5
+# end
