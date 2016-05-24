@@ -1,8 +1,0 @@
----
-port: 4443
-ssl: true
-ssl_key_file: /etc/letsencrypt/live/hippopath.org/privkey.pem
-ssl_cert_file: /etc/letsencrypt/live/hippopath.org/fullchain.pem
-environment: production
-rackup: private_pub.ru
-daemonize: true
