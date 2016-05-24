@@ -7,6 +7,10 @@
     <div class="alert alert-danger" role="alert"><%= alert %></div>
     <%end%>
 
+    <%if flash[:notice]%>
+    <div class="alert alert-success" role="alert"><%= flash[:notice] %></div>
+    <%end%>
+
     <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
       <%= f.email_field :email, autofocus: true, hide_label: true, placeholder: "email" %>
