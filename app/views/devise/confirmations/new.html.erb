@@ -4,9 +4,9 @@
     <h2>Resend Confirmation Email</h2>
     <hr/>
 
-    <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= bootstrap_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
     <div class="field">
-      <%= f.email_field :email, autofocus: true, hide_label: true, placeholder: "email" %>
+      <%= f.email_field :email, autofocus: true, hide_label: true, placeholder: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
     </div>
 
     <div class="actions">
