@@ -6,15 +6,6 @@ test:
   server: "http://localhost:9292/faye"
   secret_token: "secret"
 production:
-  server: "http://hippopath.org:9292/faye"
+  server: "https://hippopath.org/faye"
   secret_token: "04e13fcc7f1c88f81608101e49220698241472f1a5578a485b818cb328d237c2"
   signature_expiration: 3600 # one hour
-
----
-port: 4443
-ssl: true
-ssl_key_file: /etc/letsencrypt/live/hippopath.org/privkey.pem
-ssl_cert_file: /etc/letsencrypt/live/hippopath.org/fullchain.pem
-environment: production
-rackup: private_pub.ru
-daemonize: true
