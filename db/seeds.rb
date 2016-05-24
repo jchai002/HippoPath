@@ -3,7 +3,53 @@ hospitals = []
   hospitals << Hospital.create({name:"Hospital #{number}"})
 end
 
-specialties = ['oncology','emergency','cardiology','radiology','internal medicine','gyno','OGBYN','pediatrics']
+specialties = ['Anesthesiology',
+'Child Neurology (Neurology)',
+'Dermatology',
+'Diagnostic Radiology/Nuclear Medicine',
+'Emergency Medicine',
+'Emergency Medicine/Family Medicine',
+'Family Medicine',
+'Family Medicine/Preventive Medicine',
+'Internal Medicine',
+'Internal Medicine/Anesthesiology',
+'Internal Medicine/Dermatology',
+'Internal Medicine/Emergency Medicine',
+'Internal Medicine/Family Practice',
+'Internal Medicine/Medical Genetics',
+'Internal Medicine/Neurology',
+'Internal Medicine/Pediatrics',
+'Internal Medicine/Preventive Medicine',
+'Internal Medicine/Psychiatry',
+'Interventional Radiology',
+'Neurodevelopmental Disabilities (Neurology)',
+'Neurological Surgery',
+'Neurology',
+'Nuclear Medicine',
+'Obstetrics and Gynecology',
+'Orthopaedic Surgery',
+'Otolaryngology',
+'Pathology-Anatomic and Clinical',
+'Pediatrics',
+'Pediatrics/Anesthesiology',
+'Pediatrics/Dermatology',
+'Pediatrics/Emergency Medicine',
+'Pediatrics/Medical Genetics',
+'Pediatrics/Physical Medicine and Rehabilitation',
+'Pediatrics/Psychiatry/Child and Adolescent Psychiatry',
+'Physical Medicine and Rehabilitation',
+'Plastic Surgery',
+'Plastic Surgery-Integrated',
+'Preventive Medicine',
+'Psychiatry',
+'Psychiatry/Family Practice',
+'Psychiatry/Neurology',
+'Radiation Oncology',
+'Radiology-Diagnostic',
+'Surgery-General',
+'Thoracic Surgery-Integrated',
+'Urology',
+'Vascular Surgery-Integrated']
 
 school_names = ['Yale School of Medicine','Northwestern University Feinberg School of Medicine','University of Minnesota Medical School']
 
@@ -13,16 +59,16 @@ school_names.each do |name|
   schools << School.create({name:name})
 end
 
-u1= User.create({name:Faker::Name.name,gender:'Male', email:'test1@med.edu', password:'12345678', school:schools.sample,specialty:'oncology'})
-u2= User.create({name:Faker::Name.name,gender:'Male', email:'test2@med.edu', password:'12345678', school:schools.sample, specialty:'oncology'})
-u3= User.create({name:Faker::Name.name,gender:'Male', email:'test3@med.edu', password:'12345678', school:schools.sample, specialty:'oncology'})
-u4= User.create({name:Faker::Name.name,gender:'Male', email:'test4@med.edu', password:'12345678', school:schools.sample, specialty:'emergency'})
-u5= User.create({name:Faker::Name.name,gender:'Male', email:'test5@med.edu', password:'12345678', school:schools.sample, specialty:'cardiology'})
-u6= User.create({name:Faker::Name.name,gender:'Female', email:'test6@med.edu', password:'12345678', school:schools.sample, specialty:'cardiology'})
-u7= User.create({name:Faker::Name.name,gender:'Female', email:'test7@med.edu', password:'12345678', school:schools.sample, specialty:'radiology'})
-u8= User.create({name:Faker::Name.name,gender:'Female', email:'test8@med.edu', password:'12345678', school:schools.sample, specialty:'radiology'})
-u9= User.create({name:Faker::Name.name,gender:'Female', email:'test9@med.edu', password:'12345678', school:schools.sample, specialty:'pediatrics'})
-u10= User.create({name:Faker::Name.name,gender:'Female', email:'test10@med.edu', password:'12345678', school:schools.sample, specialty:'pediatrics'})
+u1= User.create({name:Faker::Name.name,gender:'Male', email:'test1@med.edu', password:'12345678', school:schools.sample,specialty:specialties.sample,confirmed_at:Time.now})
+u2= User.create({name:Faker::Name.name,gender:'Male', email:'test2@med.edu', password:'12345678', school:schools.sample, specialty:specialties.sample,confirmed_at:Time.now})
+u3= User.create({name:Faker::Name.name,gender:'Male', email:'test3@med.edu', password:'12345678', school:schools.sample, specialty:specialties.sample,confirmed_at:Time.now})
+u4= User.create({name:Faker::Name.name,gender:'Male', email:'test4@med.edu', password:'12345678', school:schools.sample, specialty:specialties.sample,confirmed_at:Time.now})
+u5= User.create({name:Faker::Name.name,gender:'Male', email:'test5@med.edu', password:'12345678', school:schools.sample, specialty:specialties.sample,confirmed_at:Time.now})
+u6= User.create({name:Faker::Name.name,gender:'Female', email:'test6@med.edu', password:'12345678', school:schools.sample, specialty:specialties.sample,confirmed_at:Time.now})
+u7= User.create({name:Faker::Name.name,gender:'Female', email:'test7@med.edu', password:'12345678', school:schools.sample, specialty:specialties.sample,confirmed_at:Time.now})
+u8= User.create({name:Faker::Name.name,gender:'Female', email:'test8@med.edu', password:'12345678', school:schools.sample, specialty:specialties.sample,confirmed_at:Time.now})
+u9= User.create({name:Faker::Name.name,gender:'Female', email:'test9@med.edu', password:'12345678', school:schools.sample, specialty:specialties.sample,confirmed_at:Time.now})
+u10= User.create({name:Faker::Name.name,gender:'Female', email:'test10@med.edu', password:'12345678', school:schools.sample, specialty:specialties.sample,confirmed_at:Time.now})
 users = [u1,u2,u3,u4,u5,u6,u7,u8,u9,u10]
 
 a1 = Address.create({street:'212 Union Ave Se', city:'Olympia', state:'WA', zip:'98501'})
