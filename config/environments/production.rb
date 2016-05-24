@@ -116,6 +116,4 @@ Rails.application.configure do
     :url =>':s3_domain_url',
     :path => '/:class/:attachment/:id_partition/:style/:filename'
   }
-
-  config.web_console.development_only = false
 end
