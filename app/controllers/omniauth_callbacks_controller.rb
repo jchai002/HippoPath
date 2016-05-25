@@ -4,6 +4,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     class_eval %Q{
       def #{provider}
         @user = User.find_for_oauth(env["omniauth.auth"], current_user)
+        @user.skip_confirmation!
         photo = env["omniauth.auth"]["info"]["image"]+"?type=large"
         @user.update_attributes({image:URI.parse(photo)}) if photo && !@user.image.exists?
         if @user.persisted?
