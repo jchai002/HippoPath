@@ -3,7 +3,7 @@ class Interview < ActiveRecord::Base
   belongs_to :saver, :class_name => 'User'
   belongs_to :hospital
   validates_presence_of :poster, :hospital
-
+  scope :enabled, -> {where(disabled:false)}
   #takes a search object with properties
   def self.search(search_parameters)
     hospital_name = search_parameters[:hospital].downcase

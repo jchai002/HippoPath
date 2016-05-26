@@ -9,7 +9,7 @@ var SearchDashBoard = React.createClass({
       currentPage: null,
       hidingOwnInterviews: false,
       currentlySortingBy: 'distance',
-      filters: ['hide-own'],
+      filters: [],
       currentTimeSortDirection: 'asc',
       currentCreatedAtSortDirection: 'asc'
     }
