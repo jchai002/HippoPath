@@ -335,6 +335,9 @@ var SearchDashBoard = React.createClass({
     this.styleSortButtons();
     this.styleFilterButtons();
     $('[data-toggle="tooltip"]').tooltip();
+    if (this.state.searched) {
+      $('#filters-row').show();
+    }
   },
   setCurrentDataStore: function(dataSet){
     this.setState({
@@ -346,7 +349,6 @@ var SearchDashBoard = React.createClass({
   render: function() {
     var display;
     if (!this.state.searched) {
-      console.log(this.state.originalData)
       display = <Table data={this.state.originalData} currentUserId={this.props.current_user_id} savedInterviewIds = {this.props.saved_interview_ids}/>
     }
     else if (this.state.resultsToDisplay && this.state.resultsToDisplay.length > 0) {
@@ -354,6 +356,7 @@ var SearchDashBoard = React.createClass({
     } else {
       display = <div className="panel panel-default empty-result"><div className="slideDown"><i className="fa fa-battery-empty fa-3x mar-b-20"></i></div><div className="slideUp"><h1>No Results Found</h1></div></div>;
     }
+    var title = this.state.searched ? <h3 className="mar-l-15 mar-b-20">Search Results</h3> : <h3 className="mar-l-15 mar-b-20">Recently Posted Interviews</h3>
       return (
         <div>
           <div className="row">
@@ -362,7 +365,10 @@ var SearchDashBoard = React.createClass({
             </div>
           </div>
           <div className="row">
-            <div className="mar-l-20 pad-b-20 sort-filter">
+            {title}
+          </div>
+          <div className="row" id="filters-row">
+            <div className="mar-l-15 pad-b-20 sort-filter">
               <span className="button-group">
                 <span className="pad-r-5">Sort By:</span>
                 <span className="sort-group">
@@ -380,6 +386,8 @@ var SearchDashBoard = React.createClass({
                 </span>
               </span>
             </div>
+          </div>
+          <div className="row">
             <div className="col-sm-12">
               {display}
             </div>
