@@ -10,9 +10,9 @@ class Interview < ActiveRecord::Base
     date = search_parameters[:date]
     ride_status = search_parameters[:ride_status].downcase
     if ride_status == 'either'
-      result = joins(:hospital).where('lower(hospitals.name) = ? AND date LIKE ?', hospital_name , date)
+      result = joins(:hospital).where('lower(hospitals.name) = ? AND date LIKE ? AND disabled = ?', hospital_name , date, false)
     else
-      result = joins(:hospital).where('lower(hospitals.name) = ? AND date LIKE ? AND lower(ride_status) LIKE ?', hospital_name , date, ride_status)
+      result = joins(:hospital).where('lower(hospitals.name) = ? AND date LIKE ? AND lower(ride_status) LIKE ? AND disabled = ?', hospital_name , date, ride_status, false)
     end
   end
 
