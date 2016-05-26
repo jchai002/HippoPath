@@ -30,8 +30,8 @@ var InfoPanel = React.createClass({
     });
     var actions;
     if (this.props.layoutType === 'interview') {
-      var searchButton = <a className="btn btn-primary mar-b-15 mar-l-20 mar-r-5" href={"/interviews/search/?hospital="+hospital+"&ride_status="+rideStatus+"&date="+date}>Find Match</a>
-      actions = <div className="panel-actions-flex-container"><span>{searchButton}</span><InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.props.handleDelete} /></div>
+      var searchButton = <a className="btn btn-primary mar-b-15 mar-l-20 mar-r-20" href={"/interviews/search/?hospital="+hospital+"&ride_status="+rideStatus+"&date="+date}>Find Match</a>
+      actions = <div className="panel-actions-flex-container"><span className="button-group">{searchButton}</span><InterviewButtons key={this.props.key} url={this.props.url} data={interviewInfo} handleUpdate={this.props.handleUpdate} handleDelete={this.props.handleDelete} /></div>
     }
     if (this.props.layoutType === 'saved') {
       actions = <div className="panel-actions-flex-container"><span className="dark-gray mar-l-15 mar-b-10">posted {postedTime}</span><SavedButtons data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId} handleRemove={this.props.handleRemove}/></div>;

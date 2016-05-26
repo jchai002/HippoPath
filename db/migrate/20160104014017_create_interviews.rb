@@ -7,6 +7,7 @@ class CreateInterviews < ActiveRecord::Migration
       t.references :poster
       t.references :saver
       t.references :hospital
+      t.boolean :disabled, default: false
 
       t.timestamps null: false
     end

@@ -61,14 +61,15 @@ ActiveRecord::Schema.define(version: 20160404042620) do
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "interviews", force: :cascade do |t|
-    t.string   "date",        limit: 20, null: false
-    t.string   "time",        limit: 20, null: false
-    t.string   "ride_status", limit: 20, null: false
+    t.string   "date",        limit: 20,                 null: false
+    t.string   "time",        limit: 20,                 null: false
+    t.string   "ride_status", limit: 20,                 null: false
     t.integer  "poster_id"
     t.integer  "saver_id"
     t.integer  "hospital_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.boolean  "disabled",               default: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   create_table "messages", force: :cascade do |t|

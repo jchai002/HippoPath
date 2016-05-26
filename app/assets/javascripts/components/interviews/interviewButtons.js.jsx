@@ -5,6 +5,7 @@ var InterviewButtons = React.createClass({
     return (
       <div className="interview-buttons">
         <button type="button" className="btn btn-danger mar-b-15 mar-l-20 mar-r-5" onClick={this.handleDeleteClick}>Delete</button>
+        <button type="button" className="btn btn-warning mar-b-15 mar-l-5 mar-r-5">Disable</button>
         <button type="button"  data-toggle="modal" data-target={"#myModal"+rowID} className="btn btn-success edit-button mar-b-15 mar-r-20 mar-l-5">Edit</button>
 
         <div className="modal fade" id={"myModal"+rowID} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
