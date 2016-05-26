@@ -1,5 +1,5 @@
 <%= render partial: 'partials/invalid_address_warning' %>
-<%= react_component 'SearchDashBoard', data: @interviews,token: form_authenticity_token, current_user_id: current_user.id, current_user_coords: ([@address.latitude, @address.longitude] if @address), current_user_school: (current_user.school.name if current_user.school), current_user_specialty: current_user.specialty, saved_interview_ids: @saved_interview_ids%>
+<%= react_component 'SearchDashBoard', data: @interviews,recent: @recent_interviews, token: form_authenticity_token, current_user_id: current_user.id, current_user_coords: ([@address.latitude, @address.longitude] if @address), current_user_school: (current_user.school.name if current_user.school), current_user_specialty: current_user.specialty, saved_interview_ids: @saved_interview_ids%>
 <%= content_tag :div, class: "hospital_names", data: {hospital_names: @hospital_names} do %>
 <% end %>
 <script>

@@ -14,6 +14,7 @@ class DashBoardController < ApplicationController
       @hospital_names << hospital.attributes.slice('name')
     end
     @address = current_user.address
+    @recent_interviews = Interview.build_search_result(Interview.all.limit(10))
   end
 
   def saved
