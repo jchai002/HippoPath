@@ -51,8 +51,10 @@ class InterviewsController < ApplicationController
 
   def update
     @interview = current_user.posted_interviews.find_by({id: params[:id]})
+    if params["interview_info"]["hospital"]
     hospital_name = params["interview_info"]["hospital"].downcase
     @interview.hospital = Hospital.find_or_create_by({name:hospital_name})
+    end
     @interview.assign_attributes(interview_params)
     if @interview.save
       render :json => {message:"Interview Updated"}, :status => 200 # send back any data if necessary
@@ -92,6 +94,6 @@ class InterviewsController < ApplicationController
     end
 
     def interview_params
-    params.require(:interview_info).permit(:id, :date, :time, :ride_status,:preinterview_dinner)
+    params.require(:interview_info).permit(:id, :date, :time, :ride_status,:preinterview_dinner,:disabled)
     end
 end

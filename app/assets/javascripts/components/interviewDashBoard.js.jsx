@@ -33,6 +33,7 @@ var InterviewDashBoard = React.createClass({
   getInterviewPanels: function(data){
     var handleUpdate = this.handleUpdate;
     var handleDelete = this.handleDelete;
+    var handleDisable = this.handleDisable;
     var panels = data.map(function(interviewInfo){
       var bodyContent = {};
       bodyContent['date'] = interviewInfo['date'] || 'unknown';
@@ -47,6 +48,8 @@ var InterviewDashBoard = React.createClass({
         contentClass="panel-container"
         handleUpdate={handleUpdate}
         handleDelete={handleDelete}
+        handleDisable={handleDisable}
+        disabled={interviewInfo.disabled}
         />
     })
     return panels
@@ -95,6 +98,25 @@ var InterviewDashBoard = React.createClass({
         swal("Cancelled", "Your interivew is safe :)", "error");
       }
     });
+  },
+  handleDisable: function(disabledItemId, action) {
+    var data;
+    var refresh = this.handleUpdate;
+    if (action == 'disable') {
+      data = {interview_info:{disabled:true}}
+    }
+    if (action == 'enable') {
+      data = {interview_info:{disabled:false}}
+    }
+    var data =
+    $.ajax({
+      url: '/interviews/'+disabledItemId,
+      type: 'PUT',
+      data: data,
+      success: function() {
+        refresh();
+      }
+    })
   },
   toggleDateSort: function() {
     this.setState({currentlySortingBy:'date'})

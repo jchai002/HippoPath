@@ -2,10 +2,11 @@ var InterviewButtons = React.createClass({
   render: function() {
     var rowData= this.props.data
     var rowID= rowData.id
+    var disableButtonText = this.props.disabled ? 'Enable' : 'Disable'
     return (
       <div className="interview-buttons">
         <button type="button" className="btn btn-danger mar-b-15 mar-l-20 mar-r-5" onClick={this.handleDeleteClick}>Delete</button>
-        <button type="button" className="btn btn-warning mar-b-15 mar-l-5 mar-r-5">Disable</button>
+        <button type="button" className="btn btn-warning mar-b-15 mar-l-5 mar-r-5" onClick={this.handleDisableClick}>{disableButtonText}</button>
         <button type="button"  data-toggle="modal" data-target={"#myModal"+rowID} className="btn btn-success edit-button mar-b-15 mar-r-20 mar-l-5">Edit</button>
 
         <div className="modal fade" id={"myModal"+rowID} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -30,6 +31,10 @@ var InterviewButtons = React.createClass({
   },
   handleDeleteClick: function(){
     this.props.handleDelete(this.props.data.id);
+  },
+  handleDisableClick: function(){
+    var action = this.props.disabled ? 'enable' : 'disable'
+    this.props.handleDisable(this.props.data.id, action);
   },
   displayMessage: function(data){
     $('.success-message-content').text(data['message']);

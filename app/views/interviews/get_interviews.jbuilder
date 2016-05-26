@@ -4,6 +4,6 @@ json.array!(@interviews) do |interview|
   else
     json.hospital "Hospital Not Found"
   end
-  json.extract! interview, :id, :date, :time, :ride_status, :created_at
+  json.extract! interview, :id, :date, :time, :ride_status, :created_at, :disabled
 
 end
