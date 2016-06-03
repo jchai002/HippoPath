@@ -35,7 +35,7 @@ specialties = ['Anesthesiology',
 
   users.each do |user|
     5.times do
-      Interview.create({date: "#{['04','05','10','12'].sample}/01/2016",time:"#{(1..12).to_a.sample}:00 #{['A.M','P.M'].sample}", ride_status:"#{['Need Ride','Offering Ride','Either'].sample}", hospital:Hospital.all.sample,poster:user})
+      Interview.create({date: "#{['04','05','10','12'].sample}/01/2016",time:"#{(1..12).to_a.sample}:00 #{['A.M','P.M'].sample}", ride_status:"Either", hospital:Hospital.all.sample,poster:user})
     end
   end
 
