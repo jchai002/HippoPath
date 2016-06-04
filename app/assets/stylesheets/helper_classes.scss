@@ -424,6 +424,12 @@
   }
 }
 
+.hidden-md-down {
+  @media (max-width: 992px) {
+    display: none;
+  }
+}
+
 //flexbox
 .flex-space-between {
   display: flex;

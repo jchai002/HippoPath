@@ -20,11 +20,11 @@ var TableRow = React.createClass({
         </td>
         <td>{data.hospital}</td>
         <td>{data.date}</td>
-        <td className="hidden-sm-down">{data.time}</td>
-        <td className="hidden-sm-down">{data.school}</td>
-        <td className="hidden-sm-down">{data.specialty}</td>
-        <td className="hidden-sm-down">{data.gender}</td>
-        <td className="dark-gray hidden-sm-down">{data.distance < 99998 ? data.distance : 'Unknown'} Miles Away</td>
+        <td className="hidden-md-down">{data.time}</td>
+        <td className="hidden-md-down">{data.school}</td>
+        <td className="hidden-md-down">{data.specialty}</td>
+        <td className="hidden-md-down">{data.gender}</td>
+        <td className="dark-gray hidden-md-down">{data.distance < 99998 ? data.distance : 'Unknown'} Miles Away</td>
         <td><SearchButtons interviewId={data.interview_id} currentUserId={this.props.currentUserId} savedInterviewIds={this.props.savedInterviewIds} PosterId={data.poster_id}/></td>
       </tr>
     );
