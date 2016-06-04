@@ -2,9 +2,9 @@ var SearchDashBoard = React.createClass({
   getInitialState: function(){
     return {
       searchResultPanels: undefined,
-      searched: false,
-      originalData:this.props.recent || null,
-      currentDataStore: null,
+      searched: this.props.searched || false,
+      originalData:this.props.data || this.props.recent ||null,
+      currentDataStore:this.props.data || null,
       resultsPerPage: 10,
       currentPage: null,
       hidingOwnInterviews: false,
