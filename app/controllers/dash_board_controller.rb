@@ -13,13 +13,13 @@ class DashBoardController < ApplicationController
     Hospital.all.each do |hospital|
       @hospital_names << hospital.attributes.slice('name')
     end
-    @address = current_user.address
+    @address = current_user.primary_address
     @recent_interviews = Interview.build_search_result(Interview.enabled.limit(10))
   end
 
   def saved
     @interviews = Interview.build_saved_interviews(current_user.saved_interviews)
-    @address = current_user.address
+    @address = current_user.primary_address
   end
 
 end
