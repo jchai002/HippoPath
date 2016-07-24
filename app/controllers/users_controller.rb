@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, only: [:update, :finish_signup, :account_overview, :set_address_with_geolocation]
 
   def account_overview
-    @address = current_user.primary_address || Address.new
+    @address = current_user.address || Address.new
   end
 
   def update

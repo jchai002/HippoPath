@@ -31,7 +31,7 @@ class InterviewsController < ApplicationController
     end
     interview_records=Interview.search(search_parameters).all
     @interviews = Interview.build_search_result(interview_records)
-    @address = current_user.primary_address
+    @address = current_user.address
     @searched = true
     respond_to do |format|
       format.html { render 'dash_board/search'}
