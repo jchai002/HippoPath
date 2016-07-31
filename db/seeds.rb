@@ -1,4 +1,4 @@
-hospital_names = ["University of Alabama Medical Center (Montgomery)","Maricopa Medical Center","St Joseph's Hospital and Medical Center","University of Arizona College of Medicine at South Campus","University of Arizona College of Medicine-Phoenix","Mayo Clinic College of Medicine (Arizona)","University of Arkansas College of Medicine","University of Arkansas for Medical Sciences","Eisenhower Medical Center","Kaiser Permanente Southern California","University of California Riverside School of Medicine","Arrowhead Regional Medical Center","Cedars-Sinai Medical Center","White Memorial Medical Center","Huntington Memorial Hospital","Los Angeles County-Harbor- UCLA Medical Center","Kaiser Permanente Southern California (Los Angeles)","Kaiser Permanente Medical Group (Northern California/Oakland","Kaiser Permanente Medical Group (Northern California)/San Francisco","California Pacific Medical Center","San Joaquin General Hospital","University of California (Davis) Health System","University of California (Irvine)","Loma Linda University Health Education Consortium"]
+hospital_names = ["California Pacific Medical Center","New York Methodist Hospital"]
 
 hospitals = []
 
@@ -34,9 +34,9 @@ specialties = ['Anesthesiology',
 
 
   users.each do |user|
-    5.times do
-      Interview.create({date: "#{['04','05','10','12'].sample}/01/2016",time:"#{(1..12).to_a.sample}:00 #{['A.M','P.M'].sample}", ride_status:"Either", hospital:Hospital.all.sample,poster:user})
-    end
+      Interview.create({date: "10/01/2016",time:"#{(1..12).to_a.sample}:00 #{['A.M','P.M'].sample}", ride_status:"Either", hospital:Hospital.first,poster:user})
+
+      Interview.create({date: "10/01/2016",time:"#{(1..12).to_a.sample}:00 #{['A.M','P.M'].sample}", ride_status:"Either", hospital:Hospital.last,poster:user})
   end
 
   ## need to be connected to the internet to run the code below this point
