@@ -12,13 +12,14 @@
 !/log/.keep
 /tmp
 
+
 # Ignore application configuration
 /config/application.yml
+
+
 
 HippoPathChat/
 public/system
 
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+.DS_Store
+*/**/.DS_Store
