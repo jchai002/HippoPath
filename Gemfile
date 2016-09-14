@@ -90,7 +90,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano', '3.4.1'
   gem 'capistrano3-puma'
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
