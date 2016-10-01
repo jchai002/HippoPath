@@ -82,6 +82,7 @@ var SavedDashBoard = React.createClass({
       var bodyContent = {};
       bodyContent['date'] = interviewInfo['date'] || 'unknown';
       bodyContent['time'] = interviewInfo['time'] || 'unknown';
+      posterId = interviewInfo['poster_id'];
       bodyContent['interviewee'] = {
         'name':interviewInfo['name'] || 'unknown',
         'gender':interviewInfo['gender'] || 'unknown',
@@ -100,6 +101,7 @@ var SavedDashBoard = React.createClass({
         contentClass="panel-container"
         token={token}
         currentUserId={currentUserId}
+        posterId={posterId}
         />
     })
     var display;

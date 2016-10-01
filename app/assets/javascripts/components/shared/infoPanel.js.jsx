@@ -35,7 +35,10 @@ var InfoPanel = React.createClass({
       handleDisable={this.props.handleDisable} disabled={this.props.disabled}/></div>
     }
     if (this.props.layoutType === 'saved') {
-      actions = <div className="panel-actions-flex-container"><span className="dark-gray mar-l-15 mar-b-10">posted {postedTime}</span><SavedButtons data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId} handleRemove={this.props.handleRemove}/></div>;
+      console.log(this.props.posterId)
+      actions = <div className="panel-actions-flex-container"><span className="dark-gray mar-l-15 mar-b-10">posted {postedTime}</span><SavedButtons data={interviewInfo} token={this.props.token} currentUserId={this.props.currentUserId}
+      posterId={this.props.posterId}
+      handleRemove={this.props.handleRemove}/></div>;
     }
     var url = this.props.url;
       return (

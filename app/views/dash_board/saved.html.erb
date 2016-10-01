@@ -1,2 +1,2 @@
 <%= render partial: 'partials/invalid_address_warning' %>
-<%= react_component 'SavedDashBoard', data: @interviews,token: form_authenticity_token, current_user_coords: ([@address.latitude, @address.longitude] if @address)%>
+<%= react_component 'SavedDashBoard', data: @interviews,token: form_authenticity_token, current_user_coords: ([@address.latitude, @address.longitude] if @address),current_user_id: current_user.id %>
