@@ -2,10 +2,6 @@ default: &default
   adapter:  postgresql
   encoding: unicode
   pool:     5
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host:     <%= ENV['DB_HOST'] %>
-  port:     <%= ENV['DB_PORT'] %>
 
 development:
   database: hippopath_development
@@ -18,7 +14,15 @@ test:
 staging:
   database: hippopath_staging
   <<: *default
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host:     <%= ENV['DB_HOST'] %>
+  port:     <%= ENV['DB_PORT'] %>
 
 production:
   database: hippopath_production
   <<: *default
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host:     <%= ENV['DB_HOST'] %>
+  port:     <%= ENV['DB_PORT'] %>
