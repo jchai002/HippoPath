@@ -4,7 +4,7 @@ schools_file = File.expand_path('../med-school.csv', __FILE__)
 
 hospital_file = File.expand_path('../hospital.csv', __FILE__)
 
-CSV.readlines(schools_file)[1...100].each do |row|
+CSV.readlines(schools_file)[1..100].each do |row|
   name = row[0]
   street = row[1]
   city = row[2]
@@ -14,11 +14,10 @@ CSV.readlines(schools_file)[1...100].each do |row|
   s = School.find_or_create_by({name:name})
   s.address = a
   s.save!
-  hospitals << h
   sleep 0.5
 end
 
-CSV.readlines(hospital_file)[1...100].each do |row|
+CSV.readlines(hospital_file)[1..100].each do |row|
   name = row[0].gsub(/\s+/, ' ')
   street = row[1].gsub(/\s+/, ' ')
   city = row[2]
@@ -35,12 +34,12 @@ specialties = ['internal medicine', 'surgery', 'pediatrics', 'obgyn', 'emergency
 
 School.all.each do |school|
   6.times do |i|
-    User.create({name:Faker::Name.name,gender:'Male', email:"student#{i}@#{school.name.gsub(/\s+/, "").lowercase}.edu", password:'12345678', school:school,specialty:specialties.sample,address:school.address,confirmed_at:Time.now})
+    User.create({name:"#{Faker::Name.first_name} #{Faker::Name.last_name}",gender:'Male', email:"student#{i}@#{school.name.gsub(/\s+/, "").downcase}.edu", password:'12345678', school:school,specialty:specialties.sample,address:school.address,confirmed_at:Time.now})
   end
 end
 
 User.all.each do |user|
   Hospital.all.each do |hospital|
-    Interview.create({date: "11/0#{rand(5)}/2016",time:"#{(8...11).to_a.sample}:00 A.M", ride_status:"Either", hospital:hospital,poster:user})
+    Interview.create({date: "11/0#{rand(1..5)}/2016",time:"#{(8..11).to_a.sample}:00 A.M", ride_status:['Need Ride','Offering Ride','Either'].sample, hospital:hospital,poster:user})
   end
 end
