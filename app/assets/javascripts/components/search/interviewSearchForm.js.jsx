@@ -30,7 +30,6 @@ var InterviewSearchForm = React.createClass({
             <select id="selectbasic" name="selectbasic" className="form-control" onChange={this.handleRideStatusSelect}>
               <option value="Need Ride">Need Ride</option>
               <option value="Offering Ride">Offering Ride</option>
-              <option value="Either">Either</option>
             </select>
           </div>
           <div className="form-group mar-y-10">

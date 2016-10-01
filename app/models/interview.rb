@@ -9,11 +9,7 @@ class Interview < ActiveRecord::Base
     hospital_name = search_parameters[:hospital].downcase
     date = search_parameters[:date]
     ride_status = search_parameters[:ride_status].downcase
-    if ride_status == 'either'
-      result = joins(:hospital).where('lower(hospitals.name) = ? AND date LIKE ? AND disabled = ?', hospital_name , date, false)
-    else
-      result = joins(:hospital).where('lower(hospitals.name) = ? AND date LIKE ? AND lower(ride_status) LIKE ? AND disabled = ?', hospital_name , date, ride_status, false)
-    end
+    result = joins(:hospital).where('lower(hospitals.name) = ? AND date LIKE ? AND lower(ride_status) SIMILAR TO ? AND disabled = ?', hospital_name , date, "#{ride_status}|either%", false)
   end
 
   def self.build_search_result(records)
