@@ -28,12 +28,12 @@ var InterviewSearchForm = React.createClass({
         <div className="flex-wrapper">
           <div className="form-group mar-y-10">
             <select id="selectbasic" name="selectbasic" className="form-control" onChange={this.handleRideStatusSelect}>
-              <option value="Need Ride">Need Ride</option>
-              <option value="Offering Ride">Offering Ride</option>
+              <option value="Need Ride">Find People Who Need Ride</option>
+              <option value="Offering Ride">Find People Who Are Offering Ride</option>
             </select>
           </div>
           <div className="form-group mar-y-10">
-            <button type="submit" className="btn btn-primary">Search For Interviews</button>
+            <button type="submit" className="btn btn-primary">Search For Interviews<i id="search-indicator" className="fa fa-refresh fa-spin mar-l-5 hidden"></i></button>
           </div>
         </div>
       </form>
@@ -64,6 +64,7 @@ var InterviewSearchForm = React.createClass({
         })
     }
     else {
+      $('#search-indicator').removeClass('hidden');
       this.postFormData();
     }
   },
@@ -97,6 +98,6 @@ var InterviewSearchForm = React.createClass({
     this.setState({ride_status: event.target.value});
   },
   componentDidMount: function(){
-    $('#interview-time-picker').datetimepicker()
+    $('#interview-time-picker').datetimepicker();
   }
 });

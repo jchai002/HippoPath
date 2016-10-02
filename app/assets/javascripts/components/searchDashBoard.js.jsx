@@ -75,6 +75,7 @@ var SearchDashBoard = React.createClass({
     })
   },
   handleDataDisplay: function(dataSet) {
+    $('#search-indicator').addClass('hidden');
     if (Object.size(dataSet) > this.state.resultsPerPage) {
       this.displayPaginateResults(dataSet,Object.size(dataSet),this.state.resultsPerPage);
     } else {
