@@ -34,7 +34,7 @@ specialties = ['internal medicine', 'surgery', 'pediatrics', 'obgyn', 'emergency
 
 School.all.each do |school|
   6.times do |i|
-    User.create({name:"#{Faker::Name.first_name} #{Faker::Name.last_name}",gender:'Male', email:"student#{i}@#{school.name.gsub(/\s+/, "").downcase}.edu", password:'12345678', school:school,specialty:specialties.sample,address:school.address,confirmed_at:Time.now})
+    User.create({name:"#{Faker::Name.first_name} #{Faker::Name.last_name}",gender:'Male', email:"student#{i+1}@#{school.name.gsub(/\s+/, "").downcase}.edu", password:'12345678', school:school,specialty:specialties.sample,address:school.address,confirmed_at:Time.now})
   end
 end
 
