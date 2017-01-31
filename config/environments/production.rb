@@ -2,7 +2,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # General Settings
-  config.app_domain = 'https://hippopath.org/'
+  config.app_domain = 'https://hippopath.jerrychai.us/'
   Rails.application.routes.default_url_options[:host] = config.app_domain
   config.action_mailer.default_url_options = { host: config.app_domain }
 

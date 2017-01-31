@@ -6,6 +6,6 @@ test:
   server: "http://localhost:9292/faye"
   secret_token: "secret"
 production:
-  server: "https://hippopath.org/faye"
+  server: "https://hippopath.jerrychai.us/faye"
   secret_token: "04e13fcc7f1c88f81608101e49220698241472f1a5578a485b818cb328d237c2"
   signature_expiration: 3600 # one hour
